@@ -1,4 +1,4 @@
-package itmo.high_perf_sys.chat.controller.user.dto;
+package itmo.high_perf_sys.chat.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 
