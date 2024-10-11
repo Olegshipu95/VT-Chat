@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <changeSet id="1" author="yourname">
+        <createTable tableName="chats">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="chat_type" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="arhiiiip">
+        <createTable tableName="feeds">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="images" type="BLOB"/>
+            <column name="posted_time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="arhiiiip">
+        <createTable tableName="messages">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="chat_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_message_chat" references="chats(id)"/>
+            </column>
+            <column name="author_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_message_user" references="users(id)"/>
+            </column>
+            <column name="text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="messaged_time" type="TIMESTAMP"/>
+            <column name="photo" type="BLOB"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5" author="arhiiiip">
+        <createTable tableName="sets_of_stickers">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="stickers" type="BLOB"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="6" author="arhiiiip">
+        <createTable tableName="stickers">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="sticker_picture" type="BLOB"/>
+            <column name="created_date" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="7" author="arhiiiip">
+        <createTable tableName="subscribers">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_id" type="BIGINT"/>
+            <column name="subscribers_ids" type="BLOB"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="8" author="arhiiiip">
+        <createTable tableName="users">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+<!--                Надо дописать-->
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
