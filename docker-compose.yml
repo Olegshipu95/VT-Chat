@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  core-db:
+    image: postgres:16.3-alpine3.19
+    container_name: postgres-core
+    environment:
+      POSTGRES_DB: "${DB_NAME}"
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - core-data:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT}:5432"
+  chat-core:
+    image: 'chat-core:latest'
+    build:
+      context: .
+    container_name: chat-core
+    depends_on:
+      - core-db
+    environment:
+      CHAT_DB_HOST: "${DB_HOST}"
+      PORT: "${PORT}"
+    ports:
+      - "${PORT}:${PORT}"
+
+volumes:
+  chat-data:
