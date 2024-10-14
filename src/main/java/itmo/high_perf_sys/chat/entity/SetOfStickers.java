@@ -13,6 +13,6 @@ public class SetOfStickers {
     @Column(name = "name")
     private String name;
     @Lob
-    @Column(name = "stickers")
-    private List<Sticker> stickers;
+    @Column(name = "stickers_ids")
+    private List<Long> stickers;
 }

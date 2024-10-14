@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 
+@Entity
+@Table(name = "stickers")
 public class Sticker {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

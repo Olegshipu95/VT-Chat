@@ -6,7 +6,7 @@ import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "posts")
+@Table(name = "feeds")
 public class Feed {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,6 +18,6 @@ public class Feed {
     @Lob
     @Column(name = "images")
     private List<byte[]> images;
-    @Column(name = "posted_time")
+    @Column(name = "posted_time", nullable = false)
     private Timestamp postedTime;
 }

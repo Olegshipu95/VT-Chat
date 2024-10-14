@@ -1,18 +1,18 @@
 package itmo.high_perf_sys.chat.entity;
 
-import java.util.List;
 import jakarta.persistence.*;
 
+import java.util.List;
 
 @Entity
-@Table(name = "subscribers")
-public class Subscribers {
+@Table(name = "users_stickers")
+public class UsersStickers {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "user_id")
     private Long userId;
     @Lob
-    @Column(name = "subscribers_ids")
-    private List<Long> subscribers;
+    @Column(name = "stickers_ids")
+    private List<Long> stickers;
 }
