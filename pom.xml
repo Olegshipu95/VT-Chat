@@ -9,8 +9,8 @@
         <relativePath/>
     </parent>
     <groupId>itmo.high_perf_sys</groupId>
-    <artifactId>chat</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>chat-core</artifactId>
+    <version>all</version>
     <name>chat</name>
     <description>chat</description>
     <properties>
