@@ -5,5 +5,9 @@ import itmo.high_perf_sys.chat.entity.Chat;
 import java.util.List;
 
 public class ResponseSearchChat {
-    List<Chat> listOfChats;
+    public List<ChatForResponse> response;
+
+    public void setResponse(List<ChatForResponse> response) {
+        this.response = response;
+    }
 }

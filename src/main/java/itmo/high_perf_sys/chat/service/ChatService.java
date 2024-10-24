@@ -37,11 +37,33 @@ public class ChatService {
     }
 
     public ResponseSearchChat searchChat(Long userId, String request, Long pageNumber, Long countChatsOnPage) {
-
+        List<Long> userChats = usersChatsRepository.findByUserId(userId).get().getChats();
+        List<Chat> listOfChats = chatRepository.findByNameContainingAndIdIn(userChats, request, PageRequest.of(pageNumber.intValue(), countChatsOnPage.intValue())).stream().toList();
+        ResponseSearchChat responseSearchChat = new ResponseSearchChat();
+        for (int i = 0; i < listOfChats.size(); i++) {
+            ChatForResponse chatForResponse = new ChatForResponse();
+            Optional<Message> lastMessageOpt = messageRepository.findLastByChatId(listOfChats.get(i).getId());
+            if (lastMessageOpt.isPresent()) {
+                Message lastMessage = lastMessageOpt.get();
+                chatForResponse.setLastMessage(lastMessage.getText());
+                chatForResponse.setLastMessageHavePhoto(lastMessage.getPhoto().length != 0);
+            } else {
+                chatForResponse.setLastMessage("");
+                chatForResponse.setLastMessageHavePhoto(false);
+            }
+            Chat chat = chatRepository.findById(listOfChats.get(i).getId()).get();
+            chatForResponse.setChatType(ChatType.values()[chat.getChatType()]);
+            chatForResponse.setCountMembers(usersChatsRepository.countByChatId(listOfChats.get(i).getId()));
+            responseSearchChat.response.set(i, chatForResponse);
+        }
+        return responseSearchChat;
     }
 
     public ResponseSearchMessage searchMessage(Long chatId, String request, Long pageNumber, Long countMessagesOnPage) {
-
+        ResponseSearchMessage responseSearchMessage = new ResponseSearchMessage(messageRepository.findByTextContainingAndChatId(chatId, request, PageRequest.of(pageNumber.intValue(), countMessagesOnPage.intValue())).stream()
+                .map(MessageForResponse::new)
+                .collect(Collectors.toList()));
+        return responseSearchMessage;
     }
 
     public void deleteChat(Long chatId) {
