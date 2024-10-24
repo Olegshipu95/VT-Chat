@@ -15,4 +15,28 @@ public class UsersChats {
     @Lob
     @Column(name = "chats_ids")
     private List<Long> chats;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public List<Long> getChats() {
+        return chats;
+    }
+
+    public void setChats(List<Long> chats) {
+        this.chats = chats;
+    }
 }
