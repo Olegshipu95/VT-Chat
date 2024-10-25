@@ -40,6 +40,11 @@ public class ChatService {
         }
     }
 
+    public MessageForResponse createMessage(Message message) {
+        messageRepository.save(message);
+        return new MessageForResponse(message);
+    }
+
     public ResponseSearchChat searchChat(Long userId, String request, Long pageNumber, Long countChatsOnPage) {
         try {
             List<Long> userChats = usersChatsRepository.findByUserId(userId).get().getChats();

@@ -1,10 +1,8 @@
 package itmo.high_perf_sys.chat.controller;
 
 import itmo.high_perf_sys.chat.dto.chat.request.CreateChatRequest;
-import itmo.high_perf_sys.chat.dto.chat.response.ResponseGettingChats;
-import itmo.high_perf_sys.chat.dto.chat.response.ResponseGettingMessages;
-import itmo.high_perf_sys.chat.dto.chat.response.ResponseSearchChat;
-import itmo.high_perf_sys.chat.dto.chat.response.ResponseSearchMessage;
+import itmo.high_perf_sys.chat.dto.chat.response.*;
+import itmo.high_perf_sys.chat.entity.Message;
 import itmo.high_perf_sys.chat.service.ChatService;
 import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import jakarta.validation.Valid;
@@ -14,11 +12,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.async.DeferredResult;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 @RestController
 @RequestMapping("/chats")
 public class ChatController {
     private final ChatService chatService;
+    private final ConcurrentHashMap<Long, ConcurrentLinkedQueue<DeferredResult<MessageForResponse>>> chatClients = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Long, List<MessageForResponse>> chatMessages = new ConcurrentHashMap<>();
+
 
     @Autowired
     public ChatController(ChatService aChatService) {
@@ -112,5 +119,37 @@ public class ChatController {
         } catch (RuntimeException e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
+    }
+
+    @PostMapping("/send")
+    public ResponseEntity<?> sendMessage(@Valid @RequestBody Message message) {
+        try {
+            Long chatId = message.getChatId().getId();
+            MessageForResponse messageForResponse = chatService.createMessage(message);
+            List<MessageForResponse> messages = chatMessages.computeIfAbsent(chatId, k -> new ArrayList<>());
+            messages.add(messageForResponse);
+
+            ConcurrentLinkedQueue<DeferredResult<MessageForResponse>> clients = chatClients.get(chatId);
+            if (clients != null) {
+                clients.forEach(client -> client.setResult(messageForResponse));
+                clients.clear();
+            }
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/subscribe/{chatId}")
+    public DeferredResult<MessageForResponse> subscribe(@Valid @PathVariable Long chatId) {
+        DeferredResult<MessageForResponse> result = new DeferredResult<>();
+        chatClients.computeIfAbsent(chatId, k -> new ConcurrentLinkedQueue<>()).add(result);
+        result.onCompletion(() -> {
+            ConcurrentLinkedQueue<DeferredResult<MessageForResponse>> clients = chatClients.get(chatId);
+            if (clients != null) {
+                clients.remove(result);
+            }
+        });
+        return result;
     }
 }
