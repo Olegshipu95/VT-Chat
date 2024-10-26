@@ -1,0 +1,1 @@
+CREATE TYPE marital_status AS ENUM ('SINGLE', 'DATING', 'MARRIED', 'DIVORCED');
