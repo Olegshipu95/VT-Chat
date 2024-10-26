@@ -20,4 +20,44 @@ public class Feed {
     private byte[] images;
     @Column(name = "posted_time", nullable = false)
     private Timestamp postedTime;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public List<byte[]> getImages() {
+        return images;
+    }
+
+    public void setImages(List<byte[]> images) {
+        this.images = images;
+    }
+
+    public Timestamp getPostedTime() {
+        return postedTime;
+    }
+
+    public void setPostedTime(Timestamp postedTime) {
+        this.postedTime = postedTime;
+    }
 }

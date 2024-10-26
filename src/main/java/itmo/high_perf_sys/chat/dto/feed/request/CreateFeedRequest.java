@@ -1,0 +1,16 @@
+package itmo.high_perf_sys.chat.dto.feed.request;
+
+import jakarta.validation.constraints.NotNull;
+
+import java.util.List;
+import java.util.UUID;
+
+public record CreateFeedRequest(
+        @NotNull(message = "user id cannot be null")
+        UUID userId,
+        @NotNull(message = "feed title cannot be null")
+        String title,
+        String text,
+        List<byte[]> images
+) {
+}
