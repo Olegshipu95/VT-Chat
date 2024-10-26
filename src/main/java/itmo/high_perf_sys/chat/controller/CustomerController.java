@@ -39,17 +39,17 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GetUserInfoResponse> getAccountById(@PathVariable UUID id) {
+    public ResponseEntity<GetUserInfoResponse> getAccountById(@PathVariable String id) {
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAccountById(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteAccountById(@PathVariable String id) {
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}/subscribe")
-    public ResponseEntity<UpdateUserInfoRequest> getSubscribes(@PathVariable UUID id) {
+    public ResponseEntity<UpdateUserInfoRequest> getSubscribes(@PathVariable String id) {
         return ResponseEntity.noContent().build();
     }
 
