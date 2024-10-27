@@ -13,8 +13,10 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NotNull(message = ErrorMessages.USER_CANNOT_BE_NULL)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @NotNull(message = ErrorMessages.CHAT_CANNOT_BE_NULL)
+    private User user;
     @Column(name = "title")
     private String title;
     @Column(name = "text", nullable = false)
@@ -24,7 +26,6 @@ public class Post {
     private byte[] images;
     @Column(name = "posted_time", nullable = false)
     private Timestamp postedTime;
-
     public Long getId() {
         return id;
     }
@@ -33,11 +34,7 @@ public class Post {
         this.id = id;
     }
     public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
+        return user.getId();
     }
 
     public String getTitle() {

@@ -2,6 +2,7 @@ package itmo.high_perf_sys.chat.controller;
 
 import itmo.high_perf_sys.chat.dto.feed.request.CreatePostRequest;
 import itmo.high_perf_sys.chat.dto.feed.request.DeletePostRequest;
+import itmo.high_perf_sys.chat.dto.feed.response.FeedResponse;
 import itmo.high_perf_sys.chat.entity.Post;
 import itmo.high_perf_sys.chat.service.FeedService;
 import itmo.high_perf_sys.chat.utils.ErrorMessages;
@@ -50,7 +51,7 @@ public class FeedController {
                                                     @Min(value = 0, message = ErrorMessages.COUNT_PAGE_CANNOT_BE_NEGATIVE)
                                                     @RequestParam(value = "countMessagesOnPage", required = false, defaultValue = "20") Long count) {
         try {
-            List<Post> response = feedService.getFeedByUserId(userId, pageNumber, count);
+            FeedResponse response = feedService.getFeedByUserId(userId, pageNumber, count);
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
