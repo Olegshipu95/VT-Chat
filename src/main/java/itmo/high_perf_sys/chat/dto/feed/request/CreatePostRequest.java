@@ -11,6 +11,6 @@ public record CreatePostRequest(
         @NotNull(message = "feed title cannot be null")
         String title,
         String text,
-        List<byte[]> images
+        byte[] images
 ) {
 }

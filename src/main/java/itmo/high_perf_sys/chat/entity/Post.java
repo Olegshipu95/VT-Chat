@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "feeds")
+@Table(name = "posts")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,7 +21,6 @@ public class Post {
     private String title;
     @Column(name = "text", nullable = false)
     private String text;
-    @Lob
     @Column(name = "images")
     private byte[] images;
     @Column(name = "posted_time", nullable = false)
@@ -53,11 +52,11 @@ public class Post {
         this.text = text;
     }
 
-    public List<byte[]> getImages() {
+    public byte[] getImages() {
         return images;
     }
 
-    public void setImages(List<byte[]> images) {
+    public void setImages(byte[] images) {
         this.images = images;
     }
 

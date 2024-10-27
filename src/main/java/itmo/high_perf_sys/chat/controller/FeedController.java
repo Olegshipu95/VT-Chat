@@ -3,7 +3,6 @@ package itmo.high_perf_sys.chat.controller;
 import itmo.high_perf_sys.chat.dto.feed.request.CreatePostRequest;
 import itmo.high_perf_sys.chat.dto.feed.request.DeletePostRequest;
 import itmo.high_perf_sys.chat.dto.feed.response.FeedResponse;
-import itmo.high_perf_sys.chat.entity.Post;
 import itmo.high_perf_sys.chat.service.FeedService;
 import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import jakarta.validation.constraints.Min;

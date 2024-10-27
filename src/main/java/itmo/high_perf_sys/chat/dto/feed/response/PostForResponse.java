@@ -10,7 +10,7 @@ public class PostForResponse{
     private Long userId;
     private String title;
     private String text;
-    private List<byte[]> images;
+    private byte[] images;
     private Timestamp postedTime;
     public PostForResponse(Post post){
         this.id = post.getId();
