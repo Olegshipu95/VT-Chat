@@ -13,6 +13,6 @@ public interface UsersChatsRepository extends JpaRepository<UsersChats, Long> {
     @Query("SELECT uc.id FROM UsersChats uc WHERE :chatId MEMBER OF uc.chats")
     List<Long> findIdsByChatId(@Param("chatId") Long chatId);
 
-    @Query("SELECT COUNT(uc) FROM UsersChats uc WHERE :chatId MEMBER OF uc.chats")
+    @Query(value = "SELECT COUNT(uc) FROM UsersChats uc WHERE :chatId = ANY(uc.chats)", nativeQuery = true)
     int countByChatId(@Param("chatId") Long chatId);
 }
