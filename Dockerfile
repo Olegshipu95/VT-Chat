@@ -1,11 +1,12 @@
-FROM openjdk:21
+FROM maven:4.0.0-jdk-21-alpine as builder
 
-ARG SRC=/src
+COPY src /usr/src/app/src
+COPY pom.xml /usr/src/app
 
-COPY . ${SRC}
+RUN mvn -f /usr/src/app/pom.xml clean package
 
-WORKDIR ${SRC}
+FROM java:21
 
-RUN mvn clean package -DskipTests
+COPY --from=builder /usr/src/app/target/chat-core-all.jar /usr/app/chat-core-all.jar
 
-ENTRYPOINT ["java","-jar","target/chat-core-all.jar"]
+ENTRYPOINT ["java", "-jar", "/usr/app/chat-core-all.jar"]
