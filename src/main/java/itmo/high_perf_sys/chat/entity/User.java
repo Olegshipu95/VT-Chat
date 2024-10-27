@@ -27,4 +27,7 @@ public class User {
     private MaritalStatus marital_status;
     @Column(name = "gender")
     private boolean gender;
+    public Long getId(){
+        return this.id;
+    }
 }

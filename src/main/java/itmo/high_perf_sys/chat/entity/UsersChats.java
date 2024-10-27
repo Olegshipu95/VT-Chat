@@ -12,7 +12,7 @@ public class UsersChats {
     private Long id;
     @Column(name = "user_id")
     private Long userId;
-    @Lob
+    @ElementCollection
     @Column(name = "chats_ids")
     private List<Long> chats;
 
