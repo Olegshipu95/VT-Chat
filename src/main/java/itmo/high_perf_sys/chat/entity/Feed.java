@@ -17,7 +17,7 @@ public class Feed {
     private String text;
     @Lob
     @Column(name = "images")
-    private List<byte[]> images;
+    private byte[] images;
     @Column(name = "posted_time", nullable = false)
     private Timestamp postedTime;
 }
