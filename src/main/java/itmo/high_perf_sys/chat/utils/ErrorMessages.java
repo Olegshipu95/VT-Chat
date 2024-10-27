@@ -14,4 +14,6 @@ public class ErrorMessages {
     public static final String TEXT_CANNOT_BE_NULL = "Text cannot be null";
     public static final String USER_CANNOT_BE_NULL = "User cannot be null";
     public static final String NAME_CANNOT_BE_NULL = "User cannot be null";
+    public static final String POST_NOT_FOUND = "Post was not found";
+    public static final String NO_PERMISSION = "User has no permission";
 }
