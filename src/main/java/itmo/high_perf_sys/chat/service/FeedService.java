@@ -1,23 +1,17 @@
 package itmo.high_perf_sys.chat.service;
 
-import itmo.high_perf_sys.chat.dto.chat.response.MessageForResponse;
-import itmo.high_perf_sys.chat.dto.chat.response.ResponseGettingMessages;
 import itmo.high_perf_sys.chat.dto.feed.request.CreatePostRequest;
 import itmo.high_perf_sys.chat.dto.feed.request.DeletePostRequest;
 import itmo.high_perf_sys.chat.dto.feed.response.FeedResponse;
 import itmo.high_perf_sys.chat.dto.feed.response.PostForResponse;
-import itmo.high_perf_sys.chat.entity.Message;
-import itmo.high_perf_sys.chat.entity.Post;
+import itmo.high_perf_sys.chat.model.entity.Post;
 import itmo.high_perf_sys.chat.repository.FeedRepository;
 import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;

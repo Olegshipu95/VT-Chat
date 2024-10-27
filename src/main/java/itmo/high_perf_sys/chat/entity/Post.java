@@ -1,7 +1,6 @@
-package itmo.high_perf_sys.chat.entity;
+package itmo.high_perf_sys.chat.model.entity;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import jakarta.persistence.*;
