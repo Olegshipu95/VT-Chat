@@ -1,4 +1,4 @@
-package itmo.high_perf_sys.chat.entity;
+package itmo.high_perf_sys.chat.entity.customer;
 
 import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import jakarta.persistence.Entity;
