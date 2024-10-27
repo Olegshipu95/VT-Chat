@@ -6,6 +6,6 @@ COPY . ${SRC}
 
 WORKDIR ${SRC}
 
-RUN ./gradlew --no-daemon -x test clean build
+RUN mvn clean package -DskipTests
 
-ENTRYPOINT ["java","-jar","build/libs/chat-core-all.jar"]
+ENTRYPOINT ["java","-jar","target/chat-core-all.jar"]
