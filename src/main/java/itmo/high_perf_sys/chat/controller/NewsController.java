@@ -34,16 +34,4 @@ public class NewsController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
-
-    @PostMapping("/{postId}/like/{userId}")
-    public ResponseEntity<Void> likePost(@PathVariable Long postId, @PathVariable Long userId) {
-        newsService.likePost(postId, userId);
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/{postId}/dislike/{userId}")
-    public ResponseEntity<Void> dislikePost(@PathVariable Long postId, @PathVariable Long userId) {
-        newsService.dislikePost(postId, userId);
-        return ResponseEntity.ok().build();
-    }
 }
