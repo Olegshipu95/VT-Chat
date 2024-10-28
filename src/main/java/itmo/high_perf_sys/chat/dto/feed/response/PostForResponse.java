@@ -1,5 +1,5 @@
 package itmo.high_perf_sys.chat.dto.feed.response;
-import itmo.high_perf_sys.chat.model.entity.Post;
+import itmo.high_perf_sys.chat.entity.Post;
 
 import java.sql.Timestamp;
 

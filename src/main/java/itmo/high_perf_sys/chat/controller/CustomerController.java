@@ -49,6 +49,11 @@ public class CustomerController {
         customerService.deleteAccountById(id);
     }
 
+    @PostMapping("/{id}/subscribe")
+    public ResponseEntity<UUID> makeSub(@PathVariable(value = "id") UUID id){
+        return new ResponseEntity<>(UUID.randomUUID(), HttpStatus.LOCKED);
+    }
+
     @GetMapping("/{id}/subscribe")
     public ResponseEntity<UpdateUserInfoRequest> getSubscribes(@PathVariable(value = "id") UUID id) {
         return ResponseEntity.noContent().build();
