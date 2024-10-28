@@ -14,10 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.async.DeferredResult;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +30,9 @@ public class ChatService {
     private final ChatRepository chatRepository;
     private final UsersChatsRepository usersChatsRepository;
     private final MessageRepository messageRepository;
+    private final ConcurrentHashMap<UUID, List<MessageForResponse>> chatMessages = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<UUID, ConcurrentLinkedQueue<DeferredResult<MessageForResponse>>> chatClients = new ConcurrentHashMap<>();
+
 
     @Autowired
     public ChatService(ChatRepository chatRepository, UsersChatsRepository usersChatsRepository, MessageRepository messageRepository) {
@@ -54,10 +61,33 @@ public class ChatService {
         }
     }
 
-    public MessageForResponse createMessage(Message message) {
+    public UUID sendMessage(Message message) {
+        UUID chatId = message.getChatId().getId();
         message.setId(UUID.randomUUID());
         messageRepository.save(message);
-        return new MessageForResponse(message);
+        MessageForResponse messageForResponse = new MessageForResponse(message);
+        List<MessageForResponse> messages = chatMessages.computeIfAbsent(chatId, k -> new ArrayList<>());
+        messages.add(messageForResponse);
+
+        ConcurrentLinkedQueue<DeferredResult<MessageForResponse>> clients = chatClients.get(chatId);
+        if (clients != null) {
+            clients.forEach(client -> client.setResult(messageForResponse));
+            clients.clear();
+        }
+
+        return message.getId();
+    }
+
+    public DeferredResult<MessageForResponse> subscribeOnChat(UUID chatId) {
+        DeferredResult<MessageForResponse> result = new DeferredResult<>();
+        chatClients.computeIfAbsent(chatId, k -> new ConcurrentLinkedQueue<>()).add(result);
+        result.onCompletion(() -> {
+            ConcurrentLinkedQueue<DeferredResult<MessageForResponse>> clients = chatClients.get(chatId);
+            if (clients != null) {
+                clients.remove(result);
+            }
+        });
+        return result;
     }
 
     public ResponseSearchChat searchChat(UUID userId, String request, Long pageNumber, Long countChatsOnPage) {
