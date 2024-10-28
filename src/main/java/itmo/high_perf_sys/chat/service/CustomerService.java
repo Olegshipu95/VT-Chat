@@ -26,7 +26,7 @@ public class CustomerService {
 
 
     public UUID createAccount(CreateUserAccountRequest request) {
-        log.debug("Создание аккаунта для: {}", request.name());
+        log.debug("Create an account for: {}", request.name());
         UUID newId = UUID.randomUUID();
         userAccountRepository.saveNewUserAccount(
                 newId,
@@ -39,17 +39,19 @@ public class CustomerService {
                 request.logoUrl()
         );
 
-        log.info("Пользователь с ID: {} успешно создан.", newId);
+        log.info("User with ID: {} has been successfully created.", newId);
         return newId;
     }
 
     public UUID updateAccount(UpdateUserInfoRequest request) {
-        UserAccount existingAccount = userAccountRepository.findUserAccountById(request.userid());
+        log.debug("UPDATE: start for id: {}", request.userId());
+        UserAccount existingAccount = userAccountRepository.findUserAccountById(request.userId());
         if (existingAccount == null) {
-            throw new UserAccountNotFoundException(request.userid());
+            log.debug("UPDATE: id {} does not exist", request.userId());
+            throw new UserAccountNotFoundException(request.userId());
         }
         int value = userAccountRepository.updateUserAccount(
-                request.userid(),
+                request.userId(),
                 request.name(),
                 request.surname(),
                 request.email(),
@@ -60,15 +62,19 @@ public class CustomerService {
         );
         Optional.of(value)
                 .filter(v -> v != 0)
-                .orElseThrow(() -> new UserAccountWasNotInsertException(request.userid()));
-        return request.userid();
+                .orElseThrow(() -> new UserAccountWasNotInsertException(request.userId()));
+        log.info("UPDATE: ID: {} has been successfully updated.", request.userId());
+        return request.userId();
     }
 
     public GetUserInfoResponse getAccountById(UUID id){
+        log.debug("GET: start for id: {}", id);
         UserAccount account = userAccountRepository.findUserAccountById(id);
         if (account == null) {
+            log.debug("GET: id {} does not exist", id);
             throw new UserAccountNotFoundException(id);
         }
+        log.info("GET: ID: {} has been successfully retrieved.", id);
         return new GetUserInfoResponse(
                 account.getId(),
                 account.getName(),
@@ -82,11 +88,12 @@ public class CustomerService {
     }
 
     public void deleteAccountById(UUID id){
+        log.debug("DELETE: start for id: {}", id);
         UserAccount account = userAccountRepository.findUserAccountById(id);
         if (account == null) {
             throw new UserAccountNotFoundException(id);
         }
         userAccountRepository.deleteUserAccountById(id);
+        log.info("DELETE: ID: {} has been successfully deleted.", id);
     }
-
 }
