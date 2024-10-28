@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/feed")
@@ -25,8 +26,8 @@ public class FeedController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Long> createPost(@RequestBody CreatePostRequest createPostRequest) {
-        Long id = feedService.createFeed(createPostRequest);
+    public ResponseEntity<UUID> createPost(@RequestBody CreatePostRequest createPostRequest) {
+        UUID id = feedService.createFeed(createPostRequest);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 

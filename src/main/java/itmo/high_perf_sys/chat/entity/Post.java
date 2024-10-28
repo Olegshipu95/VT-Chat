@@ -3,23 +3,29 @@ package itmo.high_perf_sys.chat.entity;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
+import itmo.high_perf_sys.chat.entity.customer.UserAccount;
 import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 import lombok.Getter;
 
+@Data
 @Entity
 @Table(name = "posts")
 public class Post {
-    @Getter
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Getter
+    @NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
+    @Column(name = "id")
+    private UUID id;
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull(message = ErrorMessages.CHAT_CANNOT_BE_NULL)
-    private User user;
+    private UserAccount user;
     @Getter
     @Column(name = "title")
     private String title;
@@ -45,34 +51,4 @@ public class Post {
     @Column(name = "user_id")
     private Set<Long> dislikes = new HashSet<>();
 
-    public void setLikes(Set<Long> likes) {
-        this.likes = likes;
-    }
-
-    public void setDislikes(Set<Long> dislikes) {
-        this.dislikes = dislikes;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public Long getUserId() {
-        return user.getId();
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public void setImages(byte[] images) {
-        this.images = images;
-    }
-
-    public void setPostedTime(Timestamp postedTime) {
-        this.postedTime = postedTime;
-    }
 }

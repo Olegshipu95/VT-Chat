@@ -15,9 +15,12 @@
             </column>
         </createTable>
 
-        <createTable tableName="feeds">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true"/>
+        <createTable tableName="posts">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="uuid">
+                <constraints nullable="false"/>
             </column>
             <column name="title" type="varchar(255)"/>
             <column name="text" type="varchar(255)">
