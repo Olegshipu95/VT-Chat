@@ -1,13 +1,14 @@
 package itmo.high_perf_sys.chat.repository;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import itmo.high_perf_sys.chat.entity.customer.UserAccount;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserAccountRepository extends CrudRepository<UserAccount, Long> {
+public interface UserAccountRepository extends CrudRepository<UserAccount, UUID> {
     @Query("""
             INSERT INTO user_accounts (
                 id, name, surname, email,
@@ -18,8 +19,8 @@ public interface UserAccountRepository extends CrudRepository<UserAccount, Long>
             RETURNING id;
             """
     )
-    Long saveNewUserAccount(
-            Long id,
+    UUID saveNewUserAccount(
+            UUID id,
             String name,
             String surname,
             String email,
@@ -38,8 +39,8 @@ public interface UserAccountRepository extends CrudRepository<UserAccount, Long>
             RETURNING id;
             """
     )
-    Long updateUserAccount(
-            Long id,
+    UUID updateUserAccount(
+            UUID id,
             String name,
             String surname,
             String email,
@@ -54,7 +55,7 @@ public interface UserAccountRepository extends CrudRepository<UserAccount, Long>
             WHERE id = :id
             """
     )
-    UserAccount findUserAccountById(Long id);
+    UserAccount findUserAccountById(UUID id);
 
     @Modifying
     @Query("""
@@ -62,5 +63,5 @@ public interface UserAccountRepository extends CrudRepository<UserAccount, Long>
             WHERE id = :id
             """
     )
-    void deleteUserAccountById(Long id);
+    void deleteUserAccountById(UUID id);
 }

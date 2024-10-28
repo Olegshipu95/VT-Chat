@@ -15,6 +15,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -24,10 +25,9 @@ import java.time.LocalDate;
 @Table(name = "user_accounts")
 public class UserAccount {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
     @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
-    private Long id;
+    private UUID id;
 
     @NotBlank(message = "Name can't be blank")
     private String name;

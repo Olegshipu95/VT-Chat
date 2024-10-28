@@ -4,6 +4,7 @@ import itmo.high_perf_sys.chat.dto.customer.request.CreateUserAccountRequest;
 import itmo.high_perf_sys.chat.dto.customer.request.UpdateUserInfoRequest;
 import itmo.high_perf_sys.chat.dto.customer.response.GetUserInfoResponse;
 import itmo.high_perf_sys.chat.service.CustomerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +30,8 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<UUID> createAccount(@RequestBody CreateUserAccountRequest createUserAccountRequest) {
-        return new ResponseEntity<>(UUID.randomUUID(), HttpStatus.OK);
+    public ResponseEntity<UUID> createAccount(@Valid @RequestBody CreateUserAccountRequest createUserAccountRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(customerService.createAccount(createUserAccountRequest));
     }
 
     @PutMapping
