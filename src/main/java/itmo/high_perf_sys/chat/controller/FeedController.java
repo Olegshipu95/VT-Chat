@@ -43,7 +43,7 @@ public class FeedController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<?> getAllPostsByUserId(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-                                                    @PathVariable Long userId,
+                                                    @PathVariable UUID userId,
                                                     @NotNull(message = ErrorMessages.PAGE_CANNOT_BE_NULL)
                                                     @Min(value = 0, message = ErrorMessages.PAGE_CANNOT_BE_NEGATIVE)
                                                     @RequestParam(value = "pageNumber", required = false, defaultValue = "0") Long pageNumber,

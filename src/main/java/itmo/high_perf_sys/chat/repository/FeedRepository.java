@@ -8,8 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 @Repository
-public interface FeedRepository extends JpaRepository<Post, Long> {
+public interface FeedRepository extends JpaRepository<Post, UUID> {
     @Query("SELECT p FROM Post p WHERE p.user.id = :userId ORDER BY p.postedTime DESC")
-    Page<Post> findByUserId(@Param("userId") Long userId, Pageable pageable);
+    Page<Post> findByUserId(@Param("userId") UUID userId, Pageable pageable);
 }

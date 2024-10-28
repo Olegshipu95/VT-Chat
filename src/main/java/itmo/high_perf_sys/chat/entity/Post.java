@@ -39,16 +39,16 @@ public class Post {
     @Column(name = "posted_time", nullable = false)
     private Timestamp postedTime;
 
-    @Getter
-    @ElementCollection
-    @CollectionTable(name = "post_likes", joinColumns = @JoinColumn(name = "post_id"))
-    @Column(name = "user_id")
-    private Set<Long> likes = new HashSet<>();
-
-    @Getter
-    @ElementCollection
-    @CollectionTable(name = "post_dislikes", joinColumns = @JoinColumn(name = "post_id"))
-    @Column(name = "user_id")
-    private Set<Long> dislikes = new HashSet<>();
+//    @Getter
+//    @ElementCollection
+//    @CollectionTable(name = "post_likes", joinColumns = @JoinColumn(name = "post_id"))
+//    @Column(name = "user_id")
+//    private Set<Long> likes = new HashSet<>();
+//
+//    @Getter
+//    @ElementCollection
+//    @CollectionTable(name = "post_dislikes", joinColumns = @JoinColumn(name = "post_id"))
+//    @Column(name = "user_id")
+//    private Set<Long> dislikes = new HashSet<>();
 
 }
