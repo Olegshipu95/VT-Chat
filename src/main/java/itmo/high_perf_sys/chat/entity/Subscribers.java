@@ -20,19 +20,15 @@ import lombok.NoArgsConstructor;
 @Table(name = "subscribers")
 public class Subscribers {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-    @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
     private UUID id;
 
     @Column(name = "user_id")
     @NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-    @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
     private UUID userId;
 
     @Column(name = "subscribed_user_id")
     @NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-    @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
     private UUID subscribedUserId;
 
     @Column(name = "subscription_time")
