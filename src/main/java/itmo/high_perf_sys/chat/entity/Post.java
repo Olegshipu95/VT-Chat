@@ -1,14 +1,18 @@
 package itmo.high_perf_sys.chat.entity;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
 
 @Entity
 @Table(name = "posts")
 public class Post {
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -16,16 +20,37 @@ public class Post {
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull(message = ErrorMessages.CHAT_CANNOT_BE_NULL)
     private User user;
+    @Getter
     @Column(name = "title")
     private String title;
+    @Getter
     @Column(name = "text", nullable = false)
     private String text;
+    @Getter
     @Column(name = "images")
     private byte[] images;
+    @Getter
     @Column(name = "posted_time", nullable = false)
     private Timestamp postedTime;
-    public Long getId() {
-        return id;
+
+    @Getter
+    @ElementCollection
+    @CollectionTable(name = "post_likes", joinColumns = @JoinColumn(name = "post_id"))
+    @Column(name = "user_id")
+    private Set<Long> likes = new HashSet<>();
+
+    @Getter
+    @ElementCollection
+    @CollectionTable(name = "post_dislikes", joinColumns = @JoinColumn(name = "post_id"))
+    @Column(name = "user_id")
+    private Set<Long> dislikes = new HashSet<>();
+
+    public void setLikes(Set<Long> likes) {
+        this.likes = likes;
+    }
+
+    public void setDislikes(Set<Long> dislikes) {
+        this.dislikes = dislikes;
     }
 
     public void setId(Long id) {
@@ -35,32 +60,16 @@ public class Post {
         return user.getId();
     }
 
-    public String getTitle() {
-        return title;
-    }
-
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getText() {
-        return text;
     }
 
     public void setText(String text) {
         this.text = text;
     }
 
-    public byte[] getImages() {
-        return images;
-    }
-
     public void setImages(byte[] images) {
         this.images = images;
-    }
-
-    public Timestamp getPostedTime() {
-        return postedTime;
     }
 
     public void setPostedTime(Timestamp postedTime) {

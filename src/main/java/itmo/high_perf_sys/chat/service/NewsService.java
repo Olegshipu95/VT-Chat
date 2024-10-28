@@ -26,4 +26,15 @@ public class NewsService {
             throw new RuntimeException(ErrorMessages.ERROR_DB_REQUEST, e);
         }
     }
+
+    public void likePost(Long postId, Long userId) {
+        Post post = newsRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
+        post.getLikes().add(userId);
+        newsRepository.save(post);
+    }
+    public void dislikePost(Long postId, Long userId) {
+        Post post = newsRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
+        post.getDislikes().add(userId);
+        newsRepository.save(post);
+    }
 }
