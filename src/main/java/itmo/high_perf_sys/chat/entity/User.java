@@ -1,33 +1,52 @@
 package itmo.high_perf_sys.chat.entity;
 
+import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
+    @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
+    @Column(name = "id")
+    private UUID id;
+
+    @NotBlank(message = "Name can't be blank")
     @Column(name = "name")
     private String name;
+
+    @NotBlank(message = "Surname can't be blank")
     @Column(name = "surname")
     private String surname;
-    @Column(name = "phone")
-    private String phone;
-    @Column(name = "status")
-    private String status;
+
+    @NotBlank(message = ErrorMessages.EMAIL_CANNOT_BE_NULL)
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "brief_description")
+    private String briefDescription;
+
     @Column(name = "city")
     private String city;
-    @Column(name = "bith_date")
-    private LocalDate bith_date;
-    @Column(name = "marital_status")
-    private MaritalStatus marital_status;
-    @Column(name = "gender")
-    private boolean gender;
-    public Long getId(){
-        return this.id;
-    }
+
+    @Column(name = "birthday")
+    private LocalDate birthday;
+
+    @Column(name = "logo_url")
+    private String logoUrl;
 }

@@ -8,15 +8,15 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import itmo.high_perf_sys.chat.entity.customer.UserAccount;
+import itmo.high_perf_sys.chat.entity.User;
 import org.springframework.data.repository.query.Param;
 
-public interface UserAccountRepository extends JpaRepository<UserAccount, UUID> {
+public interface UserAccountRepository extends JpaRepository<User, UUID> {
 
     @Modifying
     @Transactional
     @Query(value = """
-            INSERT INTO user_accounts (
+            INSERT INTO users (
                 id, name, surname, email,
                 brief_description, city, birthday, logo_url
             )
@@ -35,7 +35,7 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, UUID> 
     @Modifying
     @Transactional
     @Query(value = """
-                    UPDATE user_accounts
+                    UPDATE users
                     SET name = :name,
                         surname = :surname,
                         email = :email,
@@ -56,14 +56,14 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, UUID> 
             @Param("logoUrl") String logoUrl
     );
 
-    @Query(value = "SELECT * FROM user_accounts WHERE id = :id", nativeQuery = true)
-    UserAccount findUserAccountById(@Param("id") UUID id);
+    @Query(value = "SELECT * FROM users WHERE id = :id", nativeQuery = true)
+    User findUserAccountById(@Param("id") UUID id);
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM user_accounts WHERE id = :id", nativeQuery = true)
+    @Query(value = "DELETE FROM users WHERE id = :id", nativeQuery = true)
     void deleteUserAccountById(@Param("id") UUID id);
 
-    @Query(value = "SELECT id FROM user_accounts WHERE id = :id", nativeQuery = true)
+    @Query(value = "SELECT id FROM users WHERE id = :id", nativeQuery = true)
     Optional<UUID> findIdById(@Param("id") UUID id);
 }

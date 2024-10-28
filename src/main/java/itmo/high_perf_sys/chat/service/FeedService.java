@@ -5,7 +5,7 @@ import itmo.high_perf_sys.chat.dto.feed.request.DeletePostRequest;
 import itmo.high_perf_sys.chat.dto.feed.response.FeedResponse;
 import itmo.high_perf_sys.chat.dto.feed.response.PostForResponse;
 import itmo.high_perf_sys.chat.entity.Post;
-import itmo.high_perf_sys.chat.entity.customer.UserAccount;
+import itmo.high_perf_sys.chat.entity.User;
 import itmo.high_perf_sys.chat.repository.FeedRepository;
 import itmo.high_perf_sys.chat.repository.UserAccountRepository;
 import itmo.high_perf_sys.chat.utils.ErrorMessages;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Service
 public class FeedService {
     private final FeedRepository feedRepository;
-    private final UserAccountRepository userAccountRepository; // Репозиторий для UserAccount
+    private final UserAccountRepository userAccountRepository; // Репозиторий для User
     public FeedService(FeedRepository feedRepository, UserAccountRepository userAccountRepository){
         this.feedRepository = feedRepository;
         this.userAccountRepository = userAccountRepository;
@@ -32,7 +32,7 @@ public class FeedService {
     @Transactional
     public UUID createFeed(CreatePostRequest createPostRequest) {
 
-        UserAccount user = userAccountRepository.findById(createPostRequest.userId())
+        User user = userAccountRepository.findById(createPostRequest.userId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         Post post = new Post();

@@ -3,7 +3,7 @@ package itmo.high_perf_sys.chat.service;
 import itmo.high_perf_sys.chat.dto.customer.request.CreateUserAccountRequest;
 import itmo.high_perf_sys.chat.dto.customer.request.UpdateUserInfoRequest;
 import itmo.high_perf_sys.chat.dto.customer.response.GetUserInfoResponse;
-import itmo.high_perf_sys.chat.entity.customer.UserAccount;
+import itmo.high_perf_sys.chat.entity.User;
 import itmo.high_perf_sys.chat.exception.UserAccountNotFoundException;
 import itmo.high_perf_sys.chat.exception.UserAccountWasNotInsertException;
 import itmo.high_perf_sys.chat.repository.UserAccountRepository;
@@ -45,7 +45,7 @@ public class CustomerService {
 
     public UUID updateAccount(UpdateUserInfoRequest request) {
         log.debug("UPDATE: start for id: {}", request.userId());
-        UserAccount existingAccount = userAccountRepository.findUserAccountById(request.userId());
+        User existingAccount = userAccountRepository.findUserAccountById(request.userId());
         if (existingAccount == null) {
             log.debug("UPDATE: id {} does not exist", request.userId());
             throw new UserAccountNotFoundException(request.userId());
@@ -69,7 +69,7 @@ public class CustomerService {
 
     public GetUserInfoResponse getAccountById(UUID id){
         log.debug("GET: start for id: {}", id);
-        UserAccount account = userAccountRepository.findUserAccountById(id);
+        User account = userAccountRepository.findUserAccountById(id);
         if (account == null) {
             log.debug("GET: id {} does not exist", id);
             throw new UserAccountNotFoundException(id);
@@ -89,7 +89,7 @@ public class CustomerService {
 
     public void deleteAccountById(UUID id){
         log.debug("DELETE: start for id: {}", id);
-        UserAccount account = userAccountRepository.findUserAccountById(id);
+        User account = userAccountRepository.findUserAccountById(id);
         if (account == null) {
             throw new UserAccountNotFoundException(id);
         }
