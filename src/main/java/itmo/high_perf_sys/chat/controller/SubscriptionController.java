@@ -16,10 +16,10 @@ public class SubscriptionController {
 
     @PostMapping
     public ResponseEntity<UUID> makeSubscription(@RequestBody @Valid CreateSubRequest request){
-
-        var savedId = service.createSub(request);
-
-        return new ResponseEntity<>(savedId, HttpStatus.LOCKED);
+//        var savedId = service.createSub(request);
+//
+//        return new ResponseEntity<>(savedId, HttpStatus.LOCKED);
+        return new ResponseEntity<>(UUID.randomUUID(), HttpStatus.LOCKED);
     }
 
     @GetMapping

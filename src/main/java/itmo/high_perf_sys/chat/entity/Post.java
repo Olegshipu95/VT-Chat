@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import itmo.high_perf_sys.chat.entity.customer.UserAccount;
+import itmo.high_perf_sys.chat.entity.User;
 import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -25,7 +25,7 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull(message = ErrorMessages.CHAT_CANNOT_BE_NULL)
-    private UserAccount user;
+    private User user;
     @Getter
     @Column(name = "title")
     private String title;
