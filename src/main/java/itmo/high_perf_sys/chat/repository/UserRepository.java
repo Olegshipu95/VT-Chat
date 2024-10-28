@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import itmo.high_perf_sys.chat.entity.User;
 import org.springframework.data.repository.query.Param;
 
-public interface UserAccountRepository extends JpaRepository<User, UUID> {
+public interface UserRepository extends JpaRepository<User, UUID> {
 
     @Modifying
     @Transactional
