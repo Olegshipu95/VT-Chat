@@ -22,7 +22,6 @@ public class User {
 
     @Id
     @NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-    @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
     @Column(name = "id")
     private UUID id;
 
