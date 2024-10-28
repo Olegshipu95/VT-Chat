@@ -1,7 +1,7 @@
 package itmo.high_perf_sys.chat.repository.chat;
 
 
-import itmo.high_perf_sys.chat.entity.Message;
+import itmo.high_perf_sys.chat.model.entity.Message;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;

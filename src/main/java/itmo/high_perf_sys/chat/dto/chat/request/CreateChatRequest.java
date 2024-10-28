@@ -1,12 +1,9 @@
 package itmo.high_perf_sys.chat.dto.chat.request;
 
-import itmo.high_perf_sys.chat.entity.Chat;
-import itmo.high_perf_sys.chat.entity.ChatType;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class CreateChatRequest {

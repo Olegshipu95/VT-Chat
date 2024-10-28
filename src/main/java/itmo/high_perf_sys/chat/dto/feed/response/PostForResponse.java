@@ -1,9 +1,7 @@
 package itmo.high_perf_sys.chat.dto.feed.response;
-import itmo.high_perf_sys.chat.entity.Post;
-import itmo.high_perf_sys.chat.entity.User;
+import itmo.high_perf_sys.chat.model.entity.Post;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 public class PostForResponse{
     private Long id;

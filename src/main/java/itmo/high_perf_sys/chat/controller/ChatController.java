@@ -2,7 +2,7 @@ package itmo.high_perf_sys.chat.controller;
 
 import itmo.high_perf_sys.chat.dto.chat.request.CreateChatRequest;
 import itmo.high_perf_sys.chat.dto.chat.response.*;
-import itmo.high_perf_sys.chat.entity.Message;
+import itmo.high_perf_sys.chat.model.entity.Message;
 import itmo.high_perf_sys.chat.service.ChatService;
 import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import jakarta.validation.Valid;

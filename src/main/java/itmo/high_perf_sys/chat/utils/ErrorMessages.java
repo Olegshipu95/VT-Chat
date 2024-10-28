@@ -2,6 +2,7 @@ package itmo.high_perf_sys.chat.utils;
 
 public class ErrorMessages {
     public static final String ID_CANNOT_BE_NULL = "Id cannot be null";
+    public static final String EMAIL_CANNOT_BE_NULL = "Email cannot be blank";
     public static final String ID_CANNOT_BE_NEGATIVE = "Id cannot be negative";
     public static final String PAGE_CANNOT_BE_NULL = "Page cannot be null";
     public static final String PAGE_CANNOT_BE_NEGATIVE = "Page cannot be negative";

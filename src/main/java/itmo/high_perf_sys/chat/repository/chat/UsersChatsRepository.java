@@ -1,6 +1,6 @@
 package itmo.high_perf_sys.chat.repository.chat;
 
-import itmo.high_perf_sys.chat.entity.UsersChats;
+import itmo.high_perf_sys.chat.model.entity.UsersChats;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import java.util.Optional;

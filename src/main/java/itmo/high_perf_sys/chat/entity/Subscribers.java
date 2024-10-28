@@ -1,4 +1,4 @@
-package itmo.high_perf_sys.chat.entity;
+package itmo.high_perf_sys.chat.model.entity;
 
 import java.util.List;
 import jakarta.persistence.*;
