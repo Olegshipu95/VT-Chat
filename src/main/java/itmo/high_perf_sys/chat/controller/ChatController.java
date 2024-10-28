@@ -35,8 +35,7 @@ public class ChatController {
 
     @PostMapping("/chat/start")
     public ResponseEntity<?> createChat(@Valid @RequestBody CreateChatRequest createChatRequest) {
-        UUID idNewChat = chatService.createChat(createChatRequest);
-        return ResponseEntity.ok(idNewChat);
+        return ResponseEntity.status(HttpStatus.CREATED).body(chatService.createChat(createChatRequest));
     }
 
     @GetMapping("/search")
@@ -47,8 +46,7 @@ public class ChatController {
                                         @RequestParam(value = "pageNumber", required = false, defaultValue = "0") Long pageNumber,
                                         @RequestParam(value = "countChatsOnPage", required = false, defaultValue = "20") Long countChatsOnPage) {
         try {
-            ResponseSearchChat response = chatService.searchChat(userId, request, pageNumber, countChatsOnPage);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(HttpStatus.OK).body(chatService.searchChat(userId, request, pageNumber, countChatsOnPage));
         } catch (RuntimeException e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
@@ -67,8 +65,7 @@ public class ChatController {
                                            @Min(value = 0, message = ErrorMessages.COUNT_PAGE_CANNOT_BE_NEGATIVE)
                                            @RequestParam(value = "countMessagesOnPage", required = false, defaultValue = "20") Long countMessagesOnPage) {
         try {
-            ResponseSearchMessage response = chatService.searchMessage(chatId, request, pageNumber, countMessagesOnPage);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(HttpStatus.OK).body(chatService.searchMessage(chatId, request, pageNumber, countMessagesOnPage));
         } catch (RuntimeException e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
@@ -97,8 +94,7 @@ public class ChatController {
                                                  @Min(value = 0, message = ErrorMessages.COUNT_PAGE_CANNOT_BE_NEGATIVE)
                                                  @RequestParam(value = "countChatsOnPage", required = false, defaultValue = "20") Long countChatsOnPage) {
         try {
-            ResponseGettingChats response = chatService.getAllChatsByUserId(userId, pageNumber, countChatsOnPage);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(HttpStatus.OK).body(chatService.getAllChatsByUserId(userId, pageNumber, countChatsOnPage));
         } catch (RuntimeException e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
@@ -115,8 +111,7 @@ public class ChatController {
                                                     @Min(value = 0, message = ErrorMessages.COUNT_PAGE_CANNOT_BE_NEGATIVE)
                                                     @RequestParam(value = "countMessagesOnPage", required = false, defaultValue = "20") Long countMessagesOnPage) {
         try {
-            ResponseGettingMessages response = chatService.getAllMessagesByChatId(chatId, pageNumber, countMessagesOnPage);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(HttpStatus.OK).body(chatService.getAllMessagesByChatId(chatId, pageNumber, countMessagesOnPage));
         } catch (RuntimeException e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
@@ -125,17 +120,7 @@ public class ChatController {
     @PostMapping("/send")
     public ResponseEntity<?> sendMessage(@Valid @RequestBody Message message) {
         try {
-            UUID chatId = message.getChatId().getId();
-            MessageForResponse messageForResponse = chatService.createMessage(message);
-            List<MessageForResponse> messages = chatMessages.computeIfAbsent(chatId, k -> new ArrayList<>());
-            messages.add(messageForResponse);
-
-            ConcurrentLinkedQueue<DeferredResult<MessageForResponse>> clients = chatClients.get(chatId);
-            if (clients != null) {
-                clients.forEach(client -> client.setResult(messageForResponse));
-                clients.clear();
-            }
-            return ResponseEntity.ok().build();
+            return ResponseEntity.status(HttpStatus.OK).body(chatService.sendMessage(message));
         } catch (RuntimeException e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
@@ -143,14 +128,6 @@ public class ChatController {
 
     @GetMapping("/subscribe/{chatId}")
     public DeferredResult<MessageForResponse> subscribe(@Valid @PathVariable UUID chatId) {
-        DeferredResult<MessageForResponse> result = new DeferredResult<>();
-        chatClients.computeIfAbsent(chatId, k -> new ConcurrentLinkedQueue<>()).add(result);
-        result.onCompletion(() -> {
-            ConcurrentLinkedQueue<DeferredResult<MessageForResponse>> clients = chatClients.get(chatId);
-            if (clients != null) {
-                clients.remove(result);
-            }
-        });
-        return result;
+        return chatService.subscribeOnChat(chatId);
     }
 }
