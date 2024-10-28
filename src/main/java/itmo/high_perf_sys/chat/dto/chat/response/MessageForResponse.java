@@ -5,9 +5,10 @@ import itmo.high_perf_sys.chat.entity.Message;
 import itmo.high_perf_sys.chat.entity.User;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 public class MessageForResponse {
-    private Long id;
+    private UUID id;
     private Chat chatId;
     private User authorId;
     private String text;
@@ -34,7 +35,7 @@ public class MessageForResponse {
         this.photo = photo;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

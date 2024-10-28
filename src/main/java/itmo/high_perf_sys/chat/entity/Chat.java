@@ -6,14 +6,13 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "chats")
 public class Chat {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-    @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
-    private Long id;
+    private UUID id;
     @Column(name = "name", nullable = false)
     @NotNull(message = ErrorMessages.NAME_CANNOT_BE_NULL)
     private String name;
@@ -31,7 +30,7 @@ public class Chat {
         this.chatType = chatType;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -45,6 +44,10 @@ public class Chat {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }
 

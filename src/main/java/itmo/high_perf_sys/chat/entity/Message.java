@@ -6,15 +6,13 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 @Entity
 @Table(name = "messages")
 public class Message {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-    @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
-    private Long id;
+    private UUID id;
     @ManyToOne
     @JoinColumn(name = "chat_id", nullable = false)
     @NotNull(message = ErrorMessages.CHAT_CANNOT_BE_NULL)
@@ -32,11 +30,11 @@ public class Message {
     @Column(name = "photo")
     private byte[] photo;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
