@@ -99,5 +99,24 @@
             <column name="user_id" type="bigint"/>
             <column name="stickers_ids" type="blob"/>
         </createTable>
+
+        <createTable tableName="user_accounts">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="surname" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="brief_description" type="text"/>
+            <column name="city" type="varchar(100)"/>
+            <column name="birthday" type="date"/>
+            <column name="logo_url" type="varchar(255)"/>
+        </createTable>
     </changeSet>
 </databaseChangeLog>
