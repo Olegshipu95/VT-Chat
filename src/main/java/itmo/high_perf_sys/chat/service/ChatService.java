@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.context.support.UiApplicationContextUtils;
 import org.springframework.web.context.request.async.DeferredResult;
 
 import java.util.ArrayList;
@@ -47,17 +48,25 @@ public class ChatService {
             chatForSave.setId(UUID.randomUUID());
             chatForSave.setChatType(createChatRequest.getChatType());
             chatForSave.setName(createChatRequest.getName());
-            Chat savedChat = chatRepository.save(chatForSave);
             List<UUID> listUsersIds = createChatRequest.getUsers();
+            if(chatForSave.getChatType() == 0 && listUsersIds.size() > 2) throw new RuntimeException(ErrorMessages.USER_COUNT_ERROR);
+            if(listUsersIds.stream()
+                    .collect(Collectors.toMap(e -> e, e -> 1, Integer::sum))
+                    .values().stream()
+                    .anyMatch(count -> count > 1)) throw new RuntimeException(ErrorMessages.USER_DUPLICATED);
+            Chat savedChat = chatRepository.save(chatForSave);
             for (UUID listUsersId : listUsersIds) {
-                UsersChats usersChats = usersChatsRepository.findByUserId(listUsersId).get();
-                usersChats.getChats().add(savedChat.getId());
-                usersChats.setId(UUID.randomUUID());
+                Optional<UsersChats> usersChatsO = usersChatsRepository.findByUserId(listUsersId);
+                if(usersChatsO.isEmpty()) throw new RuntimeException(ErrorMessages.NOT_FOUND + ": " + listUsersId.toString());
+                UsersChats usersChats = usersChatsO.get();
+                List<UUID> chats = usersChats.getChats();
+                UUID savedId = savedChat.getId();
+                chats.add(savedId);
                 usersChatsRepository.save(usersChats);
             }
             return savedChat.getId();
         } catch (Exception e) {
-            throw new RuntimeException(ErrorMessages.ERROR_DB_REQUEST, e);
+            throw new RuntimeException(e);
         }
     }
 

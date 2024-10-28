@@ -46,7 +46,7 @@ public class CustomerService {
         UsersChats usersChats = new UsersChats();
         usersChats.setId(UUID.randomUUID());
         usersChats.setUserId(newId);
-        usersChats.setChats(new ArrayList<>());
+        usersChats.setChats(new ArrayList<UUID>());
         usersChatsRepository.save(usersChats);
 
         log.info("User with ID: {} has been successfully created.", newId);

@@ -35,7 +35,11 @@ public class ChatController {
 
     @PostMapping("/chat/start")
     public ResponseEntity<?> createChat(@Valid @RequestBody CreateChatRequest createChatRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(chatService.createChat(createChatRequest));
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(chatService.createChat(createChatRequest));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @GetMapping("/search")
@@ -48,7 +52,7 @@ public class ChatController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(chatService.searchChat(userId, request, pageNumber, countChatsOnPage));
         } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
@@ -67,7 +71,7 @@ public class ChatController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(chatService.searchMessage(chatId, request, pageNumber, countMessagesOnPage));
         } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
@@ -79,7 +83,7 @@ public class ChatController {
             chatService.deleteChat(chatId);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
@@ -96,7 +100,7 @@ public class ChatController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(chatService.getAllChatsByUserId(userId, pageNumber, countChatsOnPage));
         } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
@@ -113,7 +117,7 @@ public class ChatController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(chatService.getAllMessagesByChatId(chatId, pageNumber, countMessagesOnPage));
         } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
@@ -122,7 +126,7 @@ public class ChatController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(chatService.sendMessage(message));
         } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
