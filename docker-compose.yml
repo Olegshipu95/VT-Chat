@@ -12,7 +12,7 @@ services:
     volumes:
       - core-data:/var/lib/postgresql/data
     ports:
-      - ${DB_PORT:-5432}:5432
+      - ${DB_PORT:-5433}:5433
   chat-core:
     image: 'chat-core:latest'
     build:
