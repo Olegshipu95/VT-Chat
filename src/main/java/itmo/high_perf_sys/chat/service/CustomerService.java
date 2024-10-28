@@ -21,12 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class CustomerService {
     private final UserRepository userRepository;
-    private final UsersChatsRepository chatsRepository;
+    private final UsersChatsRepository usersChatsRepository;
 
     @Autowired
-    public CustomerService(UserRepository userRepository, UsersChatsRepository chatsRepository) {
+    public CustomerService(UserRepository userRepository, UsersChatsRepository usersChatsRepository) {
         this.userRepository = userRepository;
-        this.chatsRepository = chatsRepository;
+        this.usersChatsRepository = usersChatsRepository;
     }
 
 
@@ -44,9 +44,10 @@ public class CustomerService {
                 request.logoUrl()
         );
         UsersChats usersChats = new UsersChats();
+        usersChats.setId(UUID.randomUUID());
         usersChats.setUserId(newId);
         usersChats.setChats(new ArrayList<>());
-        chatsRepository.save(usersChats);
+        usersChatsRepository.save(usersChats);
 
         log.info("User with ID: {} has been successfully created.", newId);
         return newId;
