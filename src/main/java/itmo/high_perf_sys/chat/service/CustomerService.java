@@ -5,9 +5,11 @@ import itmo.high_perf_sys.chat.dto.customer.request.UpdateUserInfoRequest;
 import itmo.high_perf_sys.chat.dto.customer.response.GetUserInfoResponse;
 import itmo.high_perf_sys.chat.entity.customer.UserAccount;
 import itmo.high_perf_sys.chat.exception.UserAccountNotFoundException;
+import itmo.high_perf_sys.chat.exception.UserAccountWasNotInsertException;
 import itmo.high_perf_sys.chat.repository.UserAccountRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -16,7 +18,7 @@ public class CustomerService {
 
     public UUID createAccount(CreateUserAccountRequest request) {
         UUID id = UUID.randomUUID();
-        return userAccountRepository.saveNewUserAccount(
+        userAccountRepository.saveNewUserAccount(
                 id,
                 request.name(),
                 request.surname(),
@@ -26,6 +28,8 @@ public class CustomerService {
                 request.birthday(),
                 request.logoUrl()
         );
+        return userAccountRepository.findIdById(id)
+                .orElseThrow(() -> new UserAccountWasNotInsertException(id));
     }
 
     public UUID updateAccount(UpdateUserInfoRequest request) {
@@ -33,7 +37,7 @@ public class CustomerService {
         if (existingAccount == null) {
             throw new UserAccountNotFoundException(request.userid());
         }
-        return userAccountRepository.updateUserAccount(
+        int value = userAccountRepository.updateUserAccount(
                 request.userid(),
                 request.name(),
                 request.surname(),
@@ -43,6 +47,10 @@ public class CustomerService {
                 request.birthday(),
                 request.logoUrl()
         );
+        Optional.of(value)
+                .filter(v -> v != 0)
+                .orElseThrow(() -> new UserAccountWasNotInsertException(request.userid()));
+        return request.userid();
     }
 
     public GetUserInfoResponse getAccountById(UUID id){
@@ -50,7 +58,7 @@ public class CustomerService {
         if (account == null) {
             throw new UserAccountNotFoundException(id);
         }
-        return GetUserInfoResponse(
+        return new GetUserInfoResponse(
                 account.getId(),
                 account.getName(),
                 account.getSurname(),
