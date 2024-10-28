@@ -10,31 +10,42 @@ import itmo.high_perf_sys.chat.repository.chat.ChatRepository;
 import itmo.high_perf_sys.chat.repository.chat.MessageRepository;
 import itmo.high_perf_sys.chat.repository.chat.UsersChatsRepository;
 import itmo.high_perf_sys.chat.utils.ErrorMessages;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 public class ChatService {
 
-    private ChatRepository chatRepository;
-    private UsersChatsRepository usersChatsRepository;
-    private MessageRepository messageRepository;
+    private final ChatRepository chatRepository;
+    private final UsersChatsRepository usersChatsRepository;
+    private final MessageRepository messageRepository;
 
-    public Long createChat(CreateChatRequest createChatRequest) {
+    @Autowired
+    public ChatService(ChatRepository chatRepository, UsersChatsRepository usersChatsRepository, MessageRepository messageRepository) {
+        this.chatRepository = chatRepository;
+        this.usersChatsRepository = usersChatsRepository;
+        this.messageRepository = messageRepository;
+    }
+
+    public UUID createChat(CreateChatRequest createChatRequest) {
         try {
             Chat chatForSave = new Chat();
+            chatForSave.setId(UUID.randomUUID());
             chatForSave.setChatType(createChatRequest.getChatType());
             chatForSave.setName(createChatRequest.getName());
             Chat savedChat = chatRepository.save(chatForSave);
-            List<Long> listUsersIds = createChatRequest.getUsers();
-            for (Long listUsersId : listUsersIds) {
+            List<UUID> listUsersIds = createChatRequest.getUsers();
+            for (UUID listUsersId : listUsersIds) {
                 UsersChats usersChats = usersChatsRepository.findByUserId(listUsersId).get();
                 usersChats.getChats().add(savedChat.getId());
+                usersChats.setId(UUID.randomUUID());
                 usersChatsRepository.save(usersChats);
             }
             return savedChat.getId();
@@ -44,13 +55,14 @@ public class ChatService {
     }
 
     public MessageForResponse createMessage(Message message) {
+        message.setId(UUID.randomUUID());
         messageRepository.save(message);
         return new MessageForResponse(message);
     }
 
-    public ResponseSearchChat searchChat(Long userId, String request, Long pageNumber, Long countChatsOnPage) {
+    public ResponseSearchChat searchChat(UUID userId, String request, Long pageNumber, Long countChatsOnPage) {
         try {
-            List<Long> userChats = usersChatsRepository.findByUserId(userId).get().getChats();
+            List<UUID> userChats = usersChatsRepository.findByUserId(userId).get().getChats();
             List<Chat> listOfChats = chatRepository.findByNameContainingAndIdIn(userChats, request, PageRequest.of(pageNumber.intValue(), countChatsOnPage.intValue())).stream().toList();
             ResponseSearchChat responseSearchChat = new ResponseSearchChat();
             for (int i = 0; i < listOfChats.size(); i++) {
@@ -75,7 +87,7 @@ public class ChatService {
         }
     }
 
-    public ResponseSearchMessage searchMessage(Long chatId, String request, Long pageNumber, Long countMessagesOnPage) {
+    public ResponseSearchMessage searchMessage(UUID chatId, String request, Long pageNumber, Long countMessagesOnPage) {
         try {
             return new ResponseSearchMessage(messageRepository.findByTextContainingAndChatId(chatId, request, PageRequest.of(pageNumber.intValue(), countMessagesOnPage.intValue())).stream()
                     .map(MessageForResponse::new)
@@ -85,10 +97,10 @@ public class ChatService {
         }
     }
 
-    public void deleteChat(Long chatId) {
+    public void deleteChat(UUID chatId) {
         try {
-            List<Long> usersChatsIds = usersChatsRepository.findIdsByChatId(chatId);
-            for (Long usersChatsId : usersChatsIds) {
+            List<UUID> usersChatsIds = usersChatsRepository.findIdsByChatId(chatId);
+            for (UUID usersChatsId : usersChatsIds) {
                 UsersChats usersChats = usersChatsRepository.findById(usersChatsId).get();
                 usersChats.getChats().remove(chatId);
                 usersChatsRepository.save(usersChats);
@@ -99,12 +111,12 @@ public class ChatService {
         }
     }
 
-    public ResponseGettingChats getAllChatsByUserId(Long userId, Long pageNumber, Long countChatsOnPage) {
+    public ResponseGettingChats getAllChatsByUserId(UUID userId, Long pageNumber, Long countChatsOnPage) {
         try {
-            List<Long> usersChats = usersChatsRepository.findByUserId(userId).get().getChats();
+            List<UUID> usersChats = usersChatsRepository.findByUserId(userId).get().getChats();
             int startIndex = (int) (pageNumber * countChatsOnPage);
             int toIndex = (int) (startIndex + countChatsOnPage);
-            List<Long> userChats = usersChats.subList(startIndex, toIndex);
+            List<UUID> userChats = usersChats.subList(startIndex, toIndex);
             ResponseGettingChats responseGettingChats = new ResponseGettingChats();
             for (int i = 0; i < userChats.size(); i++) {
                 ChatForResponse chatForResponse = new ChatForResponse();
@@ -128,7 +140,7 @@ public class ChatService {
         }
     }
 
-    public ResponseGettingMessages getAllMessagesByChatId(Long chatId, Long pageNumber, Long countMessagesOnPage) {
+    public ResponseGettingMessages getAllMessagesByChatId(UUID chatId, Long pageNumber, Long countMessagesOnPage) {
         try {
             Page<Message> pageOfMessages = messageRepository.findByChatId(chatId, PageRequest.of(pageNumber.intValue(), countMessagesOnPage.intValue()));
             return new ResponseGettingMessages(

@@ -16,6 +16,7 @@ import org.springframework.web.context.request.async.DeferredResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -23,8 +24,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 @RequestMapping("/chats")
 public class ChatController {
     private final ChatService chatService;
-    private final ConcurrentHashMap<Long, ConcurrentLinkedQueue<DeferredResult<MessageForResponse>>> chatClients = new ConcurrentHashMap<>();
-    private final ConcurrentHashMap<Long, List<MessageForResponse>> chatMessages = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<UUID, ConcurrentLinkedQueue<DeferredResult<MessageForResponse>>> chatClients = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<UUID, List<MessageForResponse>> chatMessages = new ConcurrentHashMap<>();
 
 
     @Autowired
@@ -34,14 +35,14 @@ public class ChatController {
 
     @PostMapping("/chat/start")
     public ResponseEntity<?> createChat(@Valid @RequestBody CreateChatRequest createChatRequest) {
-        Long idNewChat = chatService.createChat(createChatRequest);
+        UUID idNewChat = chatService.createChat(createChatRequest);
         return ResponseEntity.ok(idNewChat);
     }
 
     @GetMapping("/search")
     public ResponseEntity<?> searchChat(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
                                         @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
-                                        @RequestParam(value = "userId") Long userId,
+                                        @RequestParam(value = "userId") UUID userId,
                                         @NotNull @RequestParam(value = "request") String request,
                                         @RequestParam(value = "pageNumber", required = false, defaultValue = "0") Long pageNumber,
                                         @RequestParam(value = "countChatsOnPage", required = false, defaultValue = "20") Long countChatsOnPage) {
@@ -56,7 +57,7 @@ public class ChatController {
     @GetMapping("/{chatId}/search")
     public ResponseEntity<?> searchMessage(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
                                            @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
-                                           @PathVariable Long chatId,
+                                           @PathVariable UUID chatId,
                                            @NotNull(message = ErrorMessages.REQUEST_CANNOT_BE_NULL)
                                            @RequestParam(value = "request") String request,
                                            @NotNull(message = ErrorMessages.PAGE_CANNOT_BE_NULL)
@@ -76,7 +77,7 @@ public class ChatController {
     @DeleteMapping("/chat/{chatId}")
     public ResponseEntity<?> deleteChat(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
                                         @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
-                                        @PathVariable Long chatId) {
+                                        @PathVariable UUID chatId) {
         try {
             chatService.deleteChat(chatId);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -88,7 +89,7 @@ public class ChatController {
     @GetMapping("/{userId}")
     public ResponseEntity<?> getAllChatsByUserId(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
                                                  @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
-                                                 @PathVariable Long userId,
+                                                 @PathVariable UUID userId,
                                                  @NotNull(message = ErrorMessages.PAGE_CANNOT_BE_NULL)
                                                  @Min(value = 0, message = ErrorMessages.PAGE_CANNOT_BE_NEGATIVE)
                                                  @RequestParam(value = "pageNumber", required = false, defaultValue = "0") Long pageNumber,
@@ -106,7 +107,7 @@ public class ChatController {
     @GetMapping("/{chatId}")
     public ResponseEntity<?> getAllMessagesByChatId(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
                                                     @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
-                                                    @PathVariable Long chatId,
+                                                    @PathVariable UUID chatId,
                                                     @NotNull(message = ErrorMessages.PAGE_CANNOT_BE_NULL)
                                                     @Min(value = 0, message = ErrorMessages.PAGE_CANNOT_BE_NEGATIVE)
                                                     @RequestParam(value = "pageNumber", required = false, defaultValue = "0") Long pageNumber,
@@ -124,7 +125,7 @@ public class ChatController {
     @PostMapping("/send")
     public ResponseEntity<?> sendMessage(@Valid @RequestBody Message message) {
         try {
-            Long chatId = message.getChatId().getId();
+            UUID chatId = message.getChatId().getId();
             MessageForResponse messageForResponse = chatService.createMessage(message);
             List<MessageForResponse> messages = chatMessages.computeIfAbsent(chatId, k -> new ArrayList<>());
             messages.add(messageForResponse);
@@ -141,7 +142,7 @@ public class ChatController {
     }
 
     @GetMapping("/subscribe/{chatId}")
-    public DeferredResult<MessageForResponse> subscribe(@Valid @PathVariable Long chatId) {
+    public DeferredResult<MessageForResponse> subscribe(@Valid @PathVariable UUID chatId) {
         DeferredResult<MessageForResponse> result = new DeferredResult<>();
         chatClients.computeIfAbsent(chatId, k -> new ConcurrentLinkedQueue<>()).add(result);
         result.onCompletion(() -> {

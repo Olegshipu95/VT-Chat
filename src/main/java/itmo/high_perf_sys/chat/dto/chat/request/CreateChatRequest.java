@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
+import java.util.UUID;
 
 public class CreateChatRequest {
     @NotNull(message = "chatType cannot be null")
@@ -12,13 +13,13 @@ public class CreateChatRequest {
     @Max(value = 1, message = "chatType has not this meaning")
     private int chatType;
     private String name;
-    private List<Long> users;
+    private List<UUID> users;
 
     public int getChatType() {
         return chatType;
     }
 
-    public List<Long> getUsers() {
+    public List<UUID> getUsers() {
         return users;
     }
 
