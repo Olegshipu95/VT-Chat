@@ -36,7 +36,7 @@ public class CustomerController {
 
     @PutMapping
     public ResponseEntity<UUID> updateAccount(@RequestBody UpdateUserInfoRequest updateUserInfoRequest) {
-        return new ResponseEntity<>(UUID.randomUUID(), HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.updateAccount(updateUserInfoRequest));
     }
 
     @GetMapping("/{id}")
