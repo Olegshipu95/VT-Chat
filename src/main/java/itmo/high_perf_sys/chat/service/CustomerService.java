@@ -2,6 +2,7 @@ package itmo.high_perf_sys.chat.service;
 
 import itmo.high_perf_sys.chat.dto.customer.request.CreateUserAccountRequest;
 import itmo.high_perf_sys.chat.dto.customer.request.UpdateUserInfoRequest;
+import itmo.high_perf_sys.chat.dto.customer.response.GetUserInfoResponse;
 import itmo.high_perf_sys.chat.entity.customer.UserAccount;
 import itmo.high_perf_sys.chat.exception.UserAccountNotFoundException;
 import itmo.high_perf_sys.chat.repository.UserAccountRepository;
@@ -27,7 +28,7 @@ public class CustomerService {
         );
     }
 
-    public UUID updateAccount(UpdateUserInfoRequest request){
+    public UUID updateAccount(UpdateUserInfoRequest request) {
         UserAccount existingAccount = userAccountRepository.findUserAccountById(request.userid());
         if (existingAccount == null) {
             throw new UserAccountNotFoundException(request.userid());
@@ -43,4 +44,22 @@ public class CustomerService {
                 request.logoUrl()
         );
     }
+
+    public GetUserInfoResponse getAccountById(UUID id){
+        UserAccount account = userAccountRepository.findUserAccountById(id);
+        if (account == null) {
+            throw new UserAccountNotFoundException(id);
+        }
+        return GetUserInfoResponse(
+                account.getId(),
+                account.getName(),
+                account.getSurname(),
+                account.getEmail(),
+                account.getBriefDescription(),
+                account.getCity(),
+                account.getBirthday(),
+                account.getLogoUrl()
+        );
+    }
+
 }

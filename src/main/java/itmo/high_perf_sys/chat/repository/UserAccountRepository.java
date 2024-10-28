@@ -59,7 +59,7 @@ public interface UserAccountRepository extends CrudRepository<UserAccount, UUID>
 
     @Modifying
     @Query("""
-            DELETE FROM user_accounts 
+            DELETE FROM user_accounts
             WHERE id = :id
             """
     )
