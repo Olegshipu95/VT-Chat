@@ -1,8 +1,8 @@
 package itmo.high_perf_sys.chat.dto.chat.response;
 
-import itmo.high_perf_sys.chat.model.entity.Chat;
-import itmo.high_perf_sys.chat.model.entity.Message;
-import itmo.high_perf_sys.chat.model.entity.User;
+import itmo.high_perf_sys.chat.entity.Chat;
+import itmo.high_perf_sys.chat.entity.Message;
+import itmo.high_perf_sys.chat.entity.User;
 
 import java.sql.Timestamp;
 

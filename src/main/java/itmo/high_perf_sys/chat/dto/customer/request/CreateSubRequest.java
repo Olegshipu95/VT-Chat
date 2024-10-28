@@ -1,11 +1,9 @@
 package itmo.high_perf_sys.chat.dto.customer.request;
 
 import itmo.high_perf_sys.chat.utils.ErrorMessages;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record CreateSubRequest(
