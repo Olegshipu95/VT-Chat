@@ -7,19 +7,29 @@ import itmo.high_perf_sys.chat.entity.customer.UserAccount;
 import itmo.high_perf_sys.chat.exception.UserAccountNotFoundException;
 import itmo.high_perf_sys.chat.exception.UserAccountWasNotInsertException;
 import itmo.high_perf_sys.chat.repository.UserAccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class CustomerService {
-    private UserAccountRepository userAccountRepository;
+    private final UserAccountRepository userAccountRepository;
+
+    @Autowired
+    public CustomerService(UserAccountRepository userAccountRepository) {
+        this.userAccountRepository = userAccountRepository;
+    }
+
 
     public UUID createAccount(CreateUserAccountRequest request) {
-        UUID id = UUID.randomUUID();
+        log.debug("Создание аккаунта для: {}", request.name());
+        UUID newId = UUID.randomUUID();
         userAccountRepository.saveNewUserAccount(
-                id,
+                newId,
                 request.name(),
                 request.surname(),
                 request.email(),
@@ -28,8 +38,9 @@ public class CustomerService {
                 request.birthday(),
                 request.logoUrl()
         );
-        return userAccountRepository.findIdById(id)
-                .orElseThrow(() -> new UserAccountWasNotInsertException(id));
+
+        log.info("Пользователь с ID: {} успешно создан.", newId);
+        return newId;
     }
 
     public UUID updateAccount(UpdateUserInfoRequest request) {
