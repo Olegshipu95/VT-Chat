@@ -45,8 +45,8 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<UUID> deleteAccountById(@PathVariable(value = "id") UUID id) {
-        return ResponseEntity.status(HttpStatus.OK).body(customerService.getAccountById(id));
+    public void deleteAccountById(@PathVariable(value = "id") UUID id) {
+        customerService.deleteAccountById(id);
     }
 
     @GetMapping("/{id}/subscribe")

@@ -62,4 +62,12 @@ public class CustomerService {
         );
     }
 
+    public void deleteAccountById(UUID id){
+        UserAccount account = userAccountRepository.findUserAccountById(id);
+        if (account == null) {
+            throw new UserAccountNotFoundException(id);
+        }
+        userAccountRepository.deleteUserAccountById(id);
+    }
+
 }
