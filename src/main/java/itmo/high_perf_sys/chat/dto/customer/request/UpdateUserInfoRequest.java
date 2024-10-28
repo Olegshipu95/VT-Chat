@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public record UpdateUserInfoRequest(
         @NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-        UUID userid,
+        UUID userId,
         @NotBlank(message = "Name can't be blank")
         String name,
         @NotBlank(message = "Surname can't be blank")
