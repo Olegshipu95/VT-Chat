@@ -7,7 +7,7 @@ import itmo.high_perf_sys.chat.dto.feed.response.PostForResponse;
 import itmo.high_perf_sys.chat.entity.Post;
 import itmo.high_perf_sys.chat.entity.User;
 import itmo.high_perf_sys.chat.repository.FeedRepository;
-import itmo.high_perf_sys.chat.repository.UserAccountRepository;
+import itmo.high_perf_sys.chat.repository.UserRepository;
 import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,16 +23,16 @@ import java.util.stream.Collectors;
 @Service
 public class FeedService {
     private final FeedRepository feedRepository;
-    private final UserAccountRepository userAccountRepository; // Репозиторий для User
-    public FeedService(FeedRepository feedRepository, UserAccountRepository userAccountRepository){
+    private final UserRepository userRepository; // Репозиторий для User
+    public FeedService(FeedRepository feedRepository, UserRepository userRepository){
         this.feedRepository = feedRepository;
-        this.userAccountRepository = userAccountRepository;
+        this.userRepository = userRepository;
     }
 
     @Transactional
     public UUID createFeed(CreatePostRequest createPostRequest) {
 
-        User user = userAccountRepository.findById(createPostRequest.userId())
+        User user = userRepository.findById(createPostRequest.userId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         Post post = new Post();
