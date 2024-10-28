@@ -89,10 +89,17 @@
 
         <createTable tableName="subscribers">
             <column name="id" type="uuid">
-                <constraints primaryKey="true"/>
+                <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="user_id" type="uuid"/>
-            <column name="subscribers_ids" type="blob"/>
+            <column name="user_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subscribed_user_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subscription_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
 
         <createTable tableName="users_chats">
