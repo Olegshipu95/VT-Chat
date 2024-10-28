@@ -4,12 +4,15 @@ import itmo.high_perf_sys.chat.dto.customer.request.CreateUserAccountRequest;
 import itmo.high_perf_sys.chat.dto.customer.request.UpdateUserInfoRequest;
 import itmo.high_perf_sys.chat.dto.customer.response.GetUserInfoResponse;
 import itmo.high_perf_sys.chat.entity.User;
+import itmo.high_perf_sys.chat.entity.UsersChats;
 import itmo.high_perf_sys.chat.exception.UserAccountNotFoundException;
 import itmo.high_perf_sys.chat.exception.UserAccountWasNotInsertException;
 import itmo.high_perf_sys.chat.repository.UserRepository;
+import itmo.high_perf_sys.chat.repository.chat.UsersChatsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class CustomerService {
     private final UserRepository userRepository;
+    private final UsersChatsRepository chatsRepository;
 
     @Autowired
-    public CustomerService(UserRepository userRepository) {
+    public CustomerService(UserRepository userRepository, UsersChatsRepository chatsRepository) {
         this.userRepository = userRepository;
+        this.chatsRepository = chatsRepository;
     }
 
 
@@ -38,6 +43,10 @@ public class CustomerService {
                 request.birthday(),
                 request.logoUrl()
         );
+        UsersChats usersChats = new UsersChats();
+        usersChats.setUserId(newId);
+        usersChats.setChats(new ArrayList<>());
+        chatsRepository.save(usersChats);
 
         log.info("User with ID: {} has been successfully created.", newId);
         return newId;
@@ -63,6 +72,7 @@ public class CustomerService {
         Optional.of(value)
                 .filter(v -> v != 0)
                 .orElseThrow(() -> new UserAccountWasNotInsertException(request.userId()));
+
         log.info("UPDATE: ID: {} has been successfully updated.", request.userId());
         return request.userId();
     }
