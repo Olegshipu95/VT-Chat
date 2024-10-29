@@ -20,6 +20,20 @@ import java.util.UUID;
 @Table(name = "users")
 public class User {
 
+    public User(){
+
+    }
+
+    public User(UUID id, String name, String surname, String email, String briefDescription, String city, LocalDate birthday, String logoUrl){
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.briefDescription = briefDescription;
+        this.city = city;
+        this.birthday = birthday;
+        this.logoUrl = logoUrl;
+    }
+
     @Id
     @NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
     @Column(name = "id")
@@ -28,10 +42,6 @@ public class User {
     @NotBlank(message = "Name can't be blank")
     @Column(name = "name")
     private String name;
-
-    @NotBlank(message = "Surname can't be blank")
-    @Column(name = "surname")
-    private String surname;
 
     @NotBlank(message = ErrorMessages.EMAIL_CANNOT_BE_NULL)
     @Column(name = "email")
