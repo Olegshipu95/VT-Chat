@@ -3,40 +3,41 @@ package itmo.high_perf_sys.chat.entity;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users_chats")
 public class UsersChats {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private UUID id;
     @Column(name = "user_id")
-    private Long userId;
-    @Lob
+    private UUID userId;
+    @ElementCollection
+    @CollectionTable(name = "users_chats_chats", joinColumns = @JoinColumn(name = "users_chats_id"))
     @Column(name = "chats_ids")
-    private List<Long> chats;
+    private List<UUID> chats;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 
-    public List<Long> getChats() {
+    public List<UUID> getChats() {
         return chats;
     }
 
-    public void setChats(List<Long> chats) {
+    public void setChats(List<UUID> chats) {
         this.chats = chats;
     }
 }

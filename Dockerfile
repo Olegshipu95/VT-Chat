@@ -1,11 +1,12 @@
+FROM maven:latest as builder
+
+COPY src /usr/src/app/src
+COPY pom.xml /usr/src/app
+
+RUN mvn -f /usr/src/app/pom.xml clean package
+
 FROM openjdk:21
 
-ARG SRC=/src
+COPY --from=builder /usr/src/app/target/chat-core-all.jar /usr/app/chat-core-all.jar
 
-COPY . ${SRC}
-
-WORKDIR ${SRC}
-
-RUN ./gradlew --no-daemon -x test clean build
-
-ENTRYPOINT ["java","-jar","build/libs/chat-core-all.jar"]
+ENTRYPOINT ["java", "-jar", "/usr/app/chat-core-all.jar"]

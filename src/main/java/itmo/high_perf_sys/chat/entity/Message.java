@@ -4,25 +4,29 @@ import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.lang.reflect.Array;
+import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 @Entity
 @Table(name = "messages")
 public class Message {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-    @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
-    private Long id;
+    private UUID id;
     @ManyToOne
     @JoinColumn(name = "chat_id", nullable = false)
     @NotNull(message = ErrorMessages.CHAT_CANNOT_BE_NULL)
+    @JsonDeserialize(using = ChatDeserializer.class)
     private Chat chatId;
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     @NotNull(message = ErrorMessages.USER_CANNOT_BE_NULL)
+    @JsonDeserialize(using = UserDeserializer.class)
     private User authorId;
     @Column(name = "text", nullable = false)
     @NotNull(message = ErrorMessages.TEXT_CANNOT_BE_NULL)
@@ -33,11 +37,11 @@ public class Message {
     @Column(name = "photo")
     private byte[] photo;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

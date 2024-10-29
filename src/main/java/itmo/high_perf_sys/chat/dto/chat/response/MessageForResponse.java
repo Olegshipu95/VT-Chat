@@ -3,12 +3,12 @@ package itmo.high_perf_sys.chat.dto.chat.response;
 import itmo.high_perf_sys.chat.entity.Chat;
 import itmo.high_perf_sys.chat.entity.Message;
 import itmo.high_perf_sys.chat.entity.User;
-import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 public class MessageForResponse {
-    private Long id;
+    private UUID id;
     private Chat chatId;
     private User authorId;
     private String text;
@@ -35,7 +35,7 @@ public class MessageForResponse {
         this.photo = photo;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -46,5 +46,29 @@ public class MessageForResponse {
         this.text = message.getText();
         this.timestamp = message.getTimestamp();
         this.photo = message.getPhoto();
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public Chat getChatId() {
+        return chatId;
+    }
+
+    public User getAuthorId() {
+        return authorId;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
     }
 }

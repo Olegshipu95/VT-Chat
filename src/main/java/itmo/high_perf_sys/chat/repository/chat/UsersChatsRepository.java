@@ -5,14 +5,15 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 import java.util.List;
+import java.util.UUID;
 
 
-public interface UsersChatsRepository extends JpaRepository<UsersChats, Long> {
-    Optional<UsersChats> findByUserId(Long id);
+public interface UsersChatsRepository extends JpaRepository<UsersChats, UUID> {
+    Optional<UsersChats> findByUserId(UUID userId);
 
     @Query("SELECT uc.id FROM UsersChats uc WHERE :chatId MEMBER OF uc.chats")
-    List<Long> findIdsByChatId(@Param("chatId") Long chatId);
+    List<UUID> findIdsByChatId(@Param("chatId") UUID chatId);
 
-    @Query("SELECT COUNT(uc) FROM UsersChats uc WHERE :chatId MEMBER OF uc.chats")
-    int countByChatId(@Param("chatId") Long chatId);
+    @Query(value = "SELECT COUNT(id) FROM Users_Chats as uc WHERE :chatId = ANY(users_chats_id)", nativeQuery = true)
+    int countByChatId(@Param("chatId") UUID chatId);
 }

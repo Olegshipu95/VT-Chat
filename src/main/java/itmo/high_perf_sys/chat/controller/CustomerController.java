@@ -4,6 +4,7 @@ import itmo.high_perf_sys.chat.dto.customer.request.CreateUserAccountRequest;
 import itmo.high_perf_sys.chat.dto.customer.request.UpdateUserInfoRequest;
 import itmo.high_perf_sys.chat.dto.customer.response.GetUserInfoResponse;
 import itmo.high_perf_sys.chat.service.CustomerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,28 +30,23 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<UUID> createAccount(@RequestBody CreateUserAccountRequest createUserAccountRequest) {
-        return new ResponseEntity<>(UUID.randomUUID(), HttpStatus.OK);
+    public ResponseEntity<UUID> createAccount(@Valid @RequestBody CreateUserAccountRequest createUserAccountRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(customerService.createAccount(createUserAccountRequest));
     }
 
     @PutMapping
     public ResponseEntity<UUID> updateAccount(@RequestBody UpdateUserInfoRequest updateUserInfoRequest) {
-        return new ResponseEntity<>(UUID.randomUUID(), HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.updateAccount(updateUserInfoRequest));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GetUserInfoResponse> getAccountById(@PathVariable UUID id) {
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<GetUserInfoResponse> getAccountById(@PathVariable(value = "id") UUID id) {
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.getAccountById(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAccountById(@PathVariable UUID id) {
-        return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/{id}/subscribe")
-    public ResponseEntity<UpdateUserInfoRequest> getSubscribes(@PathVariable UUID id) {
-        return ResponseEntity.noContent().build();
+    public void deleteAccountById(@PathVariable(value = "id") UUID id) {
+        customerService.deleteAccountById(id);
     }
 
 }

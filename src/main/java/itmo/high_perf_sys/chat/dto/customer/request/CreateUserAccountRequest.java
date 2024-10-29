@@ -4,7 +4,6 @@ package itmo.high_perf_sys.chat.dto.customer.request;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 public record CreateUserAccountRequest (
         @NotBlank(message = "Name can't be blank")

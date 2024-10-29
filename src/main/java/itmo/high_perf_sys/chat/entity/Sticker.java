@@ -3,13 +3,13 @@ package itmo.high_perf_sys.chat.entity;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 @Entity
 @Table(name = "stickers")
 public class Sticker {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private UUID id;
     @Lob
     @Column(name = "sticker_picture")
     private byte[] sticker;

@@ -1,9 +1,11 @@
 package itmo.high_perf_sys.chat.dto.chat.response;
 
 import itmo.high_perf_sys.chat.entity.ChatType;
-import itmo.high_perf_sys.chat.entity.Message;
+
+import java.util.UUID;
 
 public class ChatForResponse {
+    UUID id;
     ChatType chatType;
     int countMembers;
     String lastMessage;
@@ -24,5 +26,29 @@ public class ChatForResponse {
 
     public void setLastMessageHavePhoto(boolean lastMessageHavePhoto) {
         this.lastMessageHavePhoto = lastMessageHavePhoto;
+    }
+
+    public ChatType getChatType() {
+        return chatType;
+    }
+
+    public int getCountMembers() {
+        return countMembers;
+    }
+
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    public boolean isLastMessageHavePhoto() {
+        return lastMessageHavePhoto;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }
