@@ -95,7 +95,7 @@ public class ChatService {
     }
 
     public DeferredResult<MessageForResponse> subscribeOnChat(UUID chatId) {
-        DeferredResult<MessageForResponse> result = new DeferredResult<>();
+        DeferredResult<MessageForResponse> result = new DeferredResult<>(600000L);
         chatClients.computeIfAbsent(chatId, k -> new ConcurrentLinkedQueue<>()).add(result);
         result.onCompletion(() -> {
             ConcurrentLinkedQueue<DeferredResult<MessageForResponse>> clients = chatClients.get(chatId);

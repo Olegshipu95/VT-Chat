@@ -8,11 +8,14 @@ import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+@Slf4j
 @RestController
 @RequestMapping("/chats")
 public class ChatController {
@@ -117,16 +121,17 @@ public class ChatController {
     }
 
     @PostMapping("/send")
-    public ResponseEntity<?> sendMessage(@Valid @RequestBody Message message) {
+    public ResponseEntity<?> sendMessage(@Valid @RequestBody Message message, WebRequest request) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(chatService.sendMessage(message));
+            UUID response = chatService.sendMessage(message);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
-    @GetMapping("/subscribe/{chatId}")
-    public DeferredResult<MessageForResponse> subscribe(@Valid @PathVariable UUID chatId) {
+    @GetMapping(value = "/subscribe/{chatId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public DeferredResult<MessageForResponse> subscribe(@Valid @PathVariable UUID chatId, WebRequest request) {
         return chatService.subscribeOnChat(chatId);
     }
 }
