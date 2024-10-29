@@ -44,7 +44,6 @@ public class ChatController {
 
     @GetMapping("/search")
     public ResponseEntity<?> searchChat(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-                                        @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
                                         @RequestParam(value = "userId") UUID userId,
                                         @NotNull @RequestParam(value = "request") String request,
                                         @RequestParam(value = "pageNumber", required = false, defaultValue = "0") Long pageNumber,
@@ -58,7 +57,6 @@ public class ChatController {
 
     @GetMapping("/{chatId}/search")
     public ResponseEntity<?> searchMessage(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-                                           @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
                                            @PathVariable UUID chatId,
                                            @NotNull(message = ErrorMessages.REQUEST_CANNOT_BE_NULL)
                                            @RequestParam(value = "request") String request,
@@ -77,7 +75,6 @@ public class ChatController {
 
     @DeleteMapping("/chat/{chatId}")
     public ResponseEntity<?> deleteChat(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-                                        @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
                                         @PathVariable UUID chatId) {
         try {
             chatService.deleteChat(chatId);
@@ -89,7 +86,6 @@ public class ChatController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<?> getAllChatsByUserId(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-                                                 @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
                                                  @PathVariable UUID userId,
                                                  @NotNull(message = ErrorMessages.PAGE_CANNOT_BE_NULL)
                                                  @Min(value = 0, message = ErrorMessages.PAGE_CANNOT_BE_NEGATIVE)
@@ -104,9 +100,8 @@ public class ChatController {
         }
     }
 
-    @GetMapping("/{chatId}")
+    @GetMapping("/chat/{chatId}")
     public ResponseEntity<?> getAllMessagesByChatId(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-                                                    @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
                                                     @PathVariable UUID chatId,
                                                     @NotNull(message = ErrorMessages.PAGE_CANNOT_BE_NULL)
                                                     @Min(value = 0, message = ErrorMessages.PAGE_CANNOT_BE_NEGATIVE)
