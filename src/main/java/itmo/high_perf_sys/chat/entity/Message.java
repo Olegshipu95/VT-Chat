@@ -4,7 +4,12 @@ import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -16,10 +21,12 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "chat_id", nullable = false)
     @NotNull(message = ErrorMessages.CHAT_CANNOT_BE_NULL)
+    @JsonDeserialize(using = ChatDeserializer.class)
     private Chat chatId;
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     @NotNull(message = ErrorMessages.USER_CANNOT_BE_NULL)
+    @JsonDeserialize(using = UserDeserializer.class)
     private User authorId;
     @Column(name = "text", nullable = false)
     @NotNull(message = ErrorMessages.TEXT_CANNOT_BE_NULL)

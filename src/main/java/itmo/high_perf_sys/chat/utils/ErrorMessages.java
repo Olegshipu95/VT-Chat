@@ -16,5 +16,8 @@ public class ErrorMessages {
     public static final String USER_CANNOT_BE_NULL = "User cannot be null";
     public static final String NAME_CANNOT_BE_NULL = "User cannot be null";
     public static final String POST_NOT_FOUND = "Post was not found";
+    public static final String NOT_FOUND = "Not found";
     public static final String NO_PERMISSION = "User has no permission";
+    public static final String USER_COUNT_ERROR = "Paired chat cannot contain more than 2 members";
+    public static final String USER_DUPLICATED = "List of users cannot contain 2 or more identical users";
 }

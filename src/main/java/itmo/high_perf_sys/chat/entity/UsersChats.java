@@ -13,6 +13,7 @@ public class UsersChats {
     @Column(name = "user_id")
     private UUID userId;
     @ElementCollection
+    @CollectionTable(name = "users_chats_chats", joinColumns = @JoinColumn(name = "users_chats_id"))
     @Column(name = "chats_ids")
     private List<UUID> chats;
 

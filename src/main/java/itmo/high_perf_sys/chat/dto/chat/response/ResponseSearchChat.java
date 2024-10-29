@@ -8,4 +8,8 @@ public class ResponseSearchChat {
     public void setResponse(List<ChatForResponse> response) {
         this.response = response;
     }
+
+    public List<ChatForResponse> getResponse() {
+        return response;
+    }
 }

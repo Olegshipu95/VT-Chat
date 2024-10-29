@@ -35,12 +35,15 @@ public class ChatController {
 
     @PostMapping("/chat/start")
     public ResponseEntity<?> createChat(@Valid @RequestBody CreateChatRequest createChatRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(chatService.createChat(createChatRequest));
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(chatService.createChat(createChatRequest));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @GetMapping("/search")
     public ResponseEntity<?> searchChat(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-                                        @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
                                         @RequestParam(value = "userId") UUID userId,
                                         @NotNull @RequestParam(value = "request") String request,
                                         @RequestParam(value = "pageNumber", required = false, defaultValue = "0") Long pageNumber,
@@ -48,13 +51,12 @@ public class ChatController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(chatService.searchChat(userId, request, pageNumber, countChatsOnPage));
         } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @GetMapping("/{chatId}/search")
     public ResponseEntity<?> searchMessage(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-                                           @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
                                            @PathVariable UUID chatId,
                                            @NotNull(message = ErrorMessages.REQUEST_CANNOT_BE_NULL)
                                            @RequestParam(value = "request") String request,
@@ -67,25 +69,23 @@ public class ChatController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(chatService.searchMessage(chatId, request, pageNumber, countMessagesOnPage));
         } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @DeleteMapping("/chat/{chatId}")
     public ResponseEntity<?> deleteChat(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-                                        @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
                                         @PathVariable UUID chatId) {
         try {
             chatService.deleteChat(chatId);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @GetMapping("/{userId}")
     public ResponseEntity<?> getAllChatsByUserId(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-                                                 @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
                                                  @PathVariable UUID userId,
                                                  @NotNull(message = ErrorMessages.PAGE_CANNOT_BE_NULL)
                                                  @Min(value = 0, message = ErrorMessages.PAGE_CANNOT_BE_NEGATIVE)
@@ -96,13 +96,12 @@ public class ChatController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(chatService.getAllChatsByUserId(userId, pageNumber, countChatsOnPage));
         } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
-    @GetMapping("/{chatId}")
+    @GetMapping("/chat/{chatId}")
     public ResponseEntity<?> getAllMessagesByChatId(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-                                                    @Min(value = 0, message = ErrorMessages.ID_CANNOT_BE_NEGATIVE)
                                                     @PathVariable UUID chatId,
                                                     @NotNull(message = ErrorMessages.PAGE_CANNOT_BE_NULL)
                                                     @Min(value = 0, message = ErrorMessages.PAGE_CANNOT_BE_NEGATIVE)
@@ -113,7 +112,7 @@ public class ChatController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(chatService.getAllMessagesByChatId(chatId, pageNumber, countMessagesOnPage));
         } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
@@ -122,7 +121,7 @@ public class ChatController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(chatService.sendMessage(message));
         } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 

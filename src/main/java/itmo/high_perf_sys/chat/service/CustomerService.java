@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -27,6 +28,10 @@ public class CustomerService {
     public CustomerService(UserRepository userRepository, UsersChatsRepository usersChatsRepository) {
         this.userRepository = userRepository;
         this.usersChatsRepository = usersChatsRepository;
+    }
+
+    public User findById(UUID id) {
+        return userRepository.findById(id).get();
     }
 
 
@@ -46,7 +51,7 @@ public class CustomerService {
         UsersChats usersChats = new UsersChats();
         usersChats.setId(UUID.randomUUID());
         usersChats.setUserId(newId);
-        usersChats.setChats(new ArrayList<>());
+        usersChats.setChats(new ArrayList<UUID>());
         usersChatsRepository.save(usersChats);
 
         log.info("User with ID: {} has been successfully created.", newId);
@@ -78,7 +83,7 @@ public class CustomerService {
         return request.userId();
     }
 
-    public GetUserInfoResponse getAccountById(UUID id){
+    public GetUserInfoResponse getAccountById(UUID id) {
         log.debug("GET: start for id: {}", id);
         User account = userRepository.findUserAccountById(id);
         if (account == null) {
@@ -98,7 +103,7 @@ public class CustomerService {
         );
     }
 
-    public void deleteAccountById(UUID id){
+    public void deleteAccountById(UUID id) {
         log.debug("DELETE: start for id: {}", id);
         User account = userRepository.findUserAccountById(id);
         if (account == null) {
