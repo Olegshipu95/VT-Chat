@@ -26,4 +26,16 @@ public class CreateChatRequest {
     public String getName() {
         return name;
     }
+
+    public void setChatType(int chatType) {
+        this.chatType = chatType;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setUsers(List<UUID> users) {
+        this.users = users;
+    }
 }
