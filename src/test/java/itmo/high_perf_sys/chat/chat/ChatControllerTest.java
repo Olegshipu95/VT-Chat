@@ -91,7 +91,7 @@ public class ChatControllerTest {
         UUID response = UUID.randomUUID();
         when(chatService.sendMessage(message)).thenReturn(response);
 
-        ResponseEntity<?> result = chatController.sendMessage(message, null);
+        ResponseEntity<?> result = chatController.sendMessage(message);
 
         assertEquals(HttpStatus.OK, result.getStatusCode());
         assertEquals(response, result.getBody());
@@ -102,7 +102,7 @@ public class ChatControllerTest {
         Message message = new Message();
         when(chatService.sendMessage(message)).thenThrow(new RuntimeException("Error"));
 
-        ResponseEntity<?> result = chatController.sendMessage(message, null);
+        ResponseEntity<?> result = chatController.sendMessage(message);
 
         assertEquals(HttpStatus.BAD_REQUEST, result.getStatusCode());
         assertEquals("Error", result.getBody());

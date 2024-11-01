@@ -28,8 +28,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 @RequestMapping("/chats")
 public class ChatController {
     private final ChatService chatService;
-    private final ConcurrentHashMap<UUID, ConcurrentLinkedQueue<DeferredResult<MessageForResponse>>> chatClients = new ConcurrentHashMap<>();
-    private final ConcurrentHashMap<UUID, List<MessageForResponse>> chatMessages = new ConcurrentHashMap<>();
 
 
     @Autowired
@@ -121,7 +119,7 @@ public class ChatController {
     }
 
     @PostMapping("/send")
-    public ResponseEntity<?> sendMessage(@Valid @RequestBody Message message, WebRequest request) {
+    public ResponseEntity<?> sendMessage(@Valid @RequestBody Message message) {
         try {
             UUID response = chatService.sendMessage(message);
             return ResponseEntity.status(HttpStatus.OK).body(response);
