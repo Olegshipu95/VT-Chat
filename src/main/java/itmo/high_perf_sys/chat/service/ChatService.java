@@ -62,7 +62,6 @@ public class ChatService {
                     .collect(Collectors.toMap(e -> e, e -> 1, Integer::sum))
                     .values().stream()
                     .anyMatch(count -> count > 1)) throw new RuntimeException(ErrorMessages.USER_DUPLICATED);
-            Chat savedChat = chatRepository.save(chatForSave);
             for (UUID listUsersId : listUsersIds) {
                 Optional<UsersChats> usersChatsO = usersChatsService.findByUserId(listUsersId);
                 if (usersChatsO.isEmpty())
@@ -129,7 +128,7 @@ public class ChatService {
                 Chat chat = chatRepository.findById(listOfChats.get(i).getId()).get();
                 chatForResponse.setId(chat.getId());
                 chatForResponse.setChatType(ChatType.values()[chat.getChatType()]);
-                chatForResponse.setCountMembers(usersChatsRepository.findIdsByChatId(listOfChats.get(i).getId()).size());
+                chatForResponse.setCountMembers(usersChatsService.findIdsByChatId(listOfChats.get(i).getId()).size());
                 responseSearchChat.response.add(i, chatForResponse);
             }
             return responseSearchChat;
