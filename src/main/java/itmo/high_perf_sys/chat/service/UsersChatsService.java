@@ -19,23 +19,23 @@ public class UsersChatsService {
         this.usersChatsRepository = usersChatsRepository;
     }
 
-    public Optional<UsersChats> findByUserId(UUID uuid){
+    public Optional<UsersChats> findByUserId(UUID uuid) {
         return usersChatsRepository.findByUserId(uuid);
     }
 
-    public void save(UsersChats usersChats){
+    public void save(UsersChats usersChats) {
         usersChatsRepository.save(usersChats);
     }
 
-    public List<UUID> findIdsByChatId(UUID uuid){
+    public List<UUID> findIdsByChatId(UUID uuid) {
         return usersChatsRepository.findIdsByChatId(uuid);
     }
 
-    public Optional<UsersChats> findById(UUID uuid){
+    public Optional<UsersChats> findById(UUID uuid) {
         return usersChatsRepository.findById(uuid);
     }
 
-    public int countByChatId(UUID uuid){
+    public int countByChatId(UUID uuid) {
         return usersChatsRepository.countByChatId(uuid);
     }
 
