@@ -9,6 +9,7 @@ import itmo.high_perf_sys.chat.exception.UserAccountNotFoundException;
 import itmo.high_perf_sys.chat.exception.UserAccountWasNotInsertException;
 import itmo.high_perf_sys.chat.repository.UserRepository;
 import itmo.high_perf_sys.chat.repository.chat.UsersChatsRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,21 +20,20 @@ import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@RequiredArgsConstructor
 @Service
 public class CustomerService {
     private final UserRepository userRepository;
     private final UsersChatsRepository usersChatsRepository;
 
-    @Autowired
-    public CustomerService(UserRepository userRepository, UsersChatsRepository usersChatsRepository) {
-        this.userRepository = userRepository;
-        this.usersChatsRepository = usersChatsRepository;
-    }
 
     public User findById(UUID id) {
         return userRepository.findById(id).get();
     }
 
+    public boolean existsById(UUID id) {
+        return userRepository.existsById(id);
+    }
 
     public UUID createAccount(CreateUserAccountRequest request) {
         log.debug("Create an account for: {}", request.name());

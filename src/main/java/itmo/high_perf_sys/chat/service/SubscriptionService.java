@@ -5,10 +5,9 @@ import itmo.high_perf_sys.chat.dto.subs.response.SubscriptionResponse;
 import itmo.high_perf_sys.chat.entity.Subscribers;
 import itmo.high_perf_sys.chat.exception.UserAccountNotFoundException;
 import itmo.high_perf_sys.chat.repository.SubRepository;
-import itmo.high_perf_sys.chat.repository.UserRepository;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,16 +16,11 @@ import java.util.List;
 import java.util.UUID;
 
 @Slf4j
+@RequiredArgsConstructor
 @Service
 public class SubscriptionService {
-    private final UserRepository userRepository;
+    private final CustomerService customerService;
     private final SubRepository subscribersRepository;
-
-    @Autowired
-    public SubscriptionService(UserRepository userRepository, SubRepository subscribersRepository) {
-        this.userRepository = userRepository;
-        this.subscribersRepository = subscribersRepository;
-    }
 
     // Метод создания подписки
     @Transactional
@@ -67,11 +61,11 @@ public class SubscriptionService {
     }
 
     private void validateUsersExist(UUID userId, UUID subscribedUserId) {
-        if (!userRepository.existsById(userId)) {
+        if (!customerService.existsById(userId)) {
             log.info("User ID {} does not exist", userId);
             throw new UserAccountNotFoundException(userId);
         }
-        if (!userRepository.existsById(subscribedUserId)) {
+        if (!customerService.existsById(subscribedUserId)) {
             log.info("Subscribed User ID {} does not exist", subscribedUserId);
             throw new UserAccountNotFoundException(subscribedUserId);
         }
