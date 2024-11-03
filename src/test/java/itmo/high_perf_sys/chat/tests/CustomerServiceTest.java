@@ -8,7 +8,7 @@ import itmo.high_perf_sys.chat.entity.UsersChats;
 import itmo.high_perf_sys.chat.exception.UserAccountNotFoundException;
 import itmo.high_perf_sys.chat.repository.UserRepository;
 import itmo.high_perf_sys.chat.repository.chat.UsersChatsRepository;
-import itmo.high_perf_sys.chat.service.CustomerService;
+import itmo.high_perf_sys.chat.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,7 +31,7 @@ class CustomerServiceTest {
     private UsersChatsRepository usersChatsRepository;
 
     @InjectMocks
-    private CustomerService customerService;
+    private UserService userService;
 
     private CreateUserAccountRequest createUserRequest;
     private UpdateUserInfoRequest updateUserRequest;
@@ -51,7 +51,7 @@ class CustomerServiceTest {
                 any(UUID.class), anyString(), anyString(), anyString(), anyString(), anyString(), any(), anyString()
         );
         doNothing().when(usersChatsRepository).save(any(UsersChats.class));
-        UUID result = customerService.createAccount(createUserRequest);
+        UUID result = userService.createAccount(createUserRequest);
 
         assertNotNull(result);
         verify(userRepository, times(1)).saveNewUserAccount(
@@ -64,7 +64,7 @@ class CustomerServiceTest {
     void updateAccount_shouldThrowException_whenAccountDoesNotExist() {
         when(userRepository.findUserAccountById(userId)).thenReturn(null);
 
-        assertThrows(UserAccountNotFoundException.class, () -> customerService.updateAccount(updateUserRequest));
+        assertThrows(UserAccountNotFoundException.class, () -> userService.updateAccount(updateUserRequest));
     }
 
     @Test
@@ -72,7 +72,7 @@ class CustomerServiceTest {
         when(userRepository.findUserAccountById(userId)).thenReturn(new User());
         when(userRepository.updateUserAccount(any(), any(), any(), any(), any(), any(), any(), any())).thenReturn(1);
 
-        UUID result = customerService.updateAccount(updateUserRequest);
+        UUID result = userService.updateAccount(updateUserRequest);
 
         assertEquals(userId, result);
         verify(userRepository, times(1)).updateUserAccount(
@@ -84,7 +84,7 @@ class CustomerServiceTest {
     void getAccountById_shouldThrowException_whenAccountNotFound() {
         when(userRepository.findUserAccountById(userId)).thenReturn(null);
 
-        assertThrows(UserAccountNotFoundException.class, () -> customerService.getAccountById(userId));
+        assertThrows(UserAccountNotFoundException.class, () -> userService.getAccountById(userId));
     }
 
     @Test
@@ -92,7 +92,7 @@ class CustomerServiceTest {
         User user = new User(userId, "John", "Doe", "johndoe@example.com", "Brief", "City", null, "url");
         when(userRepository.findUserAccountById(userId)).thenReturn(user);
 
-        GetUserInfoResponse result = customerService.getAccountById(userId);
+        GetUserInfoResponse result = userService.getAccountById(userId);
 
         assertNotNull(result);
         assertEquals(user.getId(), result.userid());
@@ -103,14 +103,14 @@ class CustomerServiceTest {
     void deleteAccountById_shouldThrowException_whenAccountNotFound() {
         when(userRepository.findUserAccountById(userId)).thenReturn(null);
 
-        assertThrows(UserAccountNotFoundException.class, () -> customerService.deleteAccountById(userId));
+        assertThrows(UserAccountNotFoundException.class, () -> userService.deleteAccountById(userId));
     }
 
     @Test
     void deleteAccountById_shouldDeleteAccount_whenAccountExists() {
         when(userRepository.findUserAccountById(userId)).thenReturn(new User());
 
-        customerService.deleteAccountById(userId);
+        userService.deleteAccountById(userId);
 
         verify(userRepository, times(1)).deleteUserAccountById(userId);
     }

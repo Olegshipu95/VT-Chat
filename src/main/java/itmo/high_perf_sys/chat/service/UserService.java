@@ -10,7 +10,6 @@ import itmo.high_perf_sys.chat.exception.UserAccountWasNotInsertException;
 import itmo.high_perf_sys.chat.repository.UserRepository;
 import itmo.high_perf_sys.chat.repository.chat.UsersChatsRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class CustomerService {
+public class UserService {
     private final UserRepository userRepository;
     private final UsersChatsRepository usersChatsRepository;
 

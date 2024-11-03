@@ -19,7 +19,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Service
 public class SubscriptionService {
-    private final CustomerService customerService;
+    private final UserService userService;
     private final SubRepository subscribersRepository;
 
     // Метод создания подписки
@@ -61,11 +61,11 @@ public class SubscriptionService {
     }
 
     private void validateUsersExist(UUID userId, UUID subscribedUserId) {
-        if (!customerService.existsById(userId)) {
+        if (!userService.existsById(userId)) {
             log.info("User ID {} does not exist", userId);
             throw new UserAccountNotFoundException(userId);
         }
-        if (!customerService.existsById(subscribedUserId)) {
+        if (!userService.existsById(subscribedUserId)) {
             log.info("Subscribed User ID {} does not exist", subscribedUserId);
             throw new UserAccountNotFoundException(subscribedUserId);
         }

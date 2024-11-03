@@ -6,11 +6,10 @@ import itmo.high_perf_sys.chat.dto.customer.response.GetUserInfoResponse;
 import itmo.high_perf_sys.chat.entity.User;
 import itmo.high_perf_sys.chat.repository.UserRepository;
 import itmo.high_perf_sys.chat.repository.chat.UsersChatsRepository;
-import itmo.high_perf_sys.chat.service.CustomerService;
+import itmo.high_perf_sys.chat.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,10 +20,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
-class CustomerServiceIntegrationTest {
+class UserServiceIntegrationTest {
 
     @Autowired
-    private CustomerService customerService;
+    private UserService userService;
 
     @Autowired
     private UserRepository userRepository;
@@ -36,7 +35,7 @@ class CustomerServiceIntegrationTest {
     void createAccount_shouldCreateAndReturnUserId() {
         CreateUserAccountRequest request = new CreateUserAccountRequest("Jane", "Doe", "janedoe@example.com", "Brief", "City", null, "url");
 
-        UUID userId = customerService.createAccount(request);
+        UUID userId = userService.createAccount(request);
 
         assertNotNull(userId);
         assertTrue(userRepository.existsById(userId));
@@ -45,10 +44,10 @@ class CustomerServiceIntegrationTest {
     @Test
     void updateAccount_shouldUpdateExistingAccount() {
         CreateUserAccountRequest createRequest = new CreateUserAccountRequest("Jane", "Doe", "janedoe@example.com", "Brief", "City", null, "url");
-        UUID userId = customerService.createAccount(createRequest);
+        UUID userId = userService.createAccount(createRequest);
 
         UpdateUserInfoRequest updateRequest = new UpdateUserInfoRequest(userId, "Jane", "Smith", "janesmith@example.com", "Updated Brief", "New City", null, "new-url");
-        UUID updatedUserId = customerService.updateAccount(updateRequest);
+        UUID updatedUserId = userService.updateAccount(updateRequest);
 
         assertEquals(userId, updatedUserId);
         User updatedUser = userRepository.findUserAccountById(userId);
@@ -59,9 +58,9 @@ class CustomerServiceIntegrationTest {
     @Test
     void getAccountById_shouldReturnAccountInfo_whenAccountExists() {
         CreateUserAccountRequest createRequest = new CreateUserAccountRequest("Jane", "Doe", "janedoe@example.com", "Brief", "City", null, "url");
-        UUID userId = customerService.createAccount(createRequest);
+        UUID userId = userService.createAccount(createRequest);
 
-        GetUserInfoResponse response = customerService.getAccountById(userId);
+        GetUserInfoResponse response = userService.getAccountById(userId);
 
         assertEquals(userId, response.userid());
         assertEquals("Jane", response.name());
@@ -71,9 +70,9 @@ class CustomerServiceIntegrationTest {
     @Test
     void deleteAccountById_shouldDeleteAccount() {
         CreateUserAccountRequest createRequest = new CreateUserAccountRequest("Jane", "Doe", "janedoe@example.com", "Brief", "City", null, "url");
-        UUID userId = customerService.createAccount(createRequest);
+        UUID userId = userService.createAccount(createRequest);
 
-        customerService.deleteAccountById(userId);
+        userService.deleteAccountById(userId);
 
         assertFalse(userRepository.existsById(userId));
     }
