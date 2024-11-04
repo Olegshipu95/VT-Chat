@@ -2,6 +2,7 @@ package itmo.high_perf_sys.chat.chat;
 
 import itmo.high_perf_sys.chat.controller.ChatController;
 import itmo.high_perf_sys.chat.dto.chat.request.CreateChatRequest;
+import itmo.high_perf_sys.chat.dto.chat.request.SearchChatRequest;
 import itmo.high_perf_sys.chat.dto.chat.response.MessageForResponse;
 import itmo.high_perf_sys.chat.dto.chat.response.ResponseSearchChat;
 import itmo.high_perf_sys.chat.entity.Message;
@@ -63,9 +64,14 @@ public class ChatControllerTest {
         Long pageNumber = 0L;
         Long countChatsOnPage = 20L;
         ResponseSearchChat expectedResponse = new ResponseSearchChat();
+        SearchChatRequest searchChatRequest = new SearchChatRequest();
         when(chatService.searchChat(userId, request, pageNumber, countChatsOnPage)).thenReturn(expectedResponse);
+        searchChatRequest.setUserId(userId);
+        searchChatRequest.setRequest(request);
+        searchChatRequest.setPageNumber(pageNumber);
+        searchChatRequest.setCountChatsOnPage(countChatsOnPage);
 
-        ResponseEntity<?> response = chatController.searchChat(userId, request, pageNumber, countChatsOnPage);
+        ResponseEntity<?> response = chatController.searchChat(searchChatRequest);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(expectedResponse, response.getBody());
@@ -78,8 +84,13 @@ public class ChatControllerTest {
         Long pageNumber = 0L;
         Long countChatsOnPage = 20L;
         when(chatService.searchChat(userId, request, pageNumber, countChatsOnPage)).thenThrow(new RuntimeException("Error"));
+        SearchChatRequest searchChatRequest = new SearchChatRequest();
+        searchChatRequest.setUserId(userId);
+        searchChatRequest.setRequest(request);
+        searchChatRequest.setPageNumber(pageNumber);
+        searchChatRequest.setCountChatsOnPage(countChatsOnPage);
 
-        ResponseEntity<?> response = chatController.searchChat(userId, request, pageNumber, countChatsOnPage);
+        ResponseEntity<?> response = chatController.searchChat(searchChatRequest);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals("Error", response.getBody());

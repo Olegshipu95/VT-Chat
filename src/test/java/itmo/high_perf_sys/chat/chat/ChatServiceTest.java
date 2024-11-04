@@ -1,158 +1,129 @@
 package itmo.high_perf_sys.chat.chat;
 
 import itmo.high_perf_sys.chat.dto.chat.request.CreateChatRequest;
-import itmo.high_perf_sys.chat.dto.chat.response.MessageForResponse;
-import itmo.high_perf_sys.chat.dto.chat.response.ResponseSearchChat;
+import itmo.high_perf_sys.chat.dto.chat.response.*;
 import itmo.high_perf_sys.chat.entity.Chat;
 import itmo.high_perf_sys.chat.entity.ChatType;
 import itmo.high_perf_sys.chat.entity.Message;
 import itmo.high_perf_sys.chat.entity.UsersChats;
 import itmo.high_perf_sys.chat.repository.chat.ChatRepository;
-import itmo.high_perf_sys.chat.repository.chat.MessageRepository;
-import itmo.high_perf_sys.chat.repository.chat.UsersChatsRepository;
 import itmo.high_perf_sys.chat.service.ChatService;
+import itmo.high_perf_sys.chat.service.MessageService;
+import itmo.high_perf_sys.chat.service.UsersChatsService;
+import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.context.request.async.DeferredResult;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class ChatServiceTest {
 
     @Mock
     private ChatRepository chatRepository;
 
     @Mock
-    private UsersChatsRepository usersChatsRepository;
+    private UsersChatsService usersChatsService;
 
     @Mock
-    private MessageRepository messageRepository;
+    private MessageService messageService;
 
     @InjectMocks
     private ChatService chatService;
 
+    private Chat chat;
+    private UsersChats usersChats;
+    private Message message;
+
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.openMocks(this);
+        chat = new Chat();
+        chat.setId(UUID.randomUUID());
+        chat.setChatType(ChatType.GROUP.ordinal());
+        chat.setName("Test Chat");
+
+        usersChats = new UsersChats();
+        usersChats.setId(UUID.randomUUID());
+        usersChats.setChats(new ArrayList<>());
+
+        message = new Message();
+        message.setId(UUID.randomUUID());
+        message.setChatId(chat);
+        message.setText("Test Message");
+        message.setPhoto(new byte[0]);
+    }
+
+    @Test
+    public void testFindById() {
+        when(chatRepository.findById(any(UUID.class))).thenReturn(Optional.of(chat));
+
+        Chat result = chatService.findById(chat.getId());
+
+        assertEquals(chat, result);
     }
 
     @Test
     public void testCreateChat() {
         CreateChatRequest request = new CreateChatRequest();
-        request.setChatType(ChatType.GROUP.ordinal());
+        request.setChatType(ChatType.PAIRED.ordinal());
         request.setName("Test Chat");
-        List<UUID> users = new ArrayList<>();
-        users.add(UUID.randomUUID());
-        users.add(UUID.randomUUID());
-        request.setUsers(users);
-
-        Chat chat = new Chat();
-        chat.setId(UUID.randomUUID());
-        chat.setChatType(ChatType.GROUP.ordinal());
-        chat.setName("Test Chat");
-
-        UsersChats usersChats = new UsersChats();
-        usersChats.setUserId(users.get(0));
-        usersChats.setChats(new ArrayList<>());
+        request.setUsers(List.of(UUID.randomUUID(), UUID.randomUUID()));
 
         when(chatRepository.save(any(Chat.class))).thenReturn(chat);
-        when(usersChatsRepository.findByUserId(users.get(0))).thenReturn(Optional.of(usersChats));
-        when(usersChatsRepository.findByUserId(users.get(1))).thenReturn(Optional.of(usersChats));
+        when(usersChatsService.findByUserId(any(UUID.class))).thenReturn(Optional.of(usersChats));
 
         UUID result = chatService.createChat(request);
 
         assertEquals(chat.getId(), result);
         verify(chatRepository, times(1)).save(any(Chat.class));
-        verify(usersChatsRepository, times(2)).save(any(UsersChats.class));
+        verify(usersChatsService, times(2)).findByUserId(any(UUID.class));
+        verify(usersChatsService, times(2)).save(any(UsersChats.class));
     }
 
     @Test
-    public void testCreateChatException() {
-        CreateChatRequest request = new CreateChatRequest();
-        request.setChatType(ChatType.GROUP.ordinal());
-        request.setName("Test Chat");
-        List<UUID> users = new ArrayList<>();
-        users.add(UUID.randomUUID());
-        users.add(UUID.randomUUID());
-        request.setUsers(users);
+    public void testSearchMessage() {
+        when(messageService.findByTextContainingAndChatId(any(UUID.class), anyString(), any(PageRequest.class))).thenReturn(new PageImpl<>(List.of(message)));
 
-        when(usersChatsRepository.findByUserId(users.get(0))).thenReturn(Optional.empty());
+        ResponseSearchMessage result = chatService.searchMessage(chat.getId(), "Test", 0L, 10L);
 
-        assertThrows(RuntimeException.class, () -> chatService.createChat(request));
-    }
-
-    @Test
-    public void testSendMessage() {
-        Message message = new Message();
-        message.setId(UUID.randomUUID());
-        message.setChatId(new Chat());
-        message.setText("Test Message");
-
-        when(messageRepository.save(any(Message.class))).thenReturn(message);
-
-        UUID result = chatService.sendMessage(message);
-
-        assertEquals(message.getId(), result);
-        verify(messageRepository, times(1)).save(any(Message.class));
-    }
-
-    @Test
-    public void testSearchChat() {
-        UUID userId = UUID.randomUUID();
-        String request = "test";
-        Long pageNumber = 0L;
-        Long countChatsOnPage = 20L;
-
-        UsersChats usersChats = new UsersChats();
-        usersChats.setUserId(userId);
-        List<UUID> chats = new ArrayList<>();
-        chats.add(UUID.randomUUID());
-        usersChats.setChats(chats);
-
-        Chat chat = new Chat();
-        chat.setId(chats.get(0));
-        chat.setName("Test Chat");
-        chat.setChatType(ChatType.GROUP.ordinal());
-
-        when(usersChatsRepository.findByUserId(userId)).thenReturn(Optional.of(usersChats));
-        when(chatRepository.findByNameContainingAndIdIn(anyList(), anyString(), any(PageRequest.class))).thenReturn(new PageImpl<>(List.of(chat)));
-        when(messageRepository.findLastByChatId(any(UUID.class))).thenReturn(Optional.empty());
-
-        ResponseSearchChat result = chatService.searchChat(userId, request, pageNumber, countChatsOnPage);
-
-        assertEquals(1, result.getResponse().size());
-        verify(chatRepository, times(1)).findByNameContainingAndIdIn(anyList(), anyString(), any(PageRequest.class));
+        assertNotNull(result);
+        assertEquals(1, result.getListOfMessages().size());
     }
 
     @Test
     public void testDeleteChat() {
-        UUID chatId = UUID.randomUUID();
+        when(usersChatsService.findIdsByChatId(any(UUID.class))).thenReturn(List.of(usersChats.getId()));
+        when(usersChatsService.findById(any(UUID.class))).thenReturn(Optional.of(usersChats));
 
-        UsersChats usersChats = new UsersChats();
-        usersChats.setUserId(UUID.randomUUID());
-        List<UUID> chats = new ArrayList<>();
-        chats.add(chatId);
-        usersChats.setChats(chats);
+        chatService.deleteChat(chat.getId());
 
-        when(usersChatsRepository.findIdsByChatId(chatId)).thenReturn(List.of(usersChats.getUserId()));
-        when(usersChatsRepository.findById(usersChats.getUserId())).thenReturn(Optional.of(usersChats));
+        verify(usersChatsService, times(1)).findIdsByChatId(any(UUID.class));
+        verify(usersChatsService, times(1)).findById(any(UUID.class));
+        verify(usersChatsService, times(1)).save(any(UsersChats.class));
+        verify(chatRepository, times(1)).deleteById(any(UUID.class));
+    }
 
-        chatService.deleteChat(chatId);
+    @Test
+    public void testGetAllMessagesByChatId() {
+        when(messageService.findByChatId(any(UUID.class), any(PageRequest.class))).thenReturn(new PageImpl<>(List.of(message)));
 
-        verify(usersChatsRepository, times(1)).save(any(UsersChats.class));
-        verify(chatRepository, times(1)).deleteById(chatId);
+        ResponseGettingMessages result = chatService.getAllMessagesByChatId(chat.getId(), 0L, 10L);
+
+        assertNotNull(result);
+        assertEquals(1, result.getResponse().size());
     }
 }
