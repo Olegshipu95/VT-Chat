@@ -7,8 +7,6 @@ import itmo.high_perf_sys.chat.entity.ChatType;
 import itmo.high_perf_sys.chat.entity.Message;
 import itmo.high_perf_sys.chat.entity.UsersChats;
 import itmo.high_perf_sys.chat.repository.chat.ChatRepository;
-import itmo.high_perf_sys.chat.repository.chat.MessageRepository;
-import itmo.high_perf_sys.chat.repository.chat.UsersChatsRepository;
 import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +22,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -31,20 +30,21 @@ import lombok.extern.slf4j.Slf4j;
 public class ChatService {
 
     private final ChatRepository chatRepository;
-    private final UsersChatsRepository usersChatsRepository;
-    private final MessageRepository messageRepository;
+    private final UsersChatsService usersChatsService;
+    private final MessageService messageService;
+
     private final ConcurrentHashMap<UUID, List<MessageForResponse>> chatMessages = new ConcurrentHashMap<>();
     private final ConcurrentHashMap<UUID, ConcurrentLinkedQueue<DeferredResult<MessageForResponse>>> chatClients = new ConcurrentHashMap<>();
 
 
     @Autowired
-    public ChatService(ChatRepository chatRepository, UsersChatsRepository usersChatsRepository, MessageRepository messageRepository) {
+    public ChatService(ChatRepository chatRepository, UsersChatsService usersChatsService, MessageService messageService) {
         this.chatRepository = chatRepository;
-        this.usersChatsRepository = usersChatsRepository;
-        this.messageRepository = messageRepository;
+        this.usersChatsService = usersChatsService;
+        this.messageService = messageService;
     }
 
-    public Chat findById(UUID id){
+    public Chat findById(UUID id) {
         return chatRepository.findById(id).get();
     }
 
@@ -54,21 +54,23 @@ public class ChatService {
             chatForSave.setId(UUID.randomUUID());
             chatForSave.setChatType(createChatRequest.getChatType());
             chatForSave.setName(createChatRequest.getName());
+            Chat savedChat = chatRepository.save(chatForSave);
             List<UUID> listUsersIds = createChatRequest.getUsers();
-            if(chatForSave.getChatType() == 0 && listUsersIds.size() > 2) throw new RuntimeException(ErrorMessages.USER_COUNT_ERROR);
-            if(listUsersIds.stream()
+            if (chatForSave.getChatType() == 0 && listUsersIds.size() > 2)
+                throw new RuntimeException(ErrorMessages.USER_COUNT_ERROR);
+            if (listUsersIds.stream()
                     .collect(Collectors.toMap(e -> e, e -> 1, Integer::sum))
                     .values().stream()
                     .anyMatch(count -> count > 1)) throw new RuntimeException(ErrorMessages.USER_DUPLICATED);
-            Chat savedChat = chatRepository.save(chatForSave);
             for (UUID listUsersId : listUsersIds) {
-                Optional<UsersChats> usersChatsO = usersChatsRepository.findByUserId(listUsersId);
-                if(usersChatsO.isEmpty()) throw new RuntimeException(ErrorMessages.NOT_FOUND + ": " + listUsersId.toString());
+                Optional<UsersChats> usersChatsO = usersChatsService.findByUserId(listUsersId);
+                if (usersChatsO.isEmpty())
+                    throw new RuntimeException(ErrorMessages.NOT_FOUND + ": " + listUsersId.toString());
                 UsersChats usersChats = usersChatsO.get();
                 List<UUID> chats = usersChats.getChats();
                 UUID savedId = savedChat.getId();
                 chats.add(savedId);
-                usersChatsRepository.save(usersChats);
+                usersChatsService.save(usersChats);
             }
             log.info("Chat with ID: {} has been successfully created.", savedChat.getId());
             return savedChat.getId();
@@ -80,7 +82,7 @@ public class ChatService {
     public UUID sendMessage(Message message) {
         UUID chatId = message.getChatId().getId();
         message.setId(UUID.randomUUID());
-        messageRepository.save(message);
+        messageService.save(message);
         MessageForResponse messageForResponse = new MessageForResponse(message);
         List<MessageForResponse> messages = chatMessages.computeIfAbsent(chatId, k -> new ArrayList<>());
         messages.add(messageForResponse);
@@ -95,7 +97,7 @@ public class ChatService {
     }
 
     public DeferredResult<MessageForResponse> subscribeOnChat(UUID chatId) {
-        DeferredResult<MessageForResponse> result = new DeferredResult<>();
+        DeferredResult<MessageForResponse> result = new DeferredResult<>(600000L);
         chatClients.computeIfAbsent(chatId, k -> new ConcurrentLinkedQueue<>()).add(result);
         result.onCompletion(() -> {
             ConcurrentLinkedQueue<DeferredResult<MessageForResponse>> clients = chatClients.get(chatId);
@@ -108,13 +110,13 @@ public class ChatService {
 
     public ResponseSearchChat searchChat(UUID userId, String request, Long pageNumber, Long countChatsOnPage) {
         try {
-            List<UUID> userChats = usersChatsRepository.findByUserId(userId).get().getChats();
+            List<UUID> userChats = usersChatsService.findByUserId(userId).get().getChats();
             List<Chat> listOfChats = chatRepository.findByNameContainingAndIdIn(userChats, request, PageRequest.of(pageNumber.intValue(), countChatsOnPage.intValue())).stream().toList();
             ResponseSearchChat responseSearchChat = new ResponseSearchChat();
             responseSearchChat.setResponse(new ArrayList<>());
             for (int i = 0; i < listOfChats.size(); i++) {
                 ChatForResponse chatForResponse = new ChatForResponse();
-                Optional<Message> lastMessageOpt = messageRepository.findLastByChatId(listOfChats.get(i).getId());
+                Optional<Message> lastMessageOpt = messageService.findLastByChatId(listOfChats.get(i).getId());
                 if (lastMessageOpt.isPresent()) {
                     Message lastMessage = lastMessageOpt.get();
                     chatForResponse.setLastMessage(lastMessage.getText());
@@ -126,7 +128,7 @@ public class ChatService {
                 Chat chat = chatRepository.findById(listOfChats.get(i).getId()).get();
                 chatForResponse.setId(chat.getId());
                 chatForResponse.setChatType(ChatType.values()[chat.getChatType()]);
-                chatForResponse.setCountMembers(usersChatsRepository.findIdsByChatId(listOfChats.get(i).getId()).size());
+                chatForResponse.setCountMembers(usersChatsService.findIdsByChatId(listOfChats.get(i).getId()).size());
                 responseSearchChat.response.add(i, chatForResponse);
             }
             return responseSearchChat;
@@ -137,7 +139,7 @@ public class ChatService {
 
     public ResponseSearchMessage searchMessage(UUID chatId, String request, Long pageNumber, Long countMessagesOnPage) {
         try {
-            return new ResponseSearchMessage(messageRepository.findByTextContainingAndChatId(chatId, request, PageRequest.of(pageNumber.intValue(), countMessagesOnPage.intValue())).stream()
+            return new ResponseSearchMessage(messageService.findByTextContainingAndChatId(chatId, request, PageRequest.of(pageNumber.intValue(), countMessagesOnPage.intValue())).stream()
                     .map(MessageForResponse::new)
                     .collect(Collectors.toList()));
         } catch (Exception e) {
@@ -147,11 +149,11 @@ public class ChatService {
 
     public void deleteChat(UUID chatId) {
         try {
-            List<UUID> usersChatsIds = usersChatsRepository.findIdsByChatId(chatId);
+            List<UUID> usersChatsIds = usersChatsService.findIdsByChatId(chatId);
             for (UUID usersChatsId : usersChatsIds) {
-                UsersChats usersChats = usersChatsRepository.findById(usersChatsId).get();
+                UsersChats usersChats = usersChatsService.findById(usersChatsId).get();
                 usersChats.getChats().remove(chatId);
-                usersChatsRepository.save(usersChats);
+                usersChatsService.save(usersChats);
             }
             chatRepository.deleteById(chatId);
         } catch (Exception e) {
@@ -161,16 +163,16 @@ public class ChatService {
 
     public ResponseGettingChats getAllChatsByUserId(UUID userId, Long pageNumber, Long countChatsOnPage) {
         try {
-            List<UUID> usersChats = usersChatsRepository.findByUserId(userId).get().getChats();
+            List<UUID> usersChats = usersChatsService.findByUserId(userId).get().getChats();
             int startIndex = (int) (pageNumber * countChatsOnPage);
             int toIndex = (int) (startIndex + countChatsOnPage);
-            if(usersChats.size() < toIndex) toIndex = usersChats.size();
+            if (usersChats.size() < toIndex) toIndex = usersChats.size();
             List<UUID> userChats = usersChats.subList(startIndex, toIndex);
             ResponseGettingChats responseGettingChats = new ResponseGettingChats();
             responseGettingChats.setResponse(new ArrayList<>());
             for (int i = 0; i < userChats.size(); i++) {
                 ChatForResponse chatForResponse = new ChatForResponse();
-                Optional<Message> lastMessageOpt = messageRepository.findLastByChatId(userChats.get(i));
+                Optional<Message> lastMessageOpt = messageService.findLastByChatId(userChats.get(i));
                 if (lastMessageOpt.isPresent()) {
                     Message lastMessage = lastMessageOpt.get();
                     chatForResponse.setLastMessage(lastMessage.getText());
@@ -182,7 +184,7 @@ public class ChatService {
                 Chat chat = chatRepository.findById(userChats.get(i)).get();
                 chatForResponse.setId(chat.getId());
                 chatForResponse.setChatType(ChatType.values()[chat.getChatType()]);
-                chatForResponse.setCountMembers(usersChatsRepository.findIdsByChatId(userChats.get(i)).size());
+                chatForResponse.setCountMembers(usersChatsService.findIdsByChatId(userChats.get(i)).size());
                 responseGettingChats.response.add(i, chatForResponse);
             }
             return responseGettingChats;
@@ -193,7 +195,7 @@ public class ChatService {
 
     public ResponseGettingMessages getAllMessagesByChatId(UUID chatId, Long pageNumber, Long countMessagesOnPage) {
         try {
-            Page<Message> pageOfMessages = messageRepository.findByChatId(chatId, PageRequest.of(pageNumber.intValue(), countMessagesOnPage.intValue()));
+            Page<Message> pageOfMessages = messageService.findByChatId(chatId, PageRequest.of(pageNumber.intValue(), countMessagesOnPage.intValue()));
             return new ResponseGettingMessages(
                     pageOfMessages.stream()
                             .map(MessageForResponse::new)

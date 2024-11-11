@@ -8,4 +8,12 @@ public class ResponseSearchMessage {
     public ResponseSearchMessage(List<MessageForResponse> listOfMessages) {
         this.listOfMessages = listOfMessages;
     }
+
+    public List<MessageForResponse> getListOfMessages() {
+        return listOfMessages;
+    }
+
+    public void setListOfMessages(List<MessageForResponse> listOfMessages) {
+        this.listOfMessages = listOfMessages;
+    }
 }

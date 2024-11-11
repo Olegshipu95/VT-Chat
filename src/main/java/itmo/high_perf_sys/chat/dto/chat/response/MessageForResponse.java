@@ -47,4 +47,28 @@ public class MessageForResponse {
         this.timestamp = message.getTimestamp();
         this.photo = message.getPhoto();
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public Chat getChatId() {
+        return chatId;
+    }
+
+    public User getAuthorId() {
+        return authorId;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
 }

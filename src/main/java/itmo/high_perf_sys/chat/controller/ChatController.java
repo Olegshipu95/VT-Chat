@@ -1,6 +1,8 @@
 package itmo.high_perf_sys.chat.controller;
 
 import itmo.high_perf_sys.chat.dto.chat.request.CreateChatRequest;
+import itmo.high_perf_sys.chat.dto.chat.request.SearchChatRequest;
+import itmo.high_perf_sys.chat.dto.chat.request.SearchMessageRequest;
 import itmo.high_perf_sys.chat.dto.chat.response.*;
 import itmo.high_perf_sys.chat.entity.Message;
 import itmo.high_perf_sys.chat.service.ChatService;
@@ -8,24 +10,23 @@ import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
+import org.springframework.web.context.request.WebRequest;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
+
+@Slf4j
 @RestController
 @RequestMapping("/chats")
 public class ChatController {
     private final ChatService chatService;
-    private final ConcurrentHashMap<UUID, ConcurrentLinkedQueue<DeferredResult<MessageForResponse>>> chatClients = new ConcurrentHashMap<>();
-    private final ConcurrentHashMap<UUID, List<MessageForResponse>> chatMessages = new ConcurrentHashMap<>();
 
 
     @Autowired
@@ -43,31 +44,18 @@ public class ChatController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> searchChat(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-                                        @RequestParam(value = "userId") UUID userId,
-                                        @NotNull @RequestParam(value = "request") String request,
-                                        @RequestParam(value = "pageNumber", required = false, defaultValue = "0") Long pageNumber,
-                                        @RequestParam(value = "countChatsOnPage", required = false, defaultValue = "20") Long countChatsOnPage) {
+    public ResponseEntity<?> searchChat(@Valid @RequestBody SearchChatRequest searchChatRequest) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(chatService.searchChat(userId, request, pageNumber, countChatsOnPage));
+            return ResponseEntity.status(HttpStatus.OK).body(chatService.searchChat(searchChatRequest.getUserId(), searchChatRequest.getRequest(), searchChatRequest.getPageNumber(), searchChatRequest.getCountChatsOnPage()));
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @GetMapping("/{chatId}/search")
-    public ResponseEntity<?> searchMessage(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
-                                           @PathVariable UUID chatId,
-                                           @NotNull(message = ErrorMessages.REQUEST_CANNOT_BE_NULL)
-                                           @RequestParam(value = "request") String request,
-                                           @NotNull(message = ErrorMessages.PAGE_CANNOT_BE_NULL)
-                                           @Min(value = 0, message = ErrorMessages.PAGE_CANNOT_BE_NEGATIVE)
-                                           @RequestParam(value = "pageNumber", required = false, defaultValue = "0") Long pageNumber,
-                                           @NotNull(message = ErrorMessages.COUNT_PAGE_CANNOT_BE_NULL)
-                                           @Min(value = 0, message = ErrorMessages.COUNT_PAGE_CANNOT_BE_NEGATIVE)
-                                           @RequestParam(value = "countMessagesOnPage", required = false, defaultValue = "20") Long countMessagesOnPage) {
+    public ResponseEntity<?> searchMessage(@Valid @RequestBody SearchMessageRequest searchMessageRequest) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(chatService.searchMessage(chatId, request, pageNumber, countMessagesOnPage));
+            return ResponseEntity.status(HttpStatus.OK).body(chatService.searchMessage(searchMessageRequest.getChatId(), searchMessageRequest.getRequest(), searchMessageRequest.getPageNumber(), searchMessageRequest.getCountMessagesOnPage()));
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
@@ -119,14 +107,15 @@ public class ChatController {
     @PostMapping("/send")
     public ResponseEntity<?> sendMessage(@Valid @RequestBody Message message) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(chatService.sendMessage(message));
+            UUID response = chatService.sendMessage(message);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
-    @GetMapping("/subscribe/{chatId}")
-    public DeferredResult<MessageForResponse> subscribe(@Valid @PathVariable UUID chatId) {
+    @GetMapping(value = "/subscribe/{chatId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public DeferredResult<MessageForResponse> subscribe(@Valid @PathVariable UUID chatId, WebRequest request) {
         return chatService.subscribeOnChat(chatId);
     }
 }
