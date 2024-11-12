@@ -64,6 +64,5 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     @Query(value = "DELETE FROM users WHERE id = :id", nativeQuery = true)
     void deleteUserAccountById(@Param("id") UUID id);
 
-    @Query(value = "SELECT id FROM users WHERE id = :id", nativeQuery = true)
-    Optional<UUID> findIdById(@Param("id") UUID id);
+    Optional<User> findIdById(@Param("id") UUID id);
 }

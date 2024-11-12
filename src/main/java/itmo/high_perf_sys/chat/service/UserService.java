@@ -27,7 +27,8 @@ public class UserService {
 
 
     public User findById(UUID id) {
-        return userRepository.findById(id).get();
+        Optional<User> response = userRepository.findById(id);
+        return response.orElse(null);
     }
 
     public boolean existsById(UUID id) {
