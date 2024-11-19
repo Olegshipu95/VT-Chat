@@ -20,7 +20,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class UserServiceTest {    private UserRepository userRepository;
+class UserServiceTest {
+    private UserRepository userRepository;
     private UsersChatsRepository usersChatsRepository;
     private UserService userService;
 

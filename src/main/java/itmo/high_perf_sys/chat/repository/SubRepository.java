@@ -11,8 +11,6 @@ import java.util.UUID;
 
 public interface SubRepository extends JpaRepository<Subscribers, UUID> {
 
-    List<Subscribers> findAllByUserId(UUID userId);
-
     @Query("""
             SELECT new itmo.high_perf_sys.chat.dto.subs.response.SubscriptionResponse(s.id, s.subscribedUserId, s.subscriptionTime)
             FROM Subscribers s
