@@ -25,7 +25,7 @@ public class SubscriptionService {
     // Метод создания подписки
     @Transactional
     public UUID createSub(CreateSubRequest sub) {
-        log.debug("start addSubscriber with userId: {} subscribedUserId: {}", sub.userId(), sub.subscribedUserId());
+        log.debug("CREATE: start addSubscriber with userId: {} subscribedUserId: {}", sub.userId(), sub.subscribedUserId());
         validateUsersExist(sub.userId(), sub.subscribedUserId());
         UUID newId = UUID.randomUUID();
         Subscribers subscriber = new Subscribers();
@@ -34,19 +34,20 @@ public class SubscriptionService {
         subscriber.setSubscribedUserId(sub.subscribedUserId());
         subscriber.setSubscriptionTime(LocalDateTime.now());
         var newSub = subscribersRepository.save(subscriber);
+        log.info("CREATE: new sub {}", newSub.getId());
         return newSub.getId();
     }
 
     @Transactional(readOnly = true)
     public Subscribers getSub(UUID subId) {
-        log.debug("Fetching subscriber with ID: {}", subId);
+        log.debug("GET: subscriber with ID: {}", subId);
         return subscribersRepository.findById(subId)
                 .orElseThrow(() -> new IllegalArgumentException("Subscription with ID " + subId + " not found."));
     }
 
     @Transactional
     public void deleteSub(UUID subId) {
-        log.debug("Deleting subscriber with ID: {}", subId);
+        log.debug("DELETE: subscriber with ID: {}", subId);
         if (!subscribersRepository.existsById(subId)) {
             log.info("Subscription with ID {} does not exist", subId);
             throw new IllegalArgumentException("Subscription with ID " + subId + " does not exist.");
@@ -56,7 +57,7 @@ public class SubscriptionService {
 
     @Transactional(readOnly = true)
     public List<SubscriptionResponse> getSubscriptionsByUserId(UUID userId) {
-        log.debug("Fetching subscriptions for userId: {}", userId);
+        log.info("GET: subscriptions for userId: {}", userId);
         return subscribersRepository.getSubResponseByUserId(userId);
     }
 

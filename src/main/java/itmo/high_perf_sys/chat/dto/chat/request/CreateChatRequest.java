@@ -1,5 +1,6 @@
 package itmo.high_perf_sys.chat.dto.chat.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -11,8 +12,11 @@ public class CreateChatRequest {
     @NotNull(message = "chatType cannot be null")
     @Min(value = 0, message = "chatType has not this meaning")
     @Max(value = 1, message = "chatType has not this meaning")
+    @JsonProperty("chat_type")
     private int chatType;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("users")
     private List<UUID> users;
 
     public int getChatType() {
