@@ -38,7 +38,7 @@ public class UserService {
     public UUID createAccount(CreateUserAccountRequest request) {
         log.debug("Create an account for: {}", request.name());
         UUID newId = UUID.randomUUID();
-        userRepository.saveNewUserAccount(
+        userRepository.save(new User(
                 newId,
                 request.name(),
                 request.surname(),
@@ -47,7 +47,7 @@ public class UserService {
                 request.city(),
                 request.birthday(),
                 request.logoUrl()
-        );
+        ));
         UsersChats usersChats = new UsersChats();
         usersChats.setId(UUID.randomUUID());
         usersChats.setUserId(newId);
@@ -60,12 +60,12 @@ public class UserService {
 
     public UUID updateAccount(UpdateUserInfoRequest request) {
         log.debug("UPDATE: start for id: {}", request.userId());
-        User existingAccount = userRepository.findUserAccountById(request.userId());
-        if (existingAccount == null) {
+        var existingAccount = userRepository.findById(request.userId());
+        if (existingAccount.isEmpty()) {
             log.debug("UPDATE: id {} does not exist", request.userId());
             throw new UserAccountNotFoundException(request.userId());
         }
-        int value = userRepository.updateUserAccount(
+        User value = userRepository.save(new User(
                 request.userId(),
                 request.name(),
                 request.surname(),
@@ -73,11 +73,8 @@ public class UserService {
                 request.briefDescription(),
                 request.city(),
                 request.birthday(),
-                request.logoUrl()
+                request.logoUrl())
         );
-        Optional.of(value)
-                .filter(v -> v != 0)
-                .orElseThrow(() -> new UserAccountWasNotInsertException(request.userId()));
 
         log.info("UPDATE: ID: {} has been successfully updated.", request.userId());
         return request.userId();
@@ -85,11 +82,12 @@ public class UserService {
 
     public GetUserInfoResponse getAccountById(UUID id) {
         log.debug("GET: start for id: {}", id);
-        User account = userRepository.findUserAccountById(id);
-        if (account == null) {
+        var find_acc = userRepository.findById(id);
+        if (find_acc.isEmpty()) {
             log.debug("GET: id {} does not exist", id);
             throw new UserAccountNotFoundException(id);
         }
+        var account = find_acc.get();
         log.info("GET: ID: {} has been successfully retrieved.", id);
         return new GetUserInfoResponse(
                 account.getId(),
@@ -105,11 +103,11 @@ public class UserService {
 
     public void deleteAccountById(UUID id) {
         log.debug("DELETE: start for id: {}", id);
-        User account = userRepository.findUserAccountById(id);
-        if (account == null) {
+        var account = userRepository.findById(id);
+        if (account.isEmpty()) {
             throw new UserAccountNotFoundException(id);
         }
-        userRepository.deleteUserAccountById(id);
+        userRepository.deleteById(id);
         log.info("DELETE: ID: {} has been successfully deleted.", id);
     }
 }
