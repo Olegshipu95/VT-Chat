@@ -16,9 +16,13 @@ public record CreateUserAccountRequest (
         @NotBlank(message = "Email can't be blank")
         @JsonProperty("email")
         String email,
+        @JsonProperty("brief_description")
         String briefDescription,
+        @JsonProperty("city")
         String city,
+        @JsonProperty("birthday")
         LocalDate birthday,
+        @JsonProperty("logo_url")
         String logoUrl
 ) {
 }

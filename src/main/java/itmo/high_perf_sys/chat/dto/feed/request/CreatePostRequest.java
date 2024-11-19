@@ -13,7 +13,10 @@ public record CreatePostRequest(
         @NotNull(message = "feed title cannot be null")
         @JsonProperty("title")
         String title,
+
+        @JsonProperty("text")
         String text,
+        @JsonProperty("images")
         byte[] images
 ) {
 }
