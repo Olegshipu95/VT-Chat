@@ -1,51 +1,34 @@
 package itmo.high_perf_sys.chat.service;
 
 
-import itmo.high_perf_sys.chat.dto.chat.request.CreateChatRequest;
-import itmo.high_perf_sys.chat.dto.chat.response.*;
 import itmo.high_perf_sys.chat.dto.customer.request.CreateUserAccountRequest;
 import itmo.high_perf_sys.chat.dto.customer.request.UpdateUserInfoRequest;
+import itmo.high_perf_sys.chat.dto.customer.response.GetUserInfoResponse;
 import itmo.high_perf_sys.chat.entity.*;
 import itmo.high_perf_sys.chat.exception.UserAccountNotFoundException;
 import itmo.high_perf_sys.chat.repository.UserRepository;
-import itmo.high_perf_sys.chat.repository.chat.ChatRepository;
 import itmo.high_perf_sys.chat.repository.chat.UsersChatsRepository;
-import itmo.high_perf_sys.chat.service.ChatService;
-import itmo.high_perf_sys.chat.service.MessageService;
-import itmo.high_perf_sys.chat.service.UsersChatsService;
-import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.web.context.request.async.DeferredResult;
 
-import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class UserServiceTest {
-
-    private UserRepository userRepository;
+class UserServiceTest {    private UserRepository userRepository;
     private UsersChatsRepository usersChatsRepository;
-    private CustomerService customerService;
+    private UserService userService;
 
     @BeforeEach
     void setUp() {
         userRepository = mock(UserRepository.class);
         usersChatsRepository = mock(UsersChatsRepository.class);
-        customerService = new CustomerService(userRepository, usersChatsRepository);
+        userService = new UserService(userRepository, usersChatsRepository);
     }
 
     @Test
@@ -56,23 +39,40 @@ class UserServiceTest {
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
-        User result = customerService.findById(userId);
+        User result = userService.findById(userId);
 
+        assertNotNull(result);
         assertEquals(userId, result.getId());
         verify(userRepository, times(1)).findById(userId);
+    }
+
+    @Test
+    void testExistsById() {
+        UUID userId = UUID.randomUUID();
+
+        when(userRepository.existsById(userId)).thenReturn(true);
+
+        boolean exists = userService.existsById(userId);
+
+        assertTrue(exists);
+        verify(userRepository, times(1)).existsById(userId);
     }
 
     @Test
     void testCreateAccount() {
         CreateUserAccountRequest request = mock(CreateUserAccountRequest.class);
 
-        UUID userId = UUID.randomUUID();
-        doNothing().when(userRepository).saveNewUserAccount(any(), any(), any(), any(), any(), any(), any(), any());
-        doNothing().when(usersChatsRepository).save(any(UsersChats.class));
+        when(request.name()).thenReturn("John");
+        when(request.surname()).thenReturn("Doe");
+        when(request.email()).thenReturn("john.doe@example.com");
+        when(request.city()).thenReturn("City");
+        when(request.briefDescription()).thenReturn("A user");
+        when(request.logoUrl()).thenReturn("http://example.com/logo.png");
 
-        UUID result = customerService.createAccount(request);
+        UUID result = userService.createAccount(request);
 
-        verify(userRepository, times(1)).saveNewUserAccount(any(), any(), any(), any(), any(), any(), any(), any());
+        assertNotNull(result);
+        verify(userRepository, times(1)).save(any(User.class));
         verify(usersChatsRepository, times(1)).save(any(UsersChats.class));
     }
 
@@ -82,13 +82,52 @@ class UserServiceTest {
         UpdateUserInfoRequest request = mock(UpdateUserInfoRequest.class);
         User existingUser = new User();
 
-        when(userRepository.findUserAccountById(userId)).thenReturn(existingUser);
-        when(userRepository.updateUserAccount(any(), any(), any(), any(), any(), any(), any(), any())).thenReturn(1);
+        when(request.userId()).thenReturn(userId);
+        when(userRepository.findById(userId)).thenReturn(Optional.of(existingUser));
+        when(userRepository.save(any(User.class))).thenReturn(existingUser);
 
-        customerService.updateAccount(request);
+        UUID result = userService.updateAccount(request);
 
-        verify(userRepository, times(1)).findUserAccountById(any());
-        verify(userRepository, times(1)).updateUserAccount(any(), any(), any(), any(), any(), any(), any(), any());
+        assertEquals(userId, result);
+        verify(userRepository, times(1)).findById(userId);
+        verify(userRepository, times(1)).save(any(User.class));
+    }
+
+    @Test
+    void testUpdateAccountThrowsException() {
+        UUID userId = UUID.randomUUID();
+        UpdateUserInfoRequest request = mock(UpdateUserInfoRequest.class);
+
+        when(request.userId()).thenReturn(userId);
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+        assertThrows(UserAccountNotFoundException.class, () -> userService.updateAccount(request));
+        verify(userRepository, times(1)).findById(userId);
+    }
+
+    @Test
+    void testGetAccountById() {
+        UUID userId = UUID.randomUUID();
+        User user = new User();
+        user.setId(userId);
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+
+        GetUserInfoResponse result = userService.getAccountById(userId);
+
+        assertNotNull(result);
+        assertEquals(userId, result.userid());
+        verify(userRepository, times(1)).findById(userId);
+    }
+
+    @Test
+    void testGetAccountByIdThrowsException() {
+        UUID userId = UUID.randomUUID();
+
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+        assertThrows(UserAccountNotFoundException.class, () -> userService.getAccountById(userId));
+        verify(userRepository, times(1)).findById(userId);
     }
 
     @Test
@@ -96,12 +135,22 @@ class UserServiceTest {
         UUID userId = UUID.randomUUID();
         User user = new User();
 
-        when(userRepository.findUserAccountById(userId)).thenReturn(user);
-        doNothing().when(userRepository).deleteUserAccountById(userId);
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        doNothing().when(userRepository).deleteById(userId);
 
-        customerService.deleteAccountById(userId);
+        userService.deleteAccountById(userId);
 
-        verify(userRepository, times(1)).findUserAccountById(userId);
-        verify(userRepository, times(1)).deleteUserAccountById(userId);
+        verify(userRepository, times(1)).findById(userId);
+        verify(userRepository, times(1)).deleteById(userId);
+    }
+
+    @Test
+    void testDeleteAccountByIdThrowsException() {
+        UUID userId = UUID.randomUUID();
+
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+        assertThrows(UserAccountNotFoundException.class, () -> userService.deleteAccountById(userId));
+        verify(userRepository, times(1)).findById(userId);
     }
 }
