@@ -1806,3 +1806,124 @@ java.lang.RuntimeException: Post not found
 2024-11-19T12:59:57.338+03:00  WARN 10236 --- [chat] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
 2024-11-19T12:59:57.529+03:00  INFO 10236 --- [chat] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
 2024-11-19T12:59:57.535+03:00  INFO 10236 --- [chat] [main] i.high_perf_sys.chat.ChatApplication     : Started ChatApplication in 3.215 seconds (process running for 3.553)
+2024-11-19T13:08:24.604+03:00  INFO 10236 --- [chat] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-19T13:08:24.606+03:00  INFO 10236 --- [chat] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-19T13:08:24.607+03:00  INFO 10236 --- [chat] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-19T13:08:28.403+03:00  INFO 25432 --- [chat] [main] i.high_perf_sys.chat.ChatApplication     : Starting ChatApplication using Java 17.0.10 with PID 25432 (C:\Users\Андрей\Desktop\Study\ВС\VT-Chat\target\classes started by Андрей in C:\Users\Андрей\Desktop\Study\ВС\VT-Chat)
+2024-11-19T13:08:28.405+03:00  INFO 25432 --- [chat] [main] i.high_perf_sys.chat.ChatApplication     : No active profile set, falling back to 1 default profile: "default"
+2024-11-19T13:08:28.786+03:00  INFO 25432 --- [chat] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-19T13:08:28.833+03:00  INFO 25432 --- [chat] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 42 ms. Found 6 JPA repository interfaces.
+2024-11-19T13:08:29.107+03:00  INFO 25432 --- [chat] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-11-19T13:08:29.114+03:00  INFO 25432 --- [chat] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-11-19T13:08:29.114+03:00  INFO 25432 --- [chat] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2024-11-19T13:08:29.147+03:00  INFO 25432 --- [chat] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-11-19T13:08:29.147+03:00  INFO 25432 --- [chat] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 718 ms
+2024-11-19T13:08:29.219+03:00  INFO 25432 --- [chat] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-19T13:08:29.320+03:00  INFO 25432 --- [chat] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:7d508a75-afeb-43f2-82c3-ab3b3b35d4b7 user=SA
+2024-11-19T13:08:29.321+03:00  INFO 25432 --- [chat] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-19T13:08:29.363+03:00  INFO 25432 --- [chat] [main] liquibase.database                       : Set default schema name to PUBLIC
+2024-11-19T13:08:29.588+03:00  INFO 25432 --- [chat] [main] liquibase.changelog                      : Creating database history table with name: PUBLIC.DATABASECHANGELOG
+2024-11-19T13:08:29.641+03:00  INFO 25432 --- [chat] [main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2024-11-19T13:08:29.690+03:00  INFO 25432 --- [chat] [main] liquibase.lockservice                    : Successfully acquired change log lock
+2024-11-19T13:08:29.691+03:00  INFO 25432 --- [chat] [main] liquibase.command                        : Using deploymentId: 2010909691
+2024-11-19T13:08:29.692+03:00  INFO 25432 --- [chat] [main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2024-11-19T13:08:29.713+03:00  INFO 25432 --- [chat] [main] liquibase.ui                             : Running Changeset: db/2024-12-10-added-tables.xml::1::arhiiiip
+2024-11-19T13:08:29.717+03:00  INFO 25432 --- [chat] [main] liquibase.changelog                      : Table chats created
+2024-11-19T13:08:29.718+03:00  INFO 25432 --- [chat] [main] liquibase.changelog                      : Table posts created
+2024-11-19T13:08:29.719+03:00  INFO 25432 --- [chat] [main] liquibase.changelog                      : Table messages created
+2024-11-19T13:08:29.720+03:00  INFO 25432 --- [chat] [main] liquibase.changelog                      : Table sets_of_stickers created
+2024-11-19T13:08:29.721+03:00  INFO 25432 --- [chat] [main] liquibase.changelog                      : Table stickers created
+2024-11-19T13:08:29.723+03:00  INFO 25432 --- [chat] [main] liquibase.changelog                      : Table users created
+2024-11-19T13:08:29.725+03:00  INFO 25432 --- [chat] [main] liquibase.changelog                      : Table subscribers created
+2024-11-19T13:08:29.726+03:00  INFO 25432 --- [chat] [main] liquibase.changelog                      : Table users_chats created
+2024-11-19T13:08:29.726+03:00  INFO 25432 --- [chat] [main] liquibase.changelog                      : Table users_chats_chats created
+2024-11-19T13:08:29.729+03:00  INFO 25432 --- [chat] [main] liquibase.changelog                      : Foreign key constraint added to users_chats_chats (users_chats_id)
+2024-11-19T13:08:29.730+03:00  INFO 25432 --- [chat] [main] liquibase.changelog                      : Table users_stickers created
+2024-11-19T13:08:29.730+03:00  INFO 25432 --- [chat] [main] liquibase.changelog                      : ChangeSet db/2024-12-10-added-tables.xml::1::arhiiiip ran successfully in 16ms
+2024-11-19T13:08:29.736+03:00  INFO 25432 --- [chat] [main] liquibase.util                           : UPDATE SUMMARY
+2024-11-19T13:08:29.736+03:00  INFO 25432 --- [chat] [main] liquibase.util                           : Run:                          1
+2024-11-19T13:08:29.736+03:00  INFO 25432 --- [chat] [main] liquibase.util                           : Previously run:               0
+2024-11-19T13:08:29.736+03:00  INFO 25432 --- [chat] [main] liquibase.util                           : Filtered out:                 0
+2024-11-19T13:08:29.736+03:00  INFO 25432 --- [chat] [main] liquibase.util                           : -------------------------------
+2024-11-19T13:08:29.736+03:00  INFO 25432 --- [chat] [main] liquibase.util                           : Total change sets:            1
+2024-11-19T13:08:29.737+03:00  INFO 25432 --- [chat] [main] liquibase.util                           : Update summary generated
+2024-11-19T13:08:29.738+03:00  INFO 25432 --- [chat] [main] liquibase.command                        : Update command completed successfully.
+2024-11-19T13:08:29.738+03:00  INFO 25432 --- [chat] [main] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 1
+2024-11-19T13:08:29.739+03:00  INFO 25432 --- [chat] [main] liquibase.lockservice                    : Successfully released change log lock
+2024-11-19T13:08:29.739+03:00  INFO 25432 --- [chat] [main] liquibase.command                        : Command execution complete
+2024-11-19T13:08:29.788+03:00  INFO 25432 --- [chat] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-19T13:08:29.821+03:00  INFO 25432 --- [chat] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2024-11-19T13:08:29.842+03:00  INFO 25432 --- [chat] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-19T13:08:30.024+03:00  INFO 25432 --- [chat] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-19T13:08:30.670+03:00  INFO 25432 --- [chat] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-19T13:08:30.672+03:00  INFO 25432 --- [chat] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-19T13:08:30.799+03:00  INFO 25432 --- [chat] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-11-19T13:08:31.145+03:00  WARN 25432 --- [chat] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-19T13:08:31.332+03:00  INFO 25432 --- [chat] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-11-19T13:08:31.338+03:00  INFO 25432 --- [chat] [main] i.high_perf_sys.chat.ChatApplication     : Started ChatApplication in 3.18 seconds (process running for 3.522)
+2024-11-19T13:08:50.993+03:00  INFO 25432 --- [chat] [http-nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-19T13:08:50.994+03:00  INFO 25432 --- [chat] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-11-19T13:08:50.994+03:00  INFO 25432 --- [chat] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2024-11-19T13:08:51.138+03:00  INFO 25432 --- [chat] [http-nio-8080-exec-3] i.h.chat.service.UserService             : User with ID: 94f92334-701a-403c-945b-6a73d1a6e15c has been successfully created.
+2024-11-19T13:09:11.275+03:00  INFO 25432 --- [chat] [http-nio-8080-exec-2] i.h.chat.service.UserService             : User with ID: ad961d5e-d013-411d-8443-88fa6783c25a has been successfully created.
+2024-11-19T13:09:39.842+03:00  WARN 25432 --- [chat] [http-nio-8080-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "94f92334-701a-403c-945b-6a73d1a6e15c"]
+2024-11-19T13:12:05.862+03:00  INFO 25432 --- [chat] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-19T13:12:05.863+03:00  INFO 25432 --- [chat] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-19T13:12:05.864+03:00  INFO 25432 --- [chat] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-19T13:12:09.237+03:00  INFO 24220 --- [chat] [main] i.high_perf_sys.chat.ChatApplication     : Starting ChatApplication using Java 17.0.10 with PID 24220 (C:\Users\Андрей\Desktop\Study\ВС\VT-Chat\target\classes started by Андрей in C:\Users\Андрей\Desktop\Study\ВС\VT-Chat)
+2024-11-19T13:12:09.239+03:00  INFO 24220 --- [chat] [main] i.high_perf_sys.chat.ChatApplication     : No active profile set, falling back to 1 default profile: "default"
+2024-11-19T13:12:09.641+03:00  INFO 24220 --- [chat] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-19T13:12:09.694+03:00  INFO 24220 --- [chat] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 48 ms. Found 7 JPA repository interfaces.
+2024-11-19T13:12:09.973+03:00  INFO 24220 --- [chat] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-11-19T13:12:09.981+03:00  INFO 24220 --- [chat] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-11-19T13:12:09.981+03:00  INFO 24220 --- [chat] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2024-11-19T13:12:10.014+03:00  INFO 24220 --- [chat] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-11-19T13:12:10.015+03:00  INFO 24220 --- [chat] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 749 ms
+2024-11-19T13:12:10.094+03:00  INFO 24220 --- [chat] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-19T13:12:10.215+03:00  INFO 24220 --- [chat] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:93441829-87c3-411d-8517-2ff259f1bba8 user=SA
+2024-11-19T13:12:10.216+03:00  INFO 24220 --- [chat] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-19T13:12:10.257+03:00  INFO 24220 --- [chat] [main] liquibase.database                       : Set default schema name to PUBLIC
+2024-11-19T13:12:10.484+03:00  INFO 24220 --- [chat] [main] liquibase.changelog                      : Creating database history table with name: PUBLIC.DATABASECHANGELOG
+2024-11-19T13:12:10.539+03:00  INFO 24220 --- [chat] [main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2024-11-19T13:12:10.589+03:00  INFO 24220 --- [chat] [main] liquibase.lockservice                    : Successfully acquired change log lock
+2024-11-19T13:12:10.589+03:00  INFO 24220 --- [chat] [main] liquibase.command                        : Using deploymentId: 2011130589
+2024-11-19T13:12:10.590+03:00  INFO 24220 --- [chat] [main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2024-11-19T13:12:10.612+03:00  INFO 24220 --- [chat] [main] liquibase.ui                             : Running Changeset: db/2024-12-10-added-tables.xml::1::arhiiiip
+2024-11-19T13:12:10.616+03:00  INFO 24220 --- [chat] [main] liquibase.changelog                      : Table chats created
+2024-11-19T13:12:10.617+03:00  INFO 24220 --- [chat] [main] liquibase.changelog                      : Table posts created
+2024-11-19T13:12:10.619+03:00  INFO 24220 --- [chat] [main] liquibase.changelog                      : Table messages created
+2024-11-19T13:12:10.620+03:00  INFO 24220 --- [chat] [main] liquibase.changelog                      : Table sets_of_stickers created
+2024-11-19T13:12:10.621+03:00  INFO 24220 --- [chat] [main] liquibase.changelog                      : Table stickers created
+2024-11-19T13:12:10.623+03:00  INFO 24220 --- [chat] [main] liquibase.changelog                      : Table users created
+2024-11-19T13:12:10.624+03:00  INFO 24220 --- [chat] [main] liquibase.changelog                      : Table subscribers created
+2024-11-19T13:12:10.625+03:00  INFO 24220 --- [chat] [main] liquibase.changelog                      : Table users_chats created
+2024-11-19T13:12:10.626+03:00  INFO 24220 --- [chat] [main] liquibase.changelog                      : Table users_chats_chats created
+2024-11-19T13:12:10.629+03:00  INFO 24220 --- [chat] [main] liquibase.changelog                      : Foreign key constraint added to users_chats_chats (users_chats_id)
+2024-11-19T13:12:10.630+03:00  INFO 24220 --- [chat] [main] liquibase.changelog                      : Table users_stickers created
+2024-11-19T13:12:10.630+03:00  INFO 24220 --- [chat] [main] liquibase.changelog                      : ChangeSet db/2024-12-10-added-tables.xml::1::arhiiiip ran successfully in 17ms
+2024-11-19T13:12:10.636+03:00  INFO 24220 --- [chat] [main] liquibase.util                           : UPDATE SUMMARY
+2024-11-19T13:12:10.636+03:00  INFO 24220 --- [chat] [main] liquibase.util                           : Run:                          1
+2024-11-19T13:12:10.636+03:00  INFO 24220 --- [chat] [main] liquibase.util                           : Previously run:               0
+2024-11-19T13:12:10.636+03:00  INFO 24220 --- [chat] [main] liquibase.util                           : Filtered out:                 0
+2024-11-19T13:12:10.636+03:00  INFO 24220 --- [chat] [main] liquibase.util                           : -------------------------------
+2024-11-19T13:12:10.636+03:00  INFO 24220 --- [chat] [main] liquibase.util                           : Total change sets:            1
+2024-11-19T13:12:10.637+03:00  INFO 24220 --- [chat] [main] liquibase.util                           : Update summary generated
+2024-11-19T13:12:10.638+03:00  INFO 24220 --- [chat] [main] liquibase.command                        : Update command completed successfully.
+2024-11-19T13:12:10.638+03:00  INFO 24220 --- [chat] [main] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 1
+2024-11-19T13:12:10.639+03:00  INFO 24220 --- [chat] [main] liquibase.lockservice                    : Successfully released change log lock
+2024-11-19T13:12:10.640+03:00  INFO 24220 --- [chat] [main] liquibase.command                        : Command execution complete
+2024-11-19T13:12:10.688+03:00  INFO 24220 --- [chat] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-19T13:12:10.722+03:00  INFO 24220 --- [chat] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2024-11-19T13:12:10.745+03:00  INFO 24220 --- [chat] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-19T13:12:10.924+03:00  INFO 24220 --- [chat] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-19T13:12:11.572+03:00  INFO 24220 --- [chat] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-19T13:12:11.574+03:00  INFO 24220 --- [chat] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-19T13:12:11.699+03:00  INFO 24220 --- [chat] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-11-19T13:12:12.060+03:00  WARN 24220 --- [chat] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-19T13:12:12.254+03:00  INFO 24220 --- [chat] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-11-19T13:12:12.260+03:00  INFO 24220 --- [chat] [main] i.high_perf_sys.chat.ChatApplication     : Started ChatApplication in 3.273 seconds (process running for 3.612)
+2024-11-19T13:12:25.308+03:00  INFO 24220 --- [chat] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-19T13:12:25.308+03:00  INFO 24220 --- [chat] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-11-19T13:12:25.308+03:00  INFO 24220 --- [chat] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2024-11-19T13:12:25.448+03:00  INFO 24220 --- [chat] [http-nio-8080-exec-2] i.h.chat.service.UserService             : User with ID: 7e8d443b-9d43-49b0-920d-719e9f1c26ee has been successfully created.
+2024-11-19T13:12:42.002+03:00  INFO 24220 --- [chat] [http-nio-8080-exec-3] i.h.chat.service.UserService             : User with ID: 05ee3af3-dcb5-4632-8d70-bd42bb83620c has been successfully created.
