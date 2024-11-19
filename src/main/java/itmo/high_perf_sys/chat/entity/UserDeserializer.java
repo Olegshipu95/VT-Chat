@@ -3,7 +3,7 @@ package itmo.high_perf_sys.chat.entity;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import itmo.high_perf_sys.chat.service.CustomerService;
+import itmo.high_perf_sys.chat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,11 +14,11 @@ import java.util.UUID;
 public class UserDeserializer extends JsonDeserializer<User> {
 
     @Autowired
-    private CustomerService customerService;
+    private UserService userService;
 
     @Override
     public User deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         String id = jsonParser.getText();
-        return customerService.findById(UUID.fromString(id));
+        return userService.findById(UUID.fromString(id));
     }
 }
