@@ -1,4 +1,4 @@
-package itmo.high_perf_sys.chat.chat;
+package itmo.high_perf_sys.chat.tests;
 
 import itmo.high_perf_sys.chat.entity.UsersChats;
 import itmo.high_perf_sys.chat.repository.chat.UsersChatsRepository;

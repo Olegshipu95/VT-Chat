@@ -1,4 +1,4 @@
-package itmo.high_perf_sys.chat.chat;
+package itmo.high_perf_sys.chat.tests;
 
 import itmo.high_perf_sys.chat.controller.ChatController;
 import itmo.high_perf_sys.chat.dto.chat.request.CreateChatRequest;
