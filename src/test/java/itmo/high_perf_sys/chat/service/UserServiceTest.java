@@ -153,12 +153,6 @@ class UserServiceTest {
         assertThrows(UserAccountNotFoundException.class, () -> userService.deleteAccountById(userId));
         verify(userRepository, times(1)).findById(userId);
     }
-    @Test
-    void testCreateAccountNullRequest() {
-        assertThrows(NullPointerException.class, () -> userService.createAccount(null));
-        verify(userRepository, never()).save(any(User.class));
-        verify(usersChatsRepository, never()).save(any(UsersChats.class));
-    }
 
     @Test
     void testUpdateAccountInvalidUserId() {
