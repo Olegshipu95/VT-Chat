@@ -82,7 +82,6 @@ public class MessageServiceTest {
         assertEquals(page, result);
     }
 
-    @Disabled
     @Test
     public void testFindByChatId() {
         UUID chatId = UUID.randomUUID();
