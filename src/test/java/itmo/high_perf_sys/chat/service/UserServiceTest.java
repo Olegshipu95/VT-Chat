@@ -7,7 +7,6 @@ import itmo.high_perf_sys.chat.dto.customer.response.GetUserInfoResponse;
 import itmo.high_perf_sys.chat.entity.*;
 import itmo.high_perf_sys.chat.exception.UserAccountNotFoundException;
 import itmo.high_perf_sys.chat.repository.UserRepository;
-import itmo.high_perf_sys.chat.repository.chat.UsersChatsRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,14 +21,14 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
     private UserRepository userRepository;
-    private UsersChatsRepository usersChatsRepository;
+    private UsersChatsService usersChatsService;
     private UserService userService;
 
     @BeforeEach
     void setUp() {
         userRepository = mock(UserRepository.class);
-        usersChatsRepository = mock(UsersChatsRepository.class);
-        userService = new UserService(userRepository, usersChatsRepository);
+        usersChatsService = mock(UsersChatsService.class);
+        userService = new UserService(userRepository, usersChatsService);
     }
 
     @Test
@@ -74,7 +73,7 @@ class UserServiceTest {
 
         assertNotNull(result);
         verify(userRepository, times(1)).save(any(User.class));
-        verify(usersChatsRepository, times(1)).save(any(UsersChats.class));
+        verify(usersChatsService, times(1)).save(any(UsersChats.class));
     }
 
     @Test
