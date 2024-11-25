@@ -1,10 +1,10 @@
-package chatcore.chatcore;
+package chatcore.gateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ChatcoreApplicationTests {
+class GatewayApplicationTests {
 
     @Test
     void contextLoads() {
