@@ -1,8 +1,7 @@
-package itmo.high_perf_sys.chat.tests;
+package itmo.high_perf_sys.chat.service;
 
 import itmo.high_perf_sys.chat.entity.UsersChats;
 import itmo.high_perf_sys.chat.repository.chat.UsersChatsRepository;
-import itmo.high_perf_sys.chat.service.UsersChatsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

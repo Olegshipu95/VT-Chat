@@ -1,4 +1,4 @@
-package itmo.high_perf_sys.chat.tests;
+package itmo.high_perf_sys.chat.service.chat;
 
 import itmo.high_perf_sys.chat.dto.chat.request.CreateChatRequest;
 import itmo.high_perf_sys.chat.dto.chat.response.*;
@@ -26,7 +26,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ChatServiceTest {
+public class ChatTest {
 
     @Mock
     private ChatRepository chatRepository;
@@ -121,4 +121,14 @@ public class ChatServiceTest {
         assertNotNull(result);
         assertEquals(1, result.getResponse().size());
     }
+
+    @Test
+    public void testDeleteChat_Exception() {
+        when(usersChatsService.findIdsByChatId(any(UUID.class))).thenThrow(new RuntimeException("Error"));
+
+        assertThrows(RuntimeException.class, () -> chatService.deleteChat(chat.getId()));
+
+        verify(chatRepository, never()).deleteById(any(UUID.class));
+    }
+
 }

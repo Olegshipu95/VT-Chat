@@ -1,4 +1,4 @@
-package itmo.high_perf_sys.chat.tests;
+package itmo.high_perf_sys.chat.service;
 
 import itmo.high_perf_sys.chat.controller.ChatController;
 import itmo.high_perf_sys.chat.dto.chat.request.CreateChatRequest;
@@ -6,7 +6,6 @@ import itmo.high_perf_sys.chat.dto.chat.request.SearchChatRequest;
 import itmo.high_perf_sys.chat.dto.chat.response.MessageForResponse;
 import itmo.high_perf_sys.chat.dto.chat.response.ResponseSearchChat;
 import itmo.high_perf_sys.chat.entity.Message;
-import itmo.high_perf_sys.chat.service.ChatService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

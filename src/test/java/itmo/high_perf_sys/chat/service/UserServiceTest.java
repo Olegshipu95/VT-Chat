@@ -154,4 +154,23 @@ class UserServiceTest {
         assertThrows(UserAccountNotFoundException.class, () -> userService.deleteAccountById(userId));
         verify(userRepository, times(1)).findById(userId);
     }
+    @Test
+    void testCreateAccountNullRequest() {
+        assertThrows(NullPointerException.class, () -> userService.createAccount(null));
+        verify(userRepository, never()).save(any(User.class));
+        verify(usersChatsRepository, never()).save(any(UsersChats.class));
+    }
+
+    @Test
+    void testUpdateAccountInvalidUserId() {
+        UUID invalidUserId = UUID.randomUUID();
+        UpdateUserInfoRequest request = mock(UpdateUserInfoRequest.class);
+
+        when(request.userId()).thenReturn(invalidUserId);
+        when(userRepository.findById(invalidUserId)).thenReturn(Optional.empty());
+
+        assertThrows(UserAccountNotFoundException.class, () -> userService.updateAccount(request));
+        verify(userRepository, times(1)).findById(invalidUserId);
+        verify(userRepository, never()).save(any(User.class));
+    }
 }
