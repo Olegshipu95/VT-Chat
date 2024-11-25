@@ -6,9 +6,7 @@ import itmo.high_perf_sys.chat.dto.customer.response.GetUserInfoResponse;
 import itmo.high_perf_sys.chat.entity.User;
 import itmo.high_perf_sys.chat.entity.UsersChats;
 import itmo.high_perf_sys.chat.exception.UserAccountNotFoundException;
-import itmo.high_perf_sys.chat.exception.UserAccountWasNotInsertException;
 import itmo.high_perf_sys.chat.repository.UserRepository;
-import itmo.high_perf_sys.chat.repository.chat.UsersChatsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    private final UsersChatsRepository usersChatsRepository;
+    private final UsersChatsService usersChatsService;
 
 
     public User findById(UUID id) {
@@ -52,7 +50,7 @@ public class UserService {
         usersChats.setId(UUID.randomUUID());
         usersChats.setUserId(newId);
         usersChats.setChats(new ArrayList<UUID>());
-        usersChatsRepository.save(usersChats);
+        usersChatsService.save(usersChats);
 
         log.info("User with ID: {} has been successfully created.", newId);
         return newId;
