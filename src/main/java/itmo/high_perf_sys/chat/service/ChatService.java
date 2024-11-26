@@ -15,10 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.context.support.UiApplicationContextUtils;
 import org.springframework.web.context.request.async.DeferredResult;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
@@ -204,5 +201,13 @@ public class ChatService {
         } catch (Exception e) {
             throw new RuntimeException(ErrorMessages.ERROR_DB_REQUEST, e);
         }
+    }
+
+    public Map<UUID, List<MessageForResponse>> getChatMessages() {
+        return chatMessages;
+    }
+
+    public Map<UUID, ConcurrentLinkedQueue<DeferredResult<MessageForResponse>>> getChatClients() {
+        return chatClients;
     }
 }

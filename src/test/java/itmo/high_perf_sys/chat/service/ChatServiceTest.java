@@ -1,10 +1,7 @@
 package itmo.high_perf_sys.chat.service;
 
 import itmo.high_perf_sys.chat.dto.chat.request.CreateChatRequest;
-import itmo.high_perf_sys.chat.dto.chat.response.ResponseGettingChats;
-import itmo.high_perf_sys.chat.dto.chat.response.ResponseGettingMessages;
-import itmo.high_perf_sys.chat.dto.chat.response.ResponseSearchChat;
-import itmo.high_perf_sys.chat.dto.chat.response.ResponseSearchMessage;
+import itmo.high_perf_sys.chat.dto.chat.response.*;
 import itmo.high_perf_sys.chat.dto.customer.request.CreateUserAccountRequest;
 import itmo.high_perf_sys.chat.dto.customer.request.UpdateUserInfoRequest;
 import itmo.high_perf_sys.chat.dto.customer.response.GetUserInfoResponse;
@@ -16,6 +13,7 @@ import itmo.high_perf_sys.chat.repository.SubRepository;
 import itmo.high_perf_sys.chat.repository.UserRepository;
 import itmo.high_perf_sys.chat.repository.chat.ChatRepository;
 import itmo.high_perf_sys.chat.repository.chat.UsersChatsRepository;
+import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -24,9 +22,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.web.context.request.async.DeferredResult;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -233,4 +233,133 @@ public class ChatServiceTest {
 
         assertThrows(java.lang.RuntimeException.class, () -> chatService.getAllChatsByUserId(userId, 0L, 10L));
     }
+
+    @Test
+    public void testCreateChat_ChatType_0() {
+        CreateChatRequest request = new CreateChatRequest();
+        UUID duplicateUserId = UUID.randomUUID();
+        request.setChatType(0);
+        request.setName("Test Chat");
+        request.setUsers(List.of(duplicateUserId, duplicateUserId));
+
+        assertThrows(RuntimeException.class, () -> chatService.createChat(request));
+    }
+
+/*
+    @Test
+    public void testSearchChat_Success() {
+        // Подготовка данных
+        UUID userId = UUID.randomUUID();
+        UUID chatId = UUID.randomUUID();
+        UUID chatId2 = UUID.randomUUID();
+
+        Chat chat1 = new Chat();
+        chat1.setId(chatId);
+        chat1.setName("Chat1");
+        chat1.setChatType(ChatType.GROUP.ordinal());
+
+        Chat chat2 = new Chat();
+        chat2.setId(chatId2);
+        chat2.setName("Chat2");
+        chat2.setChatType(ChatType.PAIRED.ordinal());
+
+        Message lastMessage = new Message();
+        lastMessage.setId(UUID.randomUUID());
+        lastMessage.setChatId(chat1);
+        lastMessage.setText("Last message text");
+        lastMessage.setPhoto(new byte[0]);
+
+        UsersChats userChats = new UsersChats();
+        userChats.setChats(List.of(chatId, chatId2));
+
+        when(usersChatsService.findByUserId(userId)).thenReturn(Optional.of(userChats));
+        when(chatRepository.findByNameContainingAndIdIn(eq(userChats.getChats()), eq("Chat"), any(PageRequest.class)))
+                .thenReturn(List.of(chat1, chat2));
+        when(messageService.findLastByChatId(chatId)).thenReturn(Optional.of(lastMessage));
+        when(messageService.findLastByChatId(chatId2)).thenReturn(Optional.empty());
+        when(usersChatsService.findIdsByChatId(chatId)).thenReturn(List.of(UUID.randomUUID(), UUID.randomUUID()));
+        when(usersChatsService.findIdsByChatId(chatId2)).thenReturn(List.of(UUID.randomUUID()));
+        when(chatRepository.findById(chatId)).thenReturn(Optional.of(chat1));
+        when(chatRepository.findById(chatId2)).thenReturn(Optional.of(chat2));
+
+        // Выполнение
+        ResponseSearchChat result = chatService.searchChat(userId, "Chat", 0L, 10L);
+
+        // Проверки
+        assertNotNull(result);
+        assertEquals(2, result.getResponse().size());
+
+        // Проверка первого чата
+        ChatForResponse chatForResponse1 = result.getResponse().get(0);
+        assertEquals(chatId, chatForResponse1.getId());
+        assertEquals(ChatType.GROUP, chatForResponse1.getChatType());
+        assertEquals(2, chatForResponse1.getCountMembers());
+        assertEquals("Last message text", chatForResponse1.getLastMessage());
+        assertFalse(chatForResponse1.isLastMessageHavePhoto());
+
+        // Проверка второго чата
+        ChatForResponse chatForResponse2 = result.getResponse().get(1);
+        assertEquals(chatId2, chatForResponse2.getId());
+        assertEquals(ChatType.PAIRED, chatForResponse2.getChatType());
+        assertEquals(1, chatForResponse2.getCountMembers());
+        assertEquals("", chatForResponse2.getLastMessage());
+        assertFalse(chatForResponse2.isLastMessageHavePhoto());
+
+        verify(usersChatsService, times(1)).findByUserId(userId);
+        verify(chatRepository, times(1)).findByNameContainingAndIdIn(eq(userChats.getChats()), eq("Chat"), any(PageRequest.class));
+        verify(messageService, times(1)).findLastByChatId(chatId);
+        verify(messageService, times(1)).findLastByChatId(chatId2);
+        verify(usersChatsService, times(2)).findIdsByChatId(any(UUID.class));
+    }
+*/
+
+    @Test
+    public void testSearchChat_ExceptionHandling() {
+        // Подготовка данных
+        UUID userId = UUID.randomUUID();
+
+        when(usersChatsService.findByUserId(userId)).thenThrow(new RuntimeException("DB Error"));
+
+        // Выполнение и проверка
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> chatService.searchChat(userId, "Chat", 0L, 10L));
+        assertTrue(exception.getMessage().contains(ErrorMessages.ERROR_DB_REQUEST));
+        assertTrue(exception.getCause().getMessage().contains("DB Error"));
+
+        verify(usersChatsService, times(1)).findByUserId(userId);
+    }
+    @Test
+    public void testSendMessage() {
+        // Setup
+        UUID chatId = UUID.randomUUID();
+        Chat chat = new Chat();
+        chat.setId(chatId);
+
+        Message message = new Message();
+        message.setChatId(chat);
+        message.setText("Test Message");
+        message.setPhoto(new byte[0]);
+
+        MessageForResponse expectedMessageResponse = new MessageForResponse(message);
+
+        // Mock `messageService.save`
+        doNothing().when(messageService).save(any(Message.class));
+
+        // Execute
+        UUID result = chatService.sendMessage(message);
+
+        // Verify behavior
+        assertNotNull(result);
+        assertEquals(message.getId(), result);
+
+        // Verify `chatMessages`
+        Map<UUID, List<MessageForResponse>> chatMessages = chatService.getChatMessages();
+        assertTrue(chatMessages.containsKey(chatId));
+        assertEquals(1, chatMessages.get(chatId).size());
+        assertEquals(expectedMessageResponse.getText(), chatMessages.get(chatId).get(0).getText());
+
+        // Verify `chatClients`
+        Map<UUID, ConcurrentLinkedQueue<DeferredResult<MessageForResponse>>> chatClients = chatService.getChatClients();
+        assertThrows(java.lang.NullPointerException.class,()->chatClients.get(chatId).isEmpty());
+    }
+
 }
