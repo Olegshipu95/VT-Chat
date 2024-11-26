@@ -1,5 +1,6 @@
 package itmo.high_perf_sys.chat.dto.customer.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -15,6 +16,7 @@ public record GetUserInfoResponse (
         String surname,
         @NotBlank(message = "Email can't be blank")
         String email,
+        @JsonProperty("brief_description")
         String briefDescription,
         String city,
         LocalDate birthday,

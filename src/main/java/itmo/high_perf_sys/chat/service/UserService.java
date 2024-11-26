@@ -58,6 +58,8 @@ public class UserService {
 
     public UUID updateAccount(UpdateUserInfoRequest request) {
         log.debug("UPDATE: start for id: {}", request.userId());
+        if(request.userId() == null)
+            throw new IllegalArgumentException("The given id must not be null");
         var existingAccount = userRepository.findById(request.userId());
         if (existingAccount.isEmpty()) {
             log.debug("UPDATE: id {} does not exist", request.userId());

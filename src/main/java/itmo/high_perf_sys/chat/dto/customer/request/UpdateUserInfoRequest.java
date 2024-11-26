@@ -21,9 +21,11 @@ public record UpdateUserInfoRequest(
         @NotBlank(message = "Email can't be blank")
         @JsonProperty("email")
         String email,
+        @JsonProperty("brief_description")
         String briefDescription,
         String city,
         LocalDate birthday,
+        @JsonProperty("logo_url")
         String logoUrl
 ) {
 }
