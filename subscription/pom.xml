@@ -10,7 +10,7 @@
     </parent>
     <groupId>chatCore</groupId>
     <artifactId>subscription</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>all</version>
     <name>subscription</name>
     <description>subscription</description>
     <url/>

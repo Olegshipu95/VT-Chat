@@ -1,6 +1,6 @@
 package chatcore.chat.dto.chat.request;
 
-import itmo.high_perf_sys.chat.utils.ErrorMessages;
+import chatcore.chat.utils.ErrorMessages;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
