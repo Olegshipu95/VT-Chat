@@ -1,4 +1,4 @@
-package itmo.high_perf_sys.chat.chat;
+package itmo.high_perf_sys.chat.service.chat;
 
 import itmo.high_perf_sys.chat.dto.chat.request.CreateChatRequest;
 import itmo.high_perf_sys.chat.dto.chat.response.*;
@@ -10,28 +10,23 @@ import itmo.high_perf_sys.chat.repository.chat.ChatRepository;
 import itmo.high_perf_sys.chat.service.ChatService;
 import itmo.high_perf_sys.chat.service.MessageService;
 import itmo.high_perf_sys.chat.service.UsersChatsService;
-import itmo.high_perf_sys.chat.utils.ErrorMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.context.request.async.DeferredResult;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ChatServiceTest {
+public class ChatTest {
 
     @Mock
     private ChatRepository chatRepository;
@@ -126,4 +121,14 @@ public class ChatServiceTest {
         assertNotNull(result);
         assertEquals(1, result.getResponse().size());
     }
+
+    @Test
+    public void testDeleteChat_Exception() {
+        when(usersChatsService.findIdsByChatId(any(UUID.class))).thenThrow(new RuntimeException("Error"));
+
+        assertThrows(RuntimeException.class, () -> chatService.deleteChat(chat.getId()));
+
+        verify(chatRepository, never()).deleteById(any(UUID.class));
+    }
+
 }

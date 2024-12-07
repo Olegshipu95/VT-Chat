@@ -2,7 +2,7 @@ package itmo.high_perf_sys.chat.entity;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import itmo.high_perf_sys.chat.service.CustomerService;
+import itmo.high_perf_sys.chat.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 public class UserDeserializerTest {
 
     @Mock
-    private CustomerService customerService;
+    private UserService customerService;
 
     @InjectMocks
     private UserDeserializer userDeserializer;
