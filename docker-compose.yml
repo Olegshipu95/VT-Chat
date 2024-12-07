@@ -1,30 +1,95 @@
-version: "3.9"
 
 services:
-  core-db:
-    image: postgres:16.3-alpine3.19
-    container_name: postgres-core
-    environment:
-      POSTGRES_DB: ${DB_NAME:-chat-core}
-      POSTGRES_USER: ${DB_USER:-admin}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-admin}
-      PGDATA: "/var/lib/postgresql/data/pgdata"
-    volumes:
-      - core-data:/var/lib/postgresql/data
-    ports:
-      - ${DB_PORT:-5433}:5433
-  chat-core:
-    image: 'chat-core:latest'
-    build:
-      context: .
-    container_name: chat-core
-    depends_on:
-      - core-db
-    environment:
-      CHAT_DB_HOST: ${DB_HOST:-core-db}
-      PORT: ${PORT:-8080}
-    ports:
-      - ${PORT:-8080}:${PORT:-8080}
 
-volumes:
-  core-data:
+  chat_service:
+    build:
+      context: ./chat/
+    environment:
+      DB_HOST: "62.109.31.252"
+      DB_NAME: "postgres"
+      DB_PORT: "5666"
+      DB_USER: "admin"
+      DB_PASSWORD: "admin"
+      CHAT_PORT: "7001"
+    ports:
+      - "7001:7001"
+
+  customer_service:
+    build:
+      context: ./customer/
+    environment:
+      DB_HOST: "62.109.31.252"
+      DB_NAME: "postgres"
+      DB_PORT: "5666"
+      DB_USER: "admin"
+      DB_PASSWORD: "admin"
+      CUSTOMER_PORT: "7002"
+    ports:
+      - "7002:7002"
+
+  feed_service:
+    build:
+      context: ./feed/
+    environment:
+      DB_HOST: "62.109.31.252"
+      DB_NAME: "postgres"
+      DB_PORT: "5666"
+      DB_USER: "admin"
+      DB_PASSWORD: "admin"
+      CHAT_PORT: "7003"
+      CHAT_CONFIG_FILE: "${CHAT_CONFIG_FILE}"
+    ports:
+      - "7003:7003"
+
+  news_service:
+    build:
+      context: ./news/
+    environment:
+      DB_HOST: "62.109.31.252"
+      DB_NAME: "postgres"
+      DB_PORT: "5666"
+      DB_USER: "admin"
+      DB_PASSWORD: "admin"
+      AUTH_PORT: "7004"
+    ports:
+      - "7004:7004"
+
+  subscription_service:
+    build:
+      context: ./subscription/
+    environment:
+      DB_HOST: "62.109.31.252"
+      DB_NAME: "postgres"
+      DB_PORT: "5666"
+      DB_USER: "admin"
+      DB_PASSWORD: "admin"
+      AUTH_PORT: "7005"
+    ports:
+      - "7005:7005"
+
+  eureka_service:
+    build:
+      context: ./eureka/
+    environment:
+      EUREKA_PORT: "7033"
+    ports:
+      - "7033:7033"
+
+  gateway_service:
+    build:
+      context: ./gateway/
+    environment:
+      DB_HOST: "62.109.31.252"
+      DB_NAME: "middle"
+      DB_PORT: "5666"
+      DB_USER: "admin"
+      DB_PASSWORD: "admin"
+      GATEWAY_PORT: "7555"
+      CHAT_HOST: "chat_service:7001"
+      CUSTOMER_HOST: "customer_service:7002"
+      FEED_HOST: "feed_service:7003"
+      NEWS_HOST: "news_service:7004"
+      SUBSCRIPTION_HOST: "chat_service:7005"
+    ports:
+      - "7555:7555"
+
