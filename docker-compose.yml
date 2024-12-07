@@ -5,9 +5,9 @@ services:
     build:
       context: ./chat/
     environment:
-      DB_HOST: "62.109.31.252"
+      DB_HOST: "localhost"
       DB_NAME: "postgres"
-      DB_PORT: "5666"
+      DB_PORT: "5432"
       DB_USER: "admin"
       DB_PASSWORD: "admin"
       CHAT_PORT: "7001"
@@ -18,9 +18,9 @@ services:
     build:
       context: ./customer/
     environment:
-      DB_HOST: "62.109.31.252"
+      DB_HOST: "localhost"
       DB_NAME: "postgres"
-      DB_PORT: "5666"
+      DB_PORT: "5432"
       DB_USER: "admin"
       DB_PASSWORD: "admin"
       CUSTOMER_PORT: "7002"
@@ -31,9 +31,9 @@ services:
     build:
       context: ./feed/
     environment:
-      DB_HOST: "62.109.31.252"
+      DB_HOST: "localhost"
       DB_NAME: "postgres"
-      DB_PORT: "5666"
+      DB_PORT: "5432"
       DB_USER: "admin"
       DB_PASSWORD: "admin"
       CHAT_PORT: "7003"
@@ -45,9 +45,9 @@ services:
     build:
       context: ./news/
     environment:
-      DB_HOST: "62.109.31.252"
+      DB_HOST: "localhost"
       DB_NAME: "postgres"
-      DB_PORT: "5666"
+      DB_PORT: "5432"
       DB_USER: "admin"
       DB_PASSWORD: "admin"
       AUTH_PORT: "7004"
@@ -58,9 +58,9 @@ services:
     build:
       context: ./subscription/
     environment:
-      DB_HOST: "62.109.31.252"
+      DB_HOST: "localhost"
       DB_NAME: "postgres"
-      DB_PORT: "5666"
+      DB_PORT: "5432"
       DB_USER: "admin"
       DB_PASSWORD: "admin"
       AUTH_PORT: "7005"
@@ -79,9 +79,9 @@ services:
     build:
       context: ./gateway/
     environment:
-      DB_HOST: "62.109.31.252"
+      DB_HOST: "localhost"
       DB_NAME: "middle"
-      DB_PORT: "5666"
+      DB_PORT: "5432"
       DB_USER: "admin"
       DB_PASSWORD: "admin"
       GATEWAY_PORT: "7555"
