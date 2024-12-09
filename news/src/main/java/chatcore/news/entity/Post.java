@@ -4,6 +4,7 @@ package chatcore.news.entity;
 import chatcore.news.utils.ErrorMessages;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 
@@ -13,6 +14,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "posts")
+@AllArgsConstructor
 public class Post {
     @Id
     @Getter
@@ -35,5 +37,5 @@ public class Post {
     @Getter
     @Column(name = "posted_time", nullable = false)
     private Timestamp postedTime;
-
+    public Post(){}
 }
