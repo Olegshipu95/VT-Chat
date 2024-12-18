@@ -1,0 +1,17 @@
+info:
+  app:
+    name: sports-gateway
+    description: Gateway service
+  team:
+    name: D2 team
+
+spring:
+  application:
+    name: sports-gateway
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:cloud}
+
+server:
+  api:
+    prefix: ${API_PREFIX:/api/v2}
+  port: ${PORT:8080}
