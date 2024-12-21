@@ -2,6 +2,7 @@ package chatcore.news;
 
 import chatcore.news.dto.response.PostForResponse;
 import chatcore.news.entity.Post;
+import chatcore.news.entity.User;
 import chatcore.news.repository.NewsRepository;
 import chatcore.news.service.NewsService;
 import chatcore.news.utils.ErrorMessages;
@@ -33,8 +34,12 @@ public class NewsApplicationTests {
     @Test
     public void testGetPostsBySubscriber_Success() {
         UUID userId = UUID.randomUUID();
+        User user = new User();
+        user.setId(userId);
         Post post1 = new Post();
         Post post2 = new Post();
+        post1.setUser(user);
+        post2.setUser(user);
         when(newsRepository.findPostsBySubscriber(userId)).thenReturn(Flux.just(post1, post2));
         Flux<PostForResponse> result = newsService.getPostsBySubscriber(userId);
         assertNotNull(result);
@@ -45,7 +50,7 @@ public class NewsApplicationTests {
     @Test
     public void testGetPostsBySubscriber_Error() {
         UUID userId = UUID.randomUUID();
-        when(newsRepository.findPostsBySubscriber(userId)).thenReturn(Flux.error(new RuntimeException("Database error")));
+        when(newsRepository.findPostsBySubscriber(userId)).thenReturn(Flux.error(new RuntimeException(ErrorMessages.ERROR_DB_REQUEST)));
         Flux<PostForResponse> result = newsService.getPostsBySubscriber(userId);
         StepVerifier.create(result)
                 .expectErrorMatches(throwable -> throwable instanceof RuntimeException &&
