@@ -1,10 +1,11 @@
 spring:
   services:
     urls:
-      sports-user: ${SPORTS_USER_NAME:sports-user}
-      sports-order: ${SPORTS_ORDER_NAME:sports-order}
-      sports-fight: ${SPORTS_PROCESS_NAME:sports-fight}
-
+      customer: ${CUSTOMER_NAME:customer}
+      news: ${NEWS_NAME:feed}
+      feed: ${FEED_NAME:feed}
+      chat: ${CHAT_NAME:chat}
+      sub: ${SUB_NAME:sub}
 resilience4j:
   circuitbreaker:
     instances:

@@ -7,6 +7,6 @@ RUN mvn -f /usr/src/app/pom.xml clean package
 
 FROM openjdk:21
 
-COPY --from=builder /usr/src/app/target/news-all.jar /usr/app/news-all.jar
+COPY --from=builder /usr/src/app/target/config.jar /usr/app/config.jar
 
-ENTRYPOINT ["java", "-jar", "/usr/app/news-all.jar"]
+ENTRYPOINT ["java", "-jar", "/usr/app/config.jar"]

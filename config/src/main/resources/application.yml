@@ -1,13 +1,13 @@
 info:
   app:
-    name: sports-config
+    name: config
     description: Config service
   team:
     name: D2 team
 
 spring:
   application:
-    name: sports-config
+    name: config
   profiles:
     active: ${SPRING_PROFILES_ACTIVE:native}
   cloud:

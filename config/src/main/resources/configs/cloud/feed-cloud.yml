@@ -7,9 +7,9 @@ spring:
 
 
   datasource:
-    url: ${SPORTS_FIGHT_JDBC_URL:jdbc:postgresql://sports-postgres:5432/sports_fight}
-    username: ${SPORTS_FIGHT_DB_USER:username}
-    password: ${SPORTS_FIGHT_DB_PASSWORD:password}
+    url: ${FEED_JDBC_URL:jdbc:postgresql://postgres:5432/feed}
+    username: ${FEED_DB_USER:username}
+    password: ${FEED_DB_PASSWORD:password}
 
   cloud:
     openfeign:
@@ -19,9 +19,9 @@ spring:
             connectTimeout: 5000
             readTimeout: 5000
             loggerLevel: basic
-      sports-order:
-        name: ${SPORTS_ORDER_NAME:sports-order}
-        url: ${SPORTS_ORDER_URL:sports-order}
+#      sports-order:
+#        name: ${SPORTS_ORDER_NAME:sports-order}
+#        url: ${SPORTS_ORDER_URL:sports-order}
 
 management:
   endpoints:

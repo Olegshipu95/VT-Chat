@@ -32,7 +32,7 @@ services:
     profiles:
       - cloud
 
-  sports-config:
+  config:
     container_name: config
     image: config
     ports:
@@ -49,7 +49,7 @@ services:
       NEWS_NAME: news
       FEED_NAME: feed
       CHAT_NAME: chat
-      SUB_NAME: subscription
+      SUB_NAME: sub
 
       # customer
       CUSTOMER_R2DBC_URL: r2dbc:postgresql://postgres:5432/customer
@@ -59,16 +59,29 @@ services:
       SECRET: aGZiYmtiYWllYmNpZWFpZWJsZWNldWNlY2xhZWNhaWJlbGNhZWN3Q0VCV0VXSUM=
       ACCESS: 1
       REFRESH: 24
+
+      # chat
+      CHAT_JDBC_URL: jdbc:postgresql://postgres:5432/chat
+      CHAT_DB_USER: username
+      CHAT_DB_PASSWORD: password
+
       # news
       NEWS_JDBC_URL: jdbc:postgresql://postgres:5432/news
       NEWS_DB_USER: username
       NEWS_DB_PASSWORD: password
+
       # feed
-      SPORTS_FIGHT_JDBC_URL: jdbc:postgresql://postgres:5432/feed
-      SPORTS_FIGHT_DB_USER: username
-      SPORTS_FIGHT_DB_PASSWORD: password
-      SPORTS_ORDER_URL: news
-#      todo
+      FEED_JDBC_URL: jdbc:postgresql://postgres:5432/feed
+      FEED_DB_USER: username
+      FEED_DB_PASSWORD: password
+
+
+      # sub
+      SUB_JDBC_URL: jdbc:postgresql://postgres:5432/sub
+      SUB_DB_USER: username
+      SUB_DB_PASSWORD: password
+      SUB_URL: sub
+
 
 
     depends_on:
