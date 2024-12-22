@@ -87,7 +87,7 @@
             <column name="logo_url" type="varchar(255)"/>
         </createTable>
 
-        <createTable tableName="subscribers">
+        <createTable tableName="sub">
             <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
