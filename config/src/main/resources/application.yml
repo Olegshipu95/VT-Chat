@@ -1,0 +1,32 @@
+info:
+  app:
+    name: sports-config
+    description: Config service
+  team:
+    name: D2 team
+
+spring:
+  application:
+    name: sports-config
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:native}
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/configs/cloud
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${DISCOVERY_SERVER_URL:http://eureka_client:eureka_password@localhost:8761/eureka}
+
+management:
+  endpoints:
+    web.exposure.include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+server:
+  port: ${PORT:8888}

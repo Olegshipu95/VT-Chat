@@ -1,0 +1,19 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+
+  datasource:
+    url: ${SPORTS_ORDER_JDBC_URL:jdbc:postgresql://sports-postgres:5432/sports_order}
+    username: ${SPORTS_ORDER_DB_USER:username}
+    password: ${SPORTS_ORDER_DB_PASSWORD:password}
+
+management:
+  endpoints:
+    web.exposure.include: "*"
+  endpoint:
+    health:
+      show-details: always
