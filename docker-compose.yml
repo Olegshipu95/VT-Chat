@@ -1,95 +1,282 @@
 
 services:
 
-  chat_service:
-    build:
-      context: ./chat/
-    environment:
-      DB_HOST: "localhost"
-      DB_NAME: "postgres"
-      DB_PORT: "5432"
-      DB_USER: "admin"
-      DB_PASSWORD: "admin"
-      CHAT_PORT: "7001"
+  postgres:
+    container_name: postgres
+    image: postgres:16
     ports:
-      - "7001:7001"
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./init_databases.sql:/docker-entrypoint-initdb.d/init_databases.sql
+    profiles:
+      - cloud
+      - local
 
-  customer_service:
-    build:
-      context: ./customer/
-    environment:
-      DB_HOST: "localhost"
-      DB_NAME: "postgres"
-      DB_PORT: "5432"
-      DB_USER: "admin"
-      DB_PASSWORD: "admin"
-      CUSTOMER_PORT: "7002"
-    ports:
-      - "7002:7002"
 
-  feed_service:
-    build:
-      context: ./feed/
-    environment:
-      DB_HOST: "localhost"
-      DB_NAME: "postgres"
-      DB_PORT: "5432"
-      DB_USER: "admin"
-      DB_PASSWORD: "admin"
-      CHAT_PORT: "7003"
-      CHAT_CONFIG_FILE: "${CHAT_CONFIG_FILE}"
+  eureka:
+    container_name: eureka
+    image: eureka
     ports:
-      - "7003:7003"
+      - "8761:8761"
+    build:
+      context: "eureka"
+      dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: cloud
+      EUREKA_CLIENT_USERNAME: eureka_client
+      EUREKA_CLIENT_PASSWORD: eureka_password
+      PORT: 8761
+    profiles:
+      - cloud
 
-  news_service:
-    build:
-      context: ./news/
-    environment:
-      DB_HOST: "localhost"
-      DB_NAME: "postgres"
-      DB_PORT: "5432"
-      DB_USER: "admin"
-      DB_PASSWORD: "admin"
-      AUTH_PORT: "7004"
+  config:
+    container_name: config
+    image: config
     ports:
-      - "7004:7004"
+      - "8888:8888"
+    build:
+      context: "config"
+      dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: native
+      EUREKA_SERVER_URL: http://eureka_client:eureka_password@eureka:8761/eureka
+      PORT: 8888
 
-  subscription_service:
-    build:
-      context: ./subscription/
-    environment:
-      DB_HOST: "localhost"
-      DB_NAME: "postgres"
-      DB_PORT: "5432"
-      DB_USER: "admin"
-      DB_PASSWORD: "admin"
-      AUTH_PORT: "7005"
-    ports:
-      - "7005:7005"
+      CUSTOMER_NAME: customer
+      NEWS_NAME: news
+      FEED_NAME: feed
+      CHAT_NAME: chat
+      SUB_NAME: sub
 
-  eureka_service:
-    build:
-      context: ./eureka/
-    environment:
-      EUREKA_PORT: "7033"
-    ports:
-      - "7033:7033"
+      # customer
+      CUSTOMER_R2DBC_URL: r2dbc:postgresql://postgres:5432/customer
+      CUSTOMER_JDBC_URL: jdbc:postgresql://postgres:5432/customer
+      CUSTOMER_DB_USER: username
+      CUSTOMER_DB_PASSWORD: password
+      SECRET: aGZiYmtiYWllYmNpZWFpZWJsZWNldWNlY2xhZWNhaWJlbGNhZWN3Q0VCV0VXSUM=
+      ACCESS: 1
+      REFRESH: 24
 
-  gateway_service:
-    build:
-      context: ./gateway/
-    environment:
-      DB_HOST: "localhost"
-      DB_NAME: "middle"
-      DB_PORT: "5432"
-      DB_USER: "admin"
-      DB_PASSWORD: "admin"
-      GATEWAY_PORT: "7555"
-      CHAT_HOST: "chat_service:7001"
-      CUSTOMER_HOST: "customer_service:7002"
-      FEED_HOST: "feed_service:7003"
-      NEWS_HOST: "news_service:7004"
-      SUBSCRIPTION_HOST: "chat_service:7005"
+      # chat
+      CHAT_JDBC_URL: jdbc:postgresql://postgres:5432/chat
+      CHAT_DB_USER: username
+      CHAT_DB_PASSWORD: password
+
+      # news
+      NEWS_JDBC_URL: jdbc:postgresql://postgres:5432/news
+      NEWS_DB_USER: username
+      NEWS_DB_PASSWORD: password
+
+      # feed
+      FEED_JDBC_URL: jdbc:postgresql://postgres:5432/feed
+      FEED_DB_USER: username
+      FEED_DB_PASSWORD: password
+
+
+      # sub
+      SUB_JDBC_URL: jdbc:postgresql://postgres:5432/sub
+      SUB_DB_USER: username
+      SUB_DB_PASSWORD: password
+      SUB_URL: sub
+
+
+
+    depends_on:
+      - eureka
+    profiles:
+      - cloud
+
+  gateway:
+    container_name: gateway
+    image: gateway
     ports:
-      - "7555:7555"
+      - "8080:8080"
+    build:
+      context: "gateway"
+      dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: cloud
+      DISCOVERY_SERVER_URL: http://eureka_client:eureka_password@eureka:8761/eureka
+      API_PREFIX: /api/v2
+      PORT: 8080
+    depends_on:
+      - eureka
+      - config
+    profiles:
+      - cloud
+
+  customer:
+    container_name: customer
+    image: customer
+    ports:
+      - "8383:8383"
+    build:
+      context: "customer"
+      dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: cloud
+      DISCOVERY_SERVER_URL: http://eureka_client:eureka_password@eureka:8761/eureka
+      PORT: 8383
+    depends_on:
+      - postgres
+      - eureka
+      - config
+      - gateway
+    profiles:
+      - cloud
+
+  feed:
+    container_name: feed
+    image: feed
+    ports:
+      - "8381:8381"
+    build:
+      context: "feed"
+      dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: cloud
+      DISCOVERY_SERVER_URL: http://eureka_client:eureka_password@eureka:8761/eureka
+      PORT: 8381
+    depends_on:
+      - postgres
+      - eureka
+      - config
+      - gateway
+    profiles:
+      - cloud
+
+  news:
+    container_name: news
+    image: news
+    ports:
+      - "8387:8387"
+    build:
+      context: "news"
+      dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: cloud
+      DISCOVERY_SERVER_URL: http://eureka_client:eureka_password@eureka:8761/eureka
+      PORT: 8387
+    depends_on:
+      - postgres
+      - eureka
+      - config
+      - gateway
+    profiles:
+      - cloud
+
+  chat:
+    container_name: chat
+    image: chat
+    ports:
+      - "8387:8387"
+    build:
+      context: "chat"
+      dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: cloud
+      DISCOVERY_SERVER_URL: http://eureka_client:eureka_password@eureka:8761/eureka
+      PORT: 8387
+    depends_on:
+      - postgres
+      - eureka
+      - config
+      - gateway
+    profiles:
+      - cloud
+
+#  chat_service:
+#    build:
+#      context: ./chat/
+#    environment:
+#      DB_HOST: "localhost"
+#      DB_NAME: "postgres"
+#      DB_PORT: "5432"
+#      DB_USER: "admin"
+#      DB_PASSWORD: "admin"
+#      CHAT_PORT: "7001"
+#    ports:
+#      - "7001:7001"
+#
+#  customer_service:
+#    build:
+#      context: ./customer/
+#    environment:
+#      DB_HOST: "localhost"
+#      DB_NAME: "postgres"
+#      DB_PORT: "5432"
+#      DB_USER: "admin"
+#      DB_PASSWORD: "admin"
+#      CUSTOMER_PORT: "7002"
+#    ports:
+#      - "7002:7002"
+#
+#  feed_service:
+#    build:
+#      context: ./feed/
+#    environment:
+#      DB_HOST: "localhost"
+#      DB_NAME: "postgres"
+#      DB_PORT: "5432"
+#      DB_USER: "admin"
+#      DB_PASSWORD: "admin"
+#      CHAT_PORT: "7003"
+#      CHAT_CONFIG_FILE: "${CHAT_CONFIG_FILE}"
+#    ports:
+#      - "7003:7003"
+#
+#  news_service:
+#    build:
+#      context: ./news/
+#    environment:
+#      DB_HOST: "localhost"
+#      DB_NAME: "postgres"
+#      DB_PORT: "5432"
+#      DB_USER: "admin"
+#      DB_PASSWORD: "admin"
+#      AUTH_PORT: "7004"
+#    ports:
+#      - "7004:7004"
+#
+#  subscription_service:
+#    build:
+#      context: ./subscription/
+#    environment:
+#      DB_HOST: "localhost"
+#      DB_NAME: "postgres"
+#      DB_PORT: "5432"
+#      DB_USER: "admin"
+#      DB_PASSWORD: "admin"
+#      AUTH_PORT: "7005"
+#    ports:
+#      - "7005:7005"
+#
+#  eureka_service:
+#    build:
+#      context: ./eureka/
+#    environment:
+#      EUREKA_PORT: "7033"
+#    ports:
+#      - "7033:7033"
+#
+#  gateway_service:
+#    build:
+#      context: ./gateway/
+#    environment:
+#      DB_HOST: "localhost"
+#      DB_NAME: "middle"
+#      DB_PORT: "5432"
+#      DB_USER: "admin"
+#      DB_PASSWORD: "admin"
+#      GATEWAY_PORT: "7555"
+#      CHAT_HOST: "chat_service:7001"
+#      CUSTOMER_HOST: "customer_service:7002"
+#      FEED_HOST: "feed_service:7003"
+#      NEWS_HOST: "news_service:7004"
+#      SUBSCRIPTION_HOST: "chat_service:7005"
+#    ports:
+#      - "7555:7555"
 
