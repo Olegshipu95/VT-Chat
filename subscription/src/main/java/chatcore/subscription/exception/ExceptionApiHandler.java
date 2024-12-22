@@ -1,6 +1,7 @@
-package chatcore.customer.exception;
+package chatcore.subscription.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.support.ErrorMessage;
@@ -19,6 +20,16 @@ public class ExceptionApiHandler {
     @ExceptionHandler(UserAccountWasNotInsertException.class)
     public ResponseEntity<ErrorMessage> handleUserAccountWasNotInserted(UserAccountWasNotInsertException ex) {
         return handleException(ex);
+    }
+
+    @ExceptionHandler(InvalidDataAccessApiUsageException.class)
+    public ResponseEntity<String> handleInvalidDataAccessApiUsageException(InvalidDataAccessApiUsageException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The provided ID is null or invalid: " + ex.getMessage());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid argument: " + ex.getMessage());
     }
 
     private ResponseEntity<ErrorMessage> handleException(Exception ex) {
