@@ -30,18 +30,23 @@ public class CustomerController {
     }
 
     @PutMapping
+    @PreAuthorize("isAuthenticated()")
     public Mono<ResponseEntity<UUID>> updateAccount(@RequestBody UpdateUserInfoRequest updateUserInfoRequest) {
         return customerService.updateAccount(updateUserInfoRequest)
                 .map(id -> ResponseEntity.status(HttpStatus.OK).body(id));
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
     public Mono<ResponseEntity<GetUserInfoResponse>> getAccountById(@PathVariable(value = "id") UUID id) {
         return customerService.getAccountById(id)
                 .map(response -> ResponseEntity.status(HttpStatus.OK).body(response));
     }
 
+
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAnyAuthority('SUPERVISOR')")
     public Mono<ResponseEntity<Void>> deleteAccountById(@PathVariable(value = "id") UUID id) {
         return customerService.deleteAccountById(id)
                 .then(Mono.just(ResponseEntity.status(HttpStatus.NO_CONTENT).<Void>build()));
