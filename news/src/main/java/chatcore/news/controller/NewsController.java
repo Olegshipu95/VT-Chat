@@ -1,9 +1,8 @@
 package chatcore.news.controller;
 
+import chatcore.news.dto.response.FeedResponse;
 import chatcore.news.service.NewsService;
 import chatcore.news.utils.ErrorMessages;
-
-import chatcore.news.dto.response.FeedResponse;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package chatcore.news.configuration.security;
+package chatcore.chat.security;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
