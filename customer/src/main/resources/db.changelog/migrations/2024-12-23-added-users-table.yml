@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-user-table
+      author: arhiiiip
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: surname
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: brief_description
+                  type: text
+              - column:
+                  name: city
+                  type: varchar(100)
+              - column:
+                  name: birthday
+                  type: date
+              - column:
+                  name: logo_url
+                  type: varchar(255)
