@@ -1,7 +1,7 @@
 info:
   app:
-    name: sports-order
-    description: Microloans service
+    name: news
+    description: News service
   team:
     name: chat
 
@@ -10,7 +10,7 @@ spring:
     property-naming-strategy: SNAKE_CASE
 
   application:
-    name: sports-order
+    name: news
   profiles:
     active: ${SPRING_PROFILES_ACTIVE:local}
 

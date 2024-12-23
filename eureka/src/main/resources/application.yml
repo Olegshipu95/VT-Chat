@@ -1,13 +1,13 @@
 info:
   app:
-    name: sports-discovery
-    description: Discovery service
+    name: eureka
+    description: Eureka service
   team:
-    name: D2 team
+    name: chat
 
 spring:
   application:
-    name: sports-discovery
+    name: eureka
   profiles:
     active: ${SPRING_PROFILES_ACTIVE:cloud}
   security:

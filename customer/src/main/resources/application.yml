@@ -1,7 +1,7 @@
 info:
   app:
-    name: sports-order
-    description: Microloans service
+    name: customer
+    description: Customer service
   team:
     name: chat
 

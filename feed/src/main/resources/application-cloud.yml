@@ -6,7 +6,7 @@ spring:
       fail-fast: true
       discovery:
         enabled: true
-        service-id: sports-config
+        service-id: config
 
 eureka:
   client:
