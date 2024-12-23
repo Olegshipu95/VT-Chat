@@ -3,7 +3,7 @@ info:
     name: gateway
     description: Gateway service
   team:
-    name: D2 team
+    name: chat
 
 spring:
   application:

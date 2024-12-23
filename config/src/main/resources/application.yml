@@ -3,7 +3,7 @@ info:
     name: config
     description: Config service
   team:
-    name: D2 team
+    name: chat
 
 spring:
   application:
@@ -19,7 +19,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: ${DISCOVERY_SERVER_URL:http://eureka_client:eureka_password@localhost:8761/eureka}
+      defaultZone: ${EUREKA_SERVER_URL:http://eureka_client:eureka_password@localhost:8761/eureka}
 
 management:
   endpoints:

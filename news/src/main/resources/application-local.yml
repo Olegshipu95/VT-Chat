@@ -1,5 +1,4 @@
 spring:
-
   r2dbc:
     url: ${CUSTOMER_R2DBC_URL:r2dbc:postgresql://postgres:5432/news}
     username: ${CUSTOMER_DB_USER:username}
@@ -18,9 +17,13 @@ spring:
             connectTimeout: 5000
             readTimeout: 5000
             loggerLevel: basic
-      feed:
-        name: ${FEED_NAME:feed}
-        url: ${FEED_URL:feed}
+      news:
+        name: ${NEWS_NAME:news}
+        url: ${NEWS_URL:news}
+
+eureka:
+  client:
+    enabled: false
 
 management:
   endpoints:
