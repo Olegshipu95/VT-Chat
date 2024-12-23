@@ -3,7 +3,7 @@ info:
     name: config
     description: Config service
   team:
-    name: D2 team
+    name: chat
 
 spring:
   application:

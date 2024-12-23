@@ -50,6 +50,12 @@ services:
       FEED_NAME: feed
       CHAT_NAME: chat
       SUB_NAME: sub
+      CUSTOMER_URL: customer
+      NEWS_URL: news
+      FEED_URL: feed
+      CHAT_URL: chat
+      SUB_URL: sub
+
 
       # customer
       CUSTOMER_R2DBC_URL: r2dbc:postgresql://postgres:5432/customer
@@ -80,7 +86,6 @@ services:
       SUB_JDBC_URL: jdbc:postgresql://postgres:5432/sub
       SUB_DB_USER: username
       SUB_DB_PASSWORD: password
-      SUB_URL: sub
 
 
 
