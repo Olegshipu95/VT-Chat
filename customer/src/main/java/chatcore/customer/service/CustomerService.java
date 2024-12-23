@@ -8,7 +8,7 @@ import chatcore.customer.entity.UsersChats;
 import chatcore.customer.exception.UserAccountNotFoundException;
 import chatcore.customer.exception.UserAccountWasNotInsertException;
 import chatcore.customer.repository.UserRepository;
-import chatcore.customer.repository.UsersChatsRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,16 +18,12 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 @Slf4j
+@RequiredArgsConstructor
 @Service
 public class CustomerService {
     private final UserRepository userRepository;
-    private final UsersChatsService usersChatsService;
+    private final UsersChatsServiceClient usersChatsService;
 
-    @Autowired
-    public CustomerService(UserRepository userRepository, UsersChatsService usersChatsService) {
-        this.userRepository = userRepository;
-        this.usersChatsService = usersChatsService;
-    }
 
     public Mono<User> findById(UUID id) {
         return userRepository.findById(id);

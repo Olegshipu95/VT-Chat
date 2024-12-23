@@ -1,6 +1,6 @@
 package chatcore.chat.entity;
 
-import chatcore.chat.service.CustomerService;
+import chatcore.chat.service.CustomerServiceClient;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -14,11 +14,11 @@ import java.util.UUID;
 public class UserDeserializer extends JsonDeserializer<User> {
 
     @Autowired
-    private CustomerService customerService;
+    private CustomerServiceClient customerService;
 
     @Override
     public User deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         String id = jsonParser.getText();
-        return customerService.findById(UUID.fromString(id));
+        return customerService.getAccountById(UUID.fromString(id));
     }
 }
