@@ -1,12 +1,21 @@
 FROM maven:latest as builder
 
-COPY src /usr/src/app/src
-COPY pom.xml /usr/src/app
+WORKDIR /app
 
-RUN mvn -f /usr/src/app/pom.xml clean package
+# Копируем файлы проекта (pom.xml и исходники)
+COPY pom.xml .
+COPY src ./src
+
+# Выполняем сборку проекта (можно добавить параметры сборки)
+RUN mvn clean package
 
 FROM openjdk:21
 
-COPY --from=builder /usr/src/app/target/news-all.jar /usr/app/news-all.jar
+# Устанавливаем рабочую директорию в контейнере
+WORKDIR /app
 
-ENTRYPOINT ["java", "-jar", "/usr/app/news-all.jar"]
+# Копируем jar-файл из предыдущего этапа
+COPY --from=builder /app/target/*.jar app.jar
+
+# Указываем команду для запуска приложения
+ENTRYPOINT ["java", "-jar", "app.jar"]
