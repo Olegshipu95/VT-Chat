@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
@@ -23,12 +24,14 @@ public class FeedController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<UUID> createPost(@RequestBody CreatePostRequest createPostRequest) {
         UUID id = feedService.createFeed(createPostRequest);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
     @DeleteMapping
+    @PreAuthorize("hasAnyAuthority('CUSTOMER')")
     public ResponseEntity<?> deletePost(@RequestBody DeletePostRequest request){
         try{
             feedService.deletePost(request);
@@ -39,6 +42,7 @@ public class FeedController {
     }
 
     @GetMapping("/{userId}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> getAllPostsByUserId(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
                                                     @PathVariable UUID userId,
                                                     @NotNull(message = ErrorMessages.PAGE_CANNOT_BE_NULL)
