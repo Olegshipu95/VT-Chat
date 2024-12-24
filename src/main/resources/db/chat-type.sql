@@ -1,1 +1,0 @@
-CREATE TYPE chat_type AS ENUM ('PAIRED', 'GROUP');

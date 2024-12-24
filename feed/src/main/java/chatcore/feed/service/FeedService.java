@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @Service
 public class FeedService {
     private final FeedRepository feedRepository;
-    private final UserRepository userRepository; // Репозиторий для User
+    private final UserRepository userRepository;
     public FeedService(FeedRepository feedRepository, UserRepository userRepository){
         this.feedRepository = feedRepository;
         this.userRepository = userRepository;
