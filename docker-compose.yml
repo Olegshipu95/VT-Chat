@@ -180,7 +180,7 @@ services:
     ports:
       - "8084:8084"
     build:
-      context: ./sub
+      context: ./subscription
       dockerfile: Dockerfile
     environment:
       SPRING_PROFILES_ACTIVE: cloud
