@@ -1,4 +1,4 @@
-package chatcore.chat.security;
+package chatcore.feed.configuration.security;
 
 
 import org.springframework.context.annotation.Bean;

@@ -38,7 +38,7 @@ public class SecurityConfiguration {
                                 "/webjars/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
-                                "/auth/**"
+                                "/accounts/users/**"
                         ).permitAll()
                         .pathMatchers("/**").authenticated()
                 )

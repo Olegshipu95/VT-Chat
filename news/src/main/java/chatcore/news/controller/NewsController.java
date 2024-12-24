@@ -1,10 +1,12 @@
 package chatcore.news.controller;
 
+
 import chatcore.news.dto.response.PostForResponse;
 import chatcore.news.service.NewsService;
 import chatcore.news.utils.ErrorMessages;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
@@ -22,6 +24,7 @@ public class NewsController {
     }
 
     @GetMapping("/{userId}")
+    @PreAuthorize("isAuthenticated()")
     public Flux<PostForResponse> getAllPostsByUserId(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
                                                      @PathVariable UUID userId) {
         return newsService.getPostsBySubscriber(userId)

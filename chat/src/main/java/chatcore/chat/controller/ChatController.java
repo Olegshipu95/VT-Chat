@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -35,6 +36,7 @@ public class ChatController {
     }
 
     @PostMapping("/chat/start")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> createChat(@Valid @RequestBody CreateChatRequest createChatRequest) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(chatService.createChat(createChatRequest));
@@ -44,6 +46,7 @@ public class ChatController {
     }
 
     @GetMapping("/search")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> searchChat(@Valid @RequestBody SearchChatRequest searchChatRequest) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(chatService.searchChat(searchChatRequest.getUserId(), searchChatRequest.getRequest(), searchChatRequest.getPageNumber(), searchChatRequest.getCountChatsOnPage()));
@@ -53,6 +56,7 @@ public class ChatController {
     }
 
     @GetMapping("/{chatId}/search")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> searchMessage(@Valid @RequestBody SearchMessageRequest searchMessageRequest) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(chatService.searchMessage(searchMessageRequest.getChatId(), searchMessageRequest.getRequest(), searchMessageRequest.getPageNumber(), searchMessageRequest.getCountMessagesOnPage()));
@@ -62,6 +66,7 @@ public class ChatController {
     }
 
     @DeleteMapping("/chat/{chatId}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> deleteChat(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
                                         @PathVariable UUID chatId) {
         try {
@@ -73,6 +78,7 @@ public class ChatController {
     }
 
     @GetMapping("/{userId}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> getAllChatsByUserId(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
                                                  @PathVariable UUID userId,
                                                  @NotNull(message = ErrorMessages.PAGE_CANNOT_BE_NULL)
@@ -89,6 +95,7 @@ public class ChatController {
     }
 
     @GetMapping("/chat/{chatId}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> getAllMessagesByChatId(@NotNull(message = ErrorMessages.ID_CANNOT_BE_NULL)
                                                     @PathVariable UUID chatId,
                                                     @NotNull(message = ErrorMessages.PAGE_CANNOT_BE_NULL)
@@ -105,6 +112,7 @@ public class ChatController {
     }
 
     @PostMapping("/send")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> sendMessage(@Valid @RequestBody Message message) {
         try {
             UUID response = chatService.sendMessage(message);
@@ -115,6 +123,7 @@ public class ChatController {
     }
 
     @GetMapping(value = "/subscribe/{chatId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("isAuthenticated()")
     public DeferredResult<MessageForResponse> subscribe(@Valid @PathVariable UUID chatId, WebRequest request) {
         return chatService.subscribeOnChat(chatId);
     }
