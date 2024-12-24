@@ -23,8 +23,8 @@ public class UsersChatsService {
         return usersChatsRepository.findByUserId(uuid);
     }
 
-    public void save(UsersChats usersChats) {
-        usersChatsRepository.save(usersChats);
+    public UsersChats save(UsersChats usersChats) {
+        return usersChatsRepository.save(usersChats);
     }
 
     public List<UUID> findIdsByChatId(UUID uuid) {
