@@ -47,7 +47,8 @@ public class CustomerService {
                     usersChats.setId(UUID.randomUUID());
                     usersChats.setUserId(newId);
                     usersChats.setChats(new ArrayList<>());
-                    return usersChatsService.save(usersChats).thenReturn(newId);
+                    return Mono.fromCallable(() -> usersChatsService.save(usersChats))
+                            .thenReturn(newId);
                 }).doOnSuccess(id -> log.info("User with ID: {} has been successfully created.", newId));
     }
 
