@@ -19,7 +19,7 @@ FROM amazoncorretto:17-alpine
 WORKDIR /app
 
 # Копируем собранный JAR-файл из предыдущего этапа
-COPY --from=build /workspace/build/libs/*.jar ./chat-eureka.jar
+COPY --from=build /workspace/build/libs/*.jar ./chat-core.jar
 
 # Точка входа
-ENTRYPOINT ["java", "-jar", "chat-eureka.jar"]
+ENTRYPOINT ["java", "-jar", "chat-core.jar"]

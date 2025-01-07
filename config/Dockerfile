@@ -1,21 +1,17 @@
-FROM maven:latest as builder
+FROM gradle:8.8-jdk17 as build
 
-WORKDIR /app
+WORKDIR /workspace
 
-# Копируем файлы проекта (pom.xml и исходники)
-COPY pom.xml .
 COPY src ./src
+COPY build.gradle ./build.gradle
+COPY settings.gradle ./settings.gradle
 
-# Выполняем сборку проекта (можно добавить параметры сборки)
-RUN mvn clean package
+RUN gradle clean build -x test
 
-FROM openjdk:21
+FROM amazoncorretto:17-alpine
 
-# Устанавливаем рабочую директорию в контейнере
 WORKDIR /app
 
-# Копируем jar-файл из предыдущего этапа
-COPY --from=builder /app/target/*.jar app.jar
+COPY --from=build /workspace/build/libs/sports-config-0.0.1-SNAPSHOT.jar ./sports-config.jar
 
-# Указываем команду для запуска приложения
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "sports-config.jar"]
