@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-users-chats-table
+      author: arhiiiip
+      changes:
+        - createTable:
+            tableName: users_chats
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: users_chats_chats
+            columns:
+              - column:
+                  name: users_chats_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: chats_ids
+                  type: uuid
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: users_chats_chats
+            baseColumnNames: users_chats_id
+            referencedTableName: users_chats
+            referencedColumnNames: id
+            constraintName: fk_users_chats_chats_users_chats

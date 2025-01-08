@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f00aa13f-7384-48a3-8986-f3ab869d40ad" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../chat-config/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../chat-config/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../chat-feed/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../chat-gateway/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../chat-gateway/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../chat-news/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../chat-news/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../chat-subscription/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/ChatApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/ChatApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/configuration/security/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/configuration/security/AuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/configuration/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/configuration/security/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/controller/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/controller/ChatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/dto/chat/request/CreateChatRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/dto/chat/request/CreateChatRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/dto/chat/request/SearchChatRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/dto/chat/request/SearchChatRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/dto/chat/request/SearchMessageRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/dto/chat/request/SearchMessageRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/dto/chat/response/ChatForResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/dto/chat/response/ChatForResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/dto/chat/response/MessageForResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/dto/chat/response/MessageForResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/dto/chat/response/ResponseGettingChats.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/dto/chat/response/ResponseGettingChats.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/dto/chat/response/ResponseGettingMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/dto/chat/response/ResponseGettingMessages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/dto/chat/response/ResponseSearchChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/dto/chat/response/ResponseSearchChat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/dto/chat/response/ResponseSearchMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/dto/chat/response/ResponseSearchMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/dto/customer/request/CreateUserAccountRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/dto/customer/request/CreateUserAccountRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/dto/customer/request/UpdateUserInfoRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/dto/customer/request/UpdateUserInfoRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/dto/customer/response/GetUserInfoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/dto/customer/response/GetUserInfoResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/entity/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/entity/Chat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/entity/ChatDeserializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/entity/ChatDeserializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/entity/ChatType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/entity/ChatType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/entity/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/entity/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/entity/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/entity/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/entity/UserDeserializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/entity/UserDeserializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/entity/UsersChats.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/entity/UsersChats.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/exception/ExceptionApiHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/exception/ExceptionApiHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/exception/NotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/exception/NotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/exception/UserAccountNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/exception/UserAccountNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/exception/UserAccountWasNotInsertException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/exception/UserAccountWasNotInsertException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/repository/chat/ChatRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/repository/chat/ChatRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/repository/chat/MessageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/repository/chat/MessageRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/repository/chat/UsersChatsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/repository/chat/UsersChatsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/service/ChatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/service/ChatService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/service/CustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/service/MessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/service/MessageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/service/UsersChatsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/service/UsersChatsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/java/chatcore/chat/utils/ErrorMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/java/chatcore/chat/utils/ErrorMessages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/resources/application-cloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/resources/application-cloud.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/resources/application-local.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/resources/application-local.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/resources/db/changelog/master.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/resources/db.changelog/master.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/resources/db/changelog/migrations/2024-12-23-added-chats-table.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/resources/db/changelog/migrations/2024-12-23-added-chats-table.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/resources/db/changelog/migrations/2024-12-23-added-messages-table.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/resources/db/changelog/migrations/2024-12-23-added-messages-table.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/main/resources/db/changelog/migrations/2024-12-23-added-users-chats-table.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/resources/db/changelog/migrations/2024-12-23-added-users-chats-table.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/test/java/chatcore/chat/ChatApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/test/java/chatcore/chat/ChatApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/test/java/chatcore/chat/ChatControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/test/java/chatcore/chat/ChatControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/test/java/chatcore/chat/ChatServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/test/java/chatcore/chat/ChatServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/test/java/chatcore/chat/MessageServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/test/java/chatcore/chat/MessageServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-core/src/test/java/chatcore/chat/chat/ChatTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/test/java/chatcore/chat/chat/ChatTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/src/main/java/org/example/sportsconfig/SportsConfigApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/src/main/java/org/example/sportsconfig/ChatConfigApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/src/main/resources/configs/cloud/chat-cloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/src/main/resources/configs/cloud/chat-messenger-cloud.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/src/main/resources/configs/cloud/customer-cloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/src/main/resources/configs/cloud/chat-user-cloud.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/src/main/resources/configs/cloud/feed-cloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/src/main/resources/configs/cloud/chat-feed-cloud.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/src/main/resources/configs/cloud/gateway-cloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/src/main/resources/configs/cloud/chat-gateway-cloud.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/src/main/resources/configs/cloud/news-cloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/src/main/resources/configs/cloud/chat-news-cloud.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/src/main/resources/configs/cloud/sub-cloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/src/main/resources/configs/cloud/chat-sub-cloud.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/src/test/java/org/example/sportsconfig/SportsConfigApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/src/test/java/org/example/sportsconfig/SportsConfigApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/src/test/resources/application-test.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/src/test/resources/application-test.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/CustomerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/UserApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/config/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/config/SwaggerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/config/security/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/config/security/AuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/config/security/AuthenticationProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/config/security/AuthenticationProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/config/security/AuthenticationProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/config/security/AuthenticationProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/config/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/config/security/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/dto/customer/request/CreateUserAccountRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/dto/request/CreateUserAccountRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/dto/customer/request/UpdateUserInfoRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/dto/request/UpdateUserInfoRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/dto/customer/response/GetUserInfoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/dto/response/GetUserInfoResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/entity/MaritalStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/entity/MaritalStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/entity/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/entity/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/entity/UserDeserializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/entity/UserDeserializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/entity/UsersChats.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/entity/UsersChats.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/exception/Error.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/exception/Error.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/exception/ErrorCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/exception/ErrorCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/exception/InternalException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/exception/InternalException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/exception/NotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/exception/NotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/exception/RestControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/exception/RestControllerAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/exception/UserAccountNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/exception/UserAccountNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/exception/UserAccountWasNotInsertException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/exception/UserAccountWasNotInsertException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/repository/UsersChatsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/repository/UsersChatsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/service/UsersChatsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/service/UsersChatsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/chatcore/customer/utils/ErrorMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/utils/ErrorMessages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/resources/application-cloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/resources/application-cloud.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/resources/application-local.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-local.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/resources/db.changelog/master.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/resources/db/changelog/master.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/resources/db.changelog/migrations/2024-12-23-added-users-table.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db.changelog/migrations/2024-12-23-added-users-table.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/test/java/chatcore/customer/CustomerApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/chatcore/customer/CustomerApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-eureka/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-eureka/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-eureka/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka/src/main/java/chatcore/eureka/EurekaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-eureka/src/main/java/chatcore/eureka/EurekaApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka/src/main/java/chatcore/eureka/configuration/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-eureka/src/main/java/chatcore/eureka/configuration/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-eureka/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-eureka/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka/src/test/java/chatcore/eureka/EurekaApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-eureka/src/test/java/chatcore/eureka/EurekaApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/java/chatcore/feed/FeedApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/java/chatcore/feed/FeedApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/java/chatcore/feed/configuration/security/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/java/chatcore/feed/configuration/security/AuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/java/chatcore/feed/configuration/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/java/chatcore/feed/configuration/security/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/java/chatcore/feed/controller/FeedController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/java/chatcore/feed/controller/FeedController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/java/chatcore/feed/dto/feed/request/CreatePostRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/java/chatcore/feed/dto/feed/request/CreatePostRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/java/chatcore/feed/dto/feed/request/DeletePostRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/java/chatcore/feed/dto/feed/request/DeletePostRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/java/chatcore/feed/dto/feed/request/GetFeedRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/java/chatcore/feed/dto/feed/request/GetFeedRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/java/chatcore/feed/dto/feed/response/FeedResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/java/chatcore/feed/dto/feed/response/FeedResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/java/chatcore/feed/dto/feed/response/PostForResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/java/chatcore/feed/dto/feed/response/PostForResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/java/chatcore/feed/entity/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/java/chatcore/feed/entity/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/java/chatcore/feed/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/java/chatcore/feed/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/java/chatcore/feed/repository/FeedRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/java/chatcore/feed/repository/FeedRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/java/chatcore/feed/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/java/chatcore/feed/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/java/chatcore/feed/service/FeedService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/java/chatcore/feed/service/FeedService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/java/chatcore/feed/utils/ErrorMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/java/chatcore/feed/utils/ErrorMessages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/resources/application-cloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/resources/application-cloud.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/resources/application-local.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/resources/application-local.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/resources/db.changelog/master.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/resources/db.changelog/master.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/main/resources/db.changelog/migration/2024-12-23-added-posts-table.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/resources/db.changelog/migration/2024-12-23-added-posts-table.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../feed/src/test/java/chatcore/feed/FeedApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/test/java/chatcore/feed/FeedApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-eureka/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-eureka/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/java/chatcore/gateway/GatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/java/chatcore/gateway/GatewayApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/java/chatcore/gateway/configurations/RouteConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/java/chatcore/gateway/configurations/RouteConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/java/chatcore/gateway/configurations/ServiceUrlsProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/java/chatcore/gateway/configurations/ServiceUrlsProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/java/chatcore/gateway/configurations/WebClientConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/java/chatcore/gateway/configurations/WebClientConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/java/chatcore/gateway/dto/AuthorizationDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/java/chatcore/gateway/dto/AuthorizationDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/java/chatcore/gateway/exceptions/Error.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/java/chatcore/gateway/exceptions/Error.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/java/chatcore/gateway/exceptions/ErrorCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/java/chatcore/gateway/exceptions/ErrorCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/java/chatcore/gateway/exceptions/FallBackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/java/chatcore/gateway/exceptions/FallBackController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/java/chatcore/gateway/exceptions/InternalException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/java/chatcore/gateway/exceptions/InternalException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/java/chatcore/gateway/exceptions/RestControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/java/chatcore/gateway/exceptions/RestControllerAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/java/chatcore/gateway/filters/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/java/chatcore/gateway/filters/AuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/resources/application-cloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/resources/application-cloud.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/resources/db/2024-12-10-added-tables.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/resources/db/2024-12-10-added-tables.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/resources/db/chat-type.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/resources/db/chat-type.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/resources/db/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/resources/db/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/resources/db/liquibase.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/resources/db/liquibase.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/main/resources/db/marital-status.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/resources/db/marital-status.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/src/test/java/chatcore/gateway/GatewayApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/test/java/chatcore/gateway/GatewayApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../init_databases.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../init_databases.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/main/java/chatcore/news/NewsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/java/chatcore/news/NewsApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/main/java/chatcore/news/configuration/security/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/java/chatcore/news/configuration/security/AuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/main/java/chatcore/news/configuration/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/java/chatcore/news/configuration/security/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/main/java/chatcore/news/controller/NewsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/java/chatcore/news/controller/NewsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/main/java/chatcore/news/dto/response/FeedResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/java/chatcore/news/dto/response/FeedResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/main/java/chatcore/news/dto/response/PostForResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/java/chatcore/news/dto/response/PostForResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/main/java/chatcore/news/entity/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/java/chatcore/news/entity/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/main/java/chatcore/news/entity/Subscribers.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/java/chatcore/news/entity/Subscribers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/main/java/chatcore/news/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/java/chatcore/news/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/main/java/chatcore/news/repository/NewsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/java/chatcore/news/repository/NewsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/main/java/chatcore/news/service/NewsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/java/chatcore/news/service/NewsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/main/java/chatcore/news/utils/ErrorMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/java/chatcore/news/utils/ErrorMessages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/main/resources/application-cloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/resources/application-cloud.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/main/resources/application-local.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/resources/application-local.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/main/resources/db.changelog/master.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/resources/db.changelog/master.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../news/src/test/java/chatcore/news/NewsApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/test/java/chatcore/news/NewsApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/java/chatcore/subscription/SubscriptionApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/java/chatcore/subscription/SubscriptionApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/java/chatcore/subscription/configuration/security/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/java/chatcore/subscription/configuration/security/AuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/java/chatcore/subscription/configuration/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/java/chatcore/subscription/configuration/security/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/java/chatcore/subscription/controller/SubscriptionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/java/chatcore/subscription/controller/SubscriptionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/java/chatcore/subscription/dto/subs/request/CreateSubRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/java/chatcore/subscription/dto/subs/request/CreateSubRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/java/chatcore/subscription/dto/subs/response/SubscriptionResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/java/chatcore/subscription/dto/subs/response/SubscriptionResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/java/chatcore/subscription/entity/Subscribers.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/java/chatcore/subscription/entity/Subscribers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/java/chatcore/subscription/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/java/chatcore/subscription/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/java/chatcore/subscription/exception/ExceptionApiHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/java/chatcore/subscription/exception/ExceptionApiHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/java/chatcore/subscription/exception/NotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/java/chatcore/subscription/exception/NotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/java/chatcore/subscription/exception/UserAccountNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/java/chatcore/subscription/exception/UserAccountNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/java/chatcore/subscription/exception/UserAccountWasNotInsertException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/java/chatcore/subscription/exception/UserAccountWasNotInsertException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/java/chatcore/subscription/repository/SubRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/java/chatcore/subscription/repository/SubRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/java/chatcore/subscription/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/java/chatcore/subscription/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/java/chatcore/subscription/service/SubscriptionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/java/chatcore/subscription/service/SubscriptionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/java/chatcore/subscription/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/java/chatcore/subscription/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/java/chatcore/subscription/utils/ErrorMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/java/chatcore/subscription/utils/ErrorMessages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/resources/application-cloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-cloud.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/resources/application-local.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/resources/application-local.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/resources/db.changelog/master.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db.changelog/master.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/main/resources/db.changelog/migrations/2024-12-23-added-subscribers-table.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/main/resources/db.changelog/migrations/2024-12-23-added-subscribers-table.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../subscription/src/test/java/chatcore/subscription/SubscriptionApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-subscription/src/test/java/chatcore/subscription/SubscriptionApplicationTests.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Olegshipu95&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Olegshipu95/VT-Chat.git&quot;,
+    &quot;accountId&quot;: &quot;81b7fbc3-a6e1-4283-bd11-6c9aebacaf67&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2qP6hiWgtmYri8TbSvWQLH4dTuB" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.CustomerApplication.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "docker-gradle",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/olegs/IdeaProjects/chat/chat-user",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "configurable.group.appearance"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="CustomerApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chatcore.customer.CustomerApplication" />
+      <module name="chat-customer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chatcore.customer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="chat-customer" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="chat-customer" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.CustomerApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f00aa13f-7384-48a3-8986-f3ab869d40ad" name="Changes" comment="" />
+      <created>1734551984180</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1734551984180</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

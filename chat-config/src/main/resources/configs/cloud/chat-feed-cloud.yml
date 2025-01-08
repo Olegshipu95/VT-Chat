@@ -1,0 +1,41 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+  datasource:
+    url: ${FEED_JDBC_URL:jdbc:postgresql://chat-postgres:5432/feed}
+    username: ${FEED_DB_USER:username}
+    password: ${FEED_DB_PASSWORD:password}
+
+  liquibase:
+    url: ${FEED_JDBC_URL:jdbc:postgresql://chat-postgres:5432/feed}
+    username: ${FEED_DB_USER:username}
+    password: ${FEED_DB_PASSWORD:password}
+
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 5000
+            readTimeout: 5000
+            loggerLevel: basic
+      feed:
+        name: ${FEED_NAME:feed}
+        url: ${FEED_URL:feed}
+
+management:
+  endpoints:
+    web.exposure.include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+#api:
+#  job:
+#    scheduler:
+#      process-debt: "0 * * * * *"
+#0 0 0 ? * MON#1
