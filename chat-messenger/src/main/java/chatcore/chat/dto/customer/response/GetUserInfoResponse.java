@@ -2,10 +2,14 @@ package chatcore.chat.dto.customer.response;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Getter
+@Setter
 public record GetUserInfoResponse (
         @NotNull(message = "Id can't be null")
         UUID userid,

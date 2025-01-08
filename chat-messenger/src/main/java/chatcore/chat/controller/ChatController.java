@@ -7,6 +7,7 @@ import chatcore.chat.dto.chat.response.MessageForResponse;
 import chatcore.chat.entity.Message;
 import chatcore.chat.service.ChatService;
 import chatcore.chat.utils.ErrorMessages;
+import chatcore.chat.entity.UsersChats;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.context.request.async.DeferredResult;
+import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
@@ -33,6 +35,15 @@ public class ChatController {
     @Autowired
     public ChatController(ChatService aChatService) {
         this.chatService = aChatService;
+    }
+
+    @PostMapping("/addUserChats")
+    public ResponseEntity<?> addUserChats(@RequestBody UsersChats usersChats) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(chatService.addUserChats(usersChats));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @PostMapping("/chat/start")

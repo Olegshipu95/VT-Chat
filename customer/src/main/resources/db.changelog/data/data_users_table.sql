@@ -1,0 +1,6 @@
+INSERT INTO users (id, name, surname, email, brief_description, city, birthday, logo_url) VALUES
+                                                                                              ('uuid1', 'John', 'Doe', 'john.doe@example.com', 'A brief description', 'New York', '1990-01-01', 'http://example.com/logo1.png'),
+                                                                                              ('uuid2', 'Jane', 'Smith', 'jane.smith@example.com', 'Another brief description', 'Los Angeles', '1985-05-15', 'http://example.com/logo2.png'),
+                                                                                              ('uuid3', 'Alice', 'Johnson', 'alice.johnson@example.com', 'Yet another brief description', 'Chicago', '1992-08-22', 'http://example.com/logo3.png'),
+                                                                                              ('uuid4', 'Bob', 'Brown', 'bob.brown@example.com', 'A brief description', 'Houston', '1988-11-30', 'http://example.com/logo4.png'),
+                                                                                              ('uuid5', 'Charlie', 'Davis', 'charlie.davis@example.com', 'Another brief description', 'Phoenix', '1991-03-10', 'http://example.com/logo5.png');

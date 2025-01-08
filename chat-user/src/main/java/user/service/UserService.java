@@ -8,6 +8,7 @@ import user.entity.UsersChats;
 import user.exception.UserAccountNotFoundException;
 import user.exception.UserAccountWasNotInsertException;
 import user.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,11 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 @Slf4j
+@RequiredArgsConstructor
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    private final UsersChatsService usersChatsService;
+    private final UsersChatsServiceClient usersChatsService;
 
     @Autowired
     public UserService(UserRepository userRepository, UsersChatsService usersChatsService) {
@@ -50,7 +52,8 @@ public class UserService {
                     usersChats.setId(UUID.randomUUID());
                     usersChats.setUserId(newId);
                     usersChats.setChats(new ArrayList<>());
-                    return usersChatsService.save(usersChats).thenReturn(newId);
+                    return Mono.fromCallable(() -> usersChatsService.save(usersChats))
+                            .thenReturn(newId);
                 }).doOnSuccess(id -> log.info("User with ID: {} has been successfully created.", newId));
     }
 

@@ -203,4 +203,8 @@ public class ChatService {
             throw new RuntimeException(ErrorMessages.ERROR_DB_REQUEST, e);
         }
     }
+
+    public UsersChats addUserChats(UsersChats usersChats) {
+        return usersChatsService.save(usersChats);
+    }
 }
