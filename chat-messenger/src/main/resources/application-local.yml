@@ -1,0 +1,39 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+  datasource:
+    url: ${CHAT_JDBC_URL:jdbc:postgresql://localhost:5432/chat}
+    username: ${CHAT_DB_USER:username}
+    password: ${CHAT_DB_PASSWORD:password}
+
+  liquibase:
+    url: ${CHAT_JDBC_URL:jdbc:postgresql://postgres:5432/chat}
+    username: ${CHAT_DB_USER:username}
+    password: ${CHAT_DB_PASSWORD:password}
+
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 5000
+            readTimeout: 5000
+            loggerLevel: basic
+      chat:
+        name: ${CHAT_NAME:chat}
+        url: ${CHAT_URL:chat}
+
+eureka:
+  client:
+    enabled: false
+
+management:
+  endpoints:
+    web.exposure.include: "*"
+  endpoint:
+    health:
+      show-details: always

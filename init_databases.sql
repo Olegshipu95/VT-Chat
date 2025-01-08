@@ -1,5 +1,5 @@
-create database customer;
+create database user;
 create database news;
 create database feed;
-create database chat;
-create database subs;
+create database messenger;
+create database subscription;

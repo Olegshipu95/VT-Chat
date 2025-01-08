@@ -1,6 +1,7 @@
 services:
-  postgres:
-    container_name: postgres
+
+  chat-postgres:
+    container_name: chat-postgres
     image: postgres:16
     ports:
       - "5432:5432"
@@ -9,178 +10,170 @@ services:
       POSTGRES_PASSWORD: password
     volumes:
       - ./init_databases.sql:/docker-entrypoint-initdb.d/init_databases.sql
-    profiles:
-      - cloud
-      - local
 
-  eureka:
-    container_name: eureka
-    image: eureka
+  chat-eureka:
+    container_name: chat-eureka
+    image: chat-eureka
     ports:
       - "8761:8761"
     build:
-      context: ./eureka
+      context: chat-eureka
       dockerfile: Dockerfile
     environment:
-      SPRING_PROFILES_ACTIVE: cloud
       EUREKA_CLIENT_USERNAME: eureka_client
       EUREKA_CLIENT_PASSWORD: eureka_password
       PORT: 8761
-    profiles:
-      - cloud
 
-  config:
-    container_name: config
-    image: config
+  chat-config:
+    container_name: chat-config
+    image: chat-config
     ports:
       - "8888:8888"
     build:
-      context: ./config
+      context: chat-config
       dockerfile: Dockerfile
     environment:
       SPRING_PROFILES_ACTIVE: native
-      EUREKA_SERVER_URL: http://eureka_client:eureka_password@eureka:8761/eureka
+      EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       PORT: 8888
-      CUSTOMER_NAME: customer
-      NEWS_NAME: news
-      FEED_NAME: feed
-      CHAT_NAME: chat
-      SUB_NAME: sub
-      CUSTOMER_URL: customer
-      NEWS_URL: news
-      FEED_URL: feed
-      CHAT_URL: chat
-      SUB_URL: sub
-      CUSTOMER_JDBC_URL: jdbc:postgresql://postgres:5432/customer
-      CUSTOMER_DB_USER: username
-      CUSTOMER_DB_PASSWORD: password
+
+      USER_NAME: chat-user
+      NEWS_NAME: chat-news
+      FEED_NAME: chat-feed
+      MESSENGER_NAME: chat-chat
+      SUB_NAME: chat-subscription
+
+      CUSTOMER_URL: chat-customer
+      NEWS_URL: chat-news
+      FEED_URL: chat-feed
+      MESSENGER_URL: chat-messenger
+      SUB_URL: chat-sub
+
+      USER_JDBC_URL: jdbc:postgresql://postgres:5432/user
+      USER_DB_USER: username
+      USER_DB_PASSWORD: password
       SECRET: aGZiYmtiYWllYmNpZWFpZWJsZWNldWNlY2xhZWNhaWJlbGNhZWN3Q0VCV0VXSUM=
       ACCESS: 1
       REFRESH: 24
-      CHAT_JDBC_URL: jdbc:postgresql://postgres:5432/chat
-      CHAT_DB_USER: username
-      CHAT_DB_PASSWORD: password
+
+      MESSENGER_JDBC_URL: jdbc:postgresql://postgres:5432/messenger
+      MESSENGER_DB_USER: username
+      MESSENGER_DB_PASSWORD: password
+
       NEWS_R2DBC_URL: r2dbc:postgresql://postgres:5432/news
       NEWS_JDBC_URL: jdbc:postgresql://postgres:5432/news
       NEWS_DB_USER: username
       NEWS_DB_PASSWORD: password
+
       FEED_JDBC_URL: jdbc:postgresql://postgres:5432/feed
       FEED_DB_USER: username
       FEED_DB_PASSWORD: password
-      SUB_JDBC_URL: jdbc:postgresql://postgres:5432/sub
+
+      SUB_JDBC_URL: jdbc:postgresql://postgres:5432/subscription
       SUB_DB_USER: username
       SUB_DB_PASSWORD: password
-    depends_on:
-      - eureka
-    profiles:
-      - cloud
 
-  gateway:
-    container_name: gateway
-    image: gateway
+    depends_on:
+      - chat-eureka
+
+  chat-gateway:
+    container_name: chat-gateway
+    image: chat-gateway
     ports:
       - "8080:8080"
     build:
-      context: ./gateway
+      context: chat-gateway
       dockerfile: Dockerfile
     environment:
       SPRING_PROFILES_ACTIVE: cloud
-      EUREKA_SERVER_URL: http://eureka_client:eureka_password@eureka:8761/eureka
+      EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       API_PREFIX: /api/v2
       PORT: 8080
     depends_on:
-      - eureka
-      - config
-    profiles:
-      - cloud
+      - chat-eureka
+      - chat-config
 
-  customer:
-    container_name: customer
-    image: customer
+  chat-user:
+    container_name: chat-user
+    image: chat-user
     ports:
       - "8383:8383"
     build:
-      context: ./customer
+      context: chat-user
       dockerfile: Dockerfile
     environment:
       SPRING_PROFILES_ACTIVE: cloud
-      EUREKA_SERVER_URL: http://eureka_client:eureka_password@eureka:8761/eureka
+      EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       PORT: 8383
     depends_on:
-      - postgres
-      - eureka
-      - config
-      - gateway
-    profiles:
-      - cloud
+      - chat-postgres
+      - chat-eureka
+      - chat-config
+      - chat-gateway
 
-  feed:
-    container_name: feed
-    image: feed
+  chat-feed:
+    container_name: chat-feed
+    image: chat-feed
     ports:
       - "8381:8381"
     build:
-      context: ./feed
+      context: chat-feed
       dockerfile: Dockerfile
     environment:
       SPRING_PROFILES_ACTIVE: cloud
-      EUREKA_SERVER_URL: http://eureka_client:eureka_password@eureka:8761/eureka
+      EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       PORT: 8381
     depends_on:
-      - postgres
-      - eureka
-      - config
-      - gateway
-    profiles:
-      - cloud
+      - chat-postgres
+      - chat-eureka
+      - chat-config
+      - chat-gateway
 
-  news:
-    container_name: news
-    image: news
+  chat-news:
+    container_name: chat-news
+    image: chat-news
     ports:
       - "8387:8387"
     build:
-      context: ./news
+      context: chat-news
       dockerfile: Dockerfile
     environment:
       SPRING_PROFILES_ACTIVE: cloud
       EUREKA_SERVER_URL: http://eureka_client:eureka_password@eureka:8761/eureka
       PORT: 8387
     depends_on:
-      - postgres
-      - eureka
-      - config
-      - gateway
-    profiles:
-      - cloud
+      - chat-postgres
+      - chat-eureka
+      - chat-config
+      - chat-gateway
 
-  chat:
-    container_name: chat
-    image: chat
+
+  chat-messenger:
+    container_name: chat-messenger
+    image: chat-messenger
     ports:
       - "8382:8382"
     build:
-      context: ./chat
+      context: chat-messenger
       dockerfile: Dockerfile
     environment:
       SPRING_PROFILES_ACTIVE: cloud
       EUREKA_SERVER_URL: http://eureka_client:eureka_password@eureka:8761/eureka
       PORT: 8382
     depends_on:
-      - postgres
-      - eureka
-      - config
-      - gateway
-    profiles:
-      - cloud
+      - chat-postgres
+      - chat-eureka
+      - chat-config
+      - chat-gateway
 
-  sub:
-    container_name: sub
-    image: sub
+
+  chat-subscription:
+    container_name: chat-subscription
+    image: chat-subscription
     ports:
       - "8084:8084"
     build:
-      context: ./subscription
+      context: chat-subscription
       dockerfile: Dockerfile
     environment:
       SPRING_PROFILES_ACTIVE: cloud
@@ -188,7 +181,5 @@ services:
       API_PREFIX: /api/v2
       PORT: 8084
     depends_on:
-      - eureka
-      - config
-    profiles:
-      - cloud
+      - chat-eureka
+      - chat-config
