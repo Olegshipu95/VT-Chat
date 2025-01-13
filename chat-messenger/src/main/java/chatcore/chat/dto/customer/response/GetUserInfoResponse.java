@@ -8,8 +8,6 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Getter
-@Setter
 public record GetUserInfoResponse (
         @NotNull(message = "Id can't be null")
         UUID userid,
