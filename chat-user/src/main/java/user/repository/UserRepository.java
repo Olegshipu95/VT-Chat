@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface UserRepository extends ReactiveCrudRepository<User, UUID> {
+public interface UserRepository extends JpaRepository<User, UUID> {
 
     @Query(value = """
             INSERT INTO users (
@@ -23,7 +23,7 @@ public interface UserRepository extends ReactiveCrudRepository<User, UUID> {
             VALUES (:id, :name, :surname, :email,
                     :briefDescription, :city, :birthday, :logoUrl)
             """, nativeQuery = true)
-    Mono<Void> saveNewUserAccount(UUID id, String name, String surname, String email,
+    Void saveNewUserAccount(UUID id, String name, String surname, String email,
                                   String briefDescription, String city, LocalDate birthday, String logoUrl);
 
     @Query(value = """
@@ -37,15 +37,12 @@ public interface UserRepository extends ReactiveCrudRepository<User, UUID> {
                         logo_url = :logoUrl
                     WHERE id = :id
             """, nativeQuery = true)
-    Mono<Integer> updateUserAccount(UUID id, String name, String surname, String email,
+    Integer updateUserAccount(UUID id, String name, String surname, String email,
                                     String briefDescription, String city, LocalDate birthday, String logoUrl);
 
     @Query(value = "SELECT * FROM users WHERE id = :id", nativeQuery = true)
-    Mono<User> findUserAccountById(UUID id);
+    User findUserAccountById(UUID id);
 
     @Query(value = "DELETE FROM users WHERE id = :id", nativeQuery = true)
-    Mono<Void> deleteUserAccountById(UUID id);
-
-    @Query(value = "SELECT id FROM users WHERE id = :id", nativeQuery = true)
-    Mono<UUID> findIdById(UUID id);
+    Void deleteUserAccountById(UUID id);
 }

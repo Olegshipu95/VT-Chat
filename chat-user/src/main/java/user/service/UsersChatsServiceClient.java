@@ -1,8 +1,6 @@
-package chatcore.customer.service;
+package user.service;
 
-import chatcore.customer.config.feign.FeignConfiguration;
-import chatcore.customer.entity.UsersChats;
-import chatcore.customer.repository.UsersChatsRepository;
+import user.config.feign.FeignConfiguration;
 import feign.Headers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import reactor.core.publisher.Mono;
+import user.entity.UsersChats;
 
 @FeignClient(value = "${spring.cloud.openfeign.chat.name}", configuration = FeignConfiguration.class)
 public interface UsersChatsServiceClient {

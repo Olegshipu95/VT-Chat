@@ -8,13 +8,13 @@ import user.entity.UsersChats;
 import user.exception.UserAccountNotFoundException;
 import user.repository.UserRepository;
 import user.service.UserService;
-import user.service.UsersChatsService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
+import user.service.UsersChatsServiceClient;
 
 import java.util.*;
 
@@ -25,13 +25,13 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class CustomerApplicationTests {
     private UserRepository userRepository;
-    private UsersChatsService usersChatsService;
+    private UsersChatsServiceClient usersChatsService;
     private UserService userService;
 
     @BeforeEach
     void setUp() {
         userRepository = mock(UserRepository.class);
-        usersChatsService = mock(UsersChatsService.class);
+        usersChatsService = mock(UsersChatsServiceClient.class);
         userService = new UserService(userRepository, usersChatsService);
     }
     @Test
@@ -40,7 +40,7 @@ class CustomerApplicationTests {
         User user = new User();
         user.setId(userId);
 
-        when(userRepository.findById(userId)).thenReturn(Mono.just(user));
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
         Mono<User> resultMono = userService.findById(userId);
 
@@ -66,8 +66,8 @@ class CustomerApplicationTests {
         when(request.briefDescription()).thenReturn("A user");
         when(request.logoUrl()).thenReturn("http://example.com/logo.png");
 
-        when(userRepository.save(any(User.class))).thenReturn(Mono.just(new User()));
-        when(usersChatsService.save(any(UsersChats.class))).thenReturn(Mono.empty());
+        when(userRepository.save(any(User.class))).thenReturn(new User());
+        when(usersChatsService.save(any(UsersChats.class))).thenReturn(null);
 
         Mono<UUID> resultMono = userService.createAccount(request);
 
@@ -89,8 +89,8 @@ class CustomerApplicationTests {
         User existingUser = new User();
 
         when(request.userId()).thenReturn(userId);
-        when(userRepository.findById(userId)).thenReturn(Mono.just(existingUser));
-        when(userRepository.save(any(User.class))).thenReturn(Mono.just(existingUser));
+        when(userRepository.findById(userId)).thenReturn(Optional.of(existingUser));
+        when(userRepository.save(any(User.class))).thenReturn(existingUser);
 
         Mono<UUID> resultMono = userService.updateAccount(request);
 
@@ -110,7 +110,7 @@ class CustomerApplicationTests {
         UpdateUserInfoRequest request = mock(UpdateUserInfoRequest.class);
 
         when(request.userId()).thenReturn(userId);
-        when(userRepository.findById(userId)).thenReturn(Mono.empty());
+        when(userRepository.findById(userId)).thenReturn(null);
 
         StepVerifier.create(userService.updateAccount(request))
                 .expectError(UserAccountNotFoundException.class)
@@ -125,7 +125,7 @@ class CustomerApplicationTests {
         User user = new User();
         user.setId(userId);
 
-        when(userRepository.findById(userId)).thenReturn(Mono.just(user));
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
         Mono<GetUserInfoResponse> resultMono = userService.getAccountById(userId);
 
@@ -144,7 +144,7 @@ class CustomerApplicationTests {
     void testGetAccountByIdThrowsException() {
         UUID userId = UUID.randomUUID();
 
-        when(userRepository.findById(userId)).thenReturn(Mono.empty());
+        when(userRepository.findById(userId)).thenReturn(null);
 
         StepVerifier.create(userService.getAccountById(userId))
                 .expectError(UserAccountNotFoundException.class)
@@ -158,7 +158,7 @@ class CustomerApplicationTests {
         UUID userId = UUID.randomUUID();
         User user = new User();
 
-        when(userRepository.findById(userId)).thenReturn(Mono.just(user));
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
         doNothing().when(userRepository).deleteById(userId);
 
         Mono<Void> resultMono = userService.deleteAccountById(userId);
@@ -174,7 +174,7 @@ class CustomerApplicationTests {
     void testDeleteAccountByIdThrowsException() {
         UUID userId = UUID.randomUUID();
 
-        when(userRepository.findById(userId)).thenReturn(Mono.empty());
+        when(userRepository.findById(userId)).thenReturn(null);
 
         StepVerifier.create(userService.deleteAccountById(userId))
                 .expectError(UserAccountNotFoundException.class)
@@ -189,7 +189,7 @@ class CustomerApplicationTests {
         UpdateUserInfoRequest request = mock(UpdateUserInfoRequest.class);
 
         when(request.userId()).thenReturn(invalidUserId);
-        when(userRepository.findById(invalidUserId)).thenReturn(Mono.empty());
+        when(userRepository.findById(invalidUserId)).thenReturn(null);
 
         StepVerifier.create(userService.updateAccount(request))
                 .expectError(UserAccountNotFoundException.class)

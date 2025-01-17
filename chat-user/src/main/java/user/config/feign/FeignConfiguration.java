@@ -1,4 +1,4 @@
-package chatcore.customer.config.feign;
+package user.config.feign;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.codec.Decoder;

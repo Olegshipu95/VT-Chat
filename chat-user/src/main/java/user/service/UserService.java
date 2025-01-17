@@ -10,7 +10,6 @@ import user.exception.UserAccountWasNotInsertException;
 import user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -24,20 +23,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final UsersChatsServiceClient usersChatsService;
 
-    @Autowired
-    public UserService(UserRepository userRepository, UsersChatsService usersChatsService) {
-        this.userRepository = userRepository;
-        this.usersChatsService = usersChatsService;
-    }
-
     public Mono<User> findById(UUID id) {
-        return userRepository.findById(id);
+        return Mono.just(userRepository.findById(id).get());
     }
 
     public Mono<UUID> createAccount(CreateUserAccountRequest request) {
         log.debug("Create an account for: {}", request.name());
         UUID newId = UUID.randomUUID();
-        return userRepository.saveNewUserAccount(
+        return Mono.just(userRepository.saveNewUserAccount(
                         newId,
                         request.name(),
                         request.surname(),
@@ -46,7 +39,7 @@ public class UserService {
                         request.city(),
                         request.birthday(),
                         request.logoUrl()
-                ).then(Mono.just(newId))
+                )).then(Mono.just(newId))
                 .flatMap(id -> {
                     UsersChats usersChats = new UsersChats();
                     usersChats.setId(UUID.randomUUID());
@@ -59,9 +52,9 @@ public class UserService {
 
     public Mono<UUID> updateAccount(UpdateUserInfoRequest request) {
         log.debug("UPDATE: start for id: {}", request.userId());
-        return userRepository.findUserAccountById(request.userId())
+        return Mono.just(userRepository.findUserAccountById(request.userId()))
                 .switchIfEmpty(Mono.error(new UserAccountNotFoundException(request.userId())))
-                .flatMap(existingAccount -> userRepository.updateUserAccount(
+                .map(existingAccount -> userRepository.updateUserAccount(
                         request.userId(),
                         request.name(),
                         request.surname(),
@@ -80,7 +73,7 @@ public class UserService {
 
     public Mono<GetUserInfoResponse> getAccountById(UUID id) {
         log.debug("GET: start for id: {}", id);
-        return userRepository.findUserAccountById(id)
+        return Mono.just(userRepository.findUserAccountById(id))
                 .switchIfEmpty(Mono.error(new UserAccountNotFoundException(id)))
                 .map(account -> new GetUserInfoResponse(
                         account.getId(),
@@ -96,9 +89,9 @@ public class UserService {
 
     public Mono<Void> deleteAccountById(UUID id) {
         log.debug("DELETE: start for id: {}", id);
-        return userRepository.findUserAccountById(id)
+        return Mono.just(userRepository.findUserAccountById(id))
                 .switchIfEmpty(Mono.error(new UserAccountNotFoundException(id)))
-                .flatMap(account -> userRepository.deleteUserAccountById(id))
+                .map(account -> userRepository.deleteUserAccountById(id))
                 .doOnSuccess(voidValue -> log.info("DELETE: ID: {} has been successfully deleted.", id));
     }
 }
