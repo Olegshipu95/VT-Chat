@@ -26,6 +26,8 @@ dependencies {
     implementation 'jakarta.transaction:jakarta.transaction-api:2.0.0'
 //    implementation 'io.github.openfeign:feign-jackson:11.8'
 //    implementation 'io.github.openfeign:feign-core:11.8'
+//    implementation 'io.github.openfeign:feign-core:11.8'
+//    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.2'
 
     //reactive data base
     runtimeOnly 'org.postgresql:r2dbc-postgresql'
