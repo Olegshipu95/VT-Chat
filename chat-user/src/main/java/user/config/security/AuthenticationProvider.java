@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import user.entity.Role;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,6 +23,7 @@ public class AuthenticationProvider {
     private final AuthenticationProperties props;
     private SecretKey key;
 
+    @Autowired
     public AuthenticationProvider(AuthenticationProperties props) {
         this.props = props;
     }
