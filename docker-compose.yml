@@ -49,27 +49,27 @@ services:
       MESSENGER_URL: chat-messenger
       SUB_URL: chat-sub
 
-      USER_JDBC_URL: jdbc:postgresql://postgres:5432/users
+      USER_JDBC_URL: jdbc:postgresql://chat-postgres:5432/users
       USER_DB_USER: username
       USER_DB_PASSWORD: password
       SECRET: aGZiYmtiYWllYmNpZWFpZWJsZWNldWNlY2xhZWNhaWJlbGNhZWN3Q0VCV0VXSUM=
       ACCESS: 1
       REFRESH: 24
 
-      MESSENGER_JDBC_URL: jdbc:postgresql://postgres:5432/messenger
+      MESSENGER_JDBC_URL: jdbc:postgresql://chat-postgres:5432/messenger
       MESSENGER_DB_USER: username
       MESSENGER_DB_PASSWORD: password
 
-      NEWS_R2DBC_URL: r2dbc:postgresql://postgres:5432/news
-      NEWS_JDBC_URL: jdbc:postgresql://postgres:5432/news
+      NEWS_R2DBC_URL: r2dbc:postgresql://chat-postgres:5432/news
+      NEWS_JDBC_URL: jdbc:postgresql://chat-postgres:5432/news
       NEWS_DB_USER: username
       NEWS_DB_PASSWORD: password
 
-      FEED_JDBC_URL: jdbc:postgresql://postgres:5432/feed
+      FEED_JDBC_URL: jdbc:postgresql://chat-postgres:5432/feed
       FEED_DB_USER: username
       FEED_DB_PASSWORD: password
 
-      SUB_JDBC_URL: jdbc:postgresql://postgres:5432/subscription
+      SUB_JDBC_URL: jdbc:postgresql://chat-postgres:5432/subscription
       SUB_DB_USER: username
       SUB_DB_PASSWORD: password
 

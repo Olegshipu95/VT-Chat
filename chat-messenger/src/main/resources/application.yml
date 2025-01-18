@@ -1,7 +1,7 @@
 info:
   app:
-    name: chat
-    description: Chat service
+    name: messenger
+    description: Messenger service
   team:
     name: chat
 
@@ -10,7 +10,7 @@ spring:
     property-naming-strategy: SNAKE_CASE
 
   application:
-    name: chat
+    name: chat-messenger
   profiles:
     active: ${SPRING_PROFILES_ACTIVE:local}
 

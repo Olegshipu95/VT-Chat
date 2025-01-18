@@ -1,10 +1,10 @@
 spring:
   services:
     urls:
-      customer: ${USER_NAME:customer}
-      news: ${NEWS_NAME:feed}
+      user: ${USER_NAME:user}
+      news: ${NEWS_NAME:news}
       feed: ${FEED_NAME:feed}
-      chat: ${CHAT_NAME:chat}
+      messenger: ${MESSENGER_NAME:messenger}
       sub: ${SUB_NAME:sub}
 resilience4j:
   circuitbreaker:
