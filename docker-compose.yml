@@ -139,7 +139,7 @@ services:
       dockerfile: Dockerfile
     environment:
       SPRING_PROFILES_ACTIVE: cloud
-      EUREKA_SERVER_URL: http://eureka_client:eureka_password@eureka:8761/eureka
+      EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       PORT: 8387
     depends_on:
       - chat-postgres
@@ -158,7 +158,7 @@ services:
       dockerfile: Dockerfile
     environment:
       SPRING_PROFILES_ACTIVE: cloud
-      EUREKA_SERVER_URL: http://eureka_client:eureka_password@eureka:8761/eureka
+      EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       PORT: 8382
     depends_on:
       - chat-postgres
@@ -177,7 +177,7 @@ services:
       dockerfile: Dockerfile
     environment:
       SPRING_PROFILES_ACTIVE: cloud
-      EUREKA_SERVER_URL: http://eureka_client:eureka_password@eureka:8761/eureka
+      EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       API_PREFIX: /api/v2
       PORT: 8084
     depends_on:
