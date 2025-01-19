@@ -102,7 +102,6 @@ services:
       context: chat-user
       dockerfile: Dockerfile
     environment:
-      SPRING_PROFILES_ACTIVE: cloud
       EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       PORT: 8383
     depends_on:

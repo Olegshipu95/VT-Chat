@@ -1,42 +1,13 @@
-info:
-  app:
-    name: chat-user
-    description: Customer service
-  team:
-    name: chat
-
-logging:
-  level:
-    org.springframework: DEBUG
-    org.springframework.boot.context.properties: TRACE
-
 spring:
-  jackson:
-    property-naming-strategy: SNAKE_CASE
-
+  config:
+    import: "configserver:http://chat-config:8888"
   application:
-    name: chat
-  profiles:
-    active: ${SPRING_PROFILES_ACTIVE:local}
+    name: chat-user-cloud
 
-  liquibase:
-    liquibaseSchema: migration
-    change-log: classpath:/db/changelog/master.yml
-
-  jpa:
-    open-in-view: false
-    hibernate:
-      ddl-auto: none
-    properties:
-      hibernate.default_schema: application
-
-springdoc:
-  api-docs:
-    enabled: true
-  swagger-ui:
-    enabled: true
-    path: /swagger-ui/index.html
-
-
-server:
-  port: ${PORT:8381}
+eureka:
+  client:
+    registry-fetch-interval-seconds: 30
+    eureka-server-read-timeout-seconds: 10
+    eureka-server-connect-timeout-seconds: 60
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL:http://eureka_client:eureka_password@localhost:8761/eureka}
