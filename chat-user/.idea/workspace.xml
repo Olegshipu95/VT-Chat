@@ -5,29 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f00aa13f-7384-48a3-8986-f3ab869d40ad" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../chat-config/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-config/src/main/resources/configs/cloud/chat-feed-cloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/src/main/resources/configs/cloud/chat-feed-cloud.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../chat-config/src/main/resources/configs/cloud/chat-user-cloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/src/main/resources/configs/cloud/chat-user-cloud.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-feed/src/main/resources/application-cloud.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-feed/src/main/resources/application-local.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-feed/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-feed/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-feed/src/main/resources/data/data_post_table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/resources/db/changelog/data/data_post_table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-feed/src/main/resources/db.changelog/master.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/resources/db/changelog/db.changelog-master.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-feed/src/main/resources/db.changelog/migration/2024-12-23-added-posts-table.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-feed/src/main/resources/db/changelog/migrations/2024-12-23-added-posts-table.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/user/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/user/entity/UsersChats.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/entity/UsersChats.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/user/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/user/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/user/service/UsersChatsServiceClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/service/UsersChatsServiceClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-cloud.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-local.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/db.changelog/data/data_users_table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/changelog/data/data_users_table.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/db.changelog/master.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/changelog/db.changelog-master.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/db.changelog/migrations/2024-12-23-added-users-table.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/changelog/migrations/2024-12-23-added-users-table.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

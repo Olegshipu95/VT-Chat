@@ -6,7 +6,7 @@ spring:
         format_sql: true
 
   r2dbc:
-    url: r2dbc:postgresql://${POSTGRES_HOST:chat-postgres}:${POSTGRES_PORT:5435}/${POSTGRES_DB:users}
+    url: r2dbc:postgresql://${POSTGRES_HOST:chat-postgres}:${POSTGRES_PORT:5432}/${POSTGRES_DB:users}
     username: ${POSTGRES_USER:username}
     password: ${POSTGRES_PASSWORD:password}
 
