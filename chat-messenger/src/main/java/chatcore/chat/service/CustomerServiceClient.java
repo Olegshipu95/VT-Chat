@@ -20,7 +20,7 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 
-@FeignClient(value = "${spring.cloud.openfeign.sports-order.name}", configuration = FeignConfiguration.class)
+@FeignClient(value = "${spring.cloud.openfeign.chat-user.name}", name = "${spring.cloud.openfeign.chat-user.name}")
 public interface CustomerServiceClient {
 
     @Headers("Content-Type: application/json")
