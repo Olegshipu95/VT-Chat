@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f00aa13f-7384-48a3-8986-f3ab869d40ad" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../chat-messenger/src/main/resources/application-cloud.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../chat-messenger/src/main/resources/application-local.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../chat-messenger/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../chat-messenger/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-messenger/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-config/src/main/resources/configs/cloud/chat-gateway-cloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/src/main/resources/configs/cloud/chat-gateway-cloud.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
