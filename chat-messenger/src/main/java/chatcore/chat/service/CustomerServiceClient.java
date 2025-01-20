@@ -4,7 +4,6 @@ package chatcore.chat.service;
 import chatcore.chat.config.feign.FeignConfiguration;
 import chatcore.chat.dto.customer.response.GetUserInfoResponse;
 import chatcore.chat.entity.User;
-import chatcore.chat.repository.UserRepository;
 import chatcore.chat.repository.chat.UsersChatsRepository;
 import feign.Headers;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,7 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 
-@FeignClient(value = "${spring.cloud.openfeign.chat-user.name}", name = "${spring.cloud.openfeign.chat-user.name}")
+@FeignClient(value = "chat-user-cloud", name = "chat-user-cloud")
 public interface CustomerServiceClient {
 
     @Headers("Content-Type: application/json")

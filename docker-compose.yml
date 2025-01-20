@@ -78,6 +78,7 @@ services:
 
   chat-gateway:
     container_name: chat-gateway
+    restart: always
     image: chat-gateway
     ports:
       - "8080:8080"
@@ -94,6 +95,7 @@ services:
 
   chat-user:
     container_name: chat-user
+    restart: always
     image: chat-user
     ports:
       - "8383:8383"
@@ -111,6 +113,7 @@ services:
 
   chat-feed:
     container_name: chat-feed
+    restart: always
     image: chat-feed
     ports:
       - "8381:8381"
@@ -155,6 +158,7 @@ services:
     environment:
       EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       PORT: 8382
+      MESSENGER_DB_USER: username
     depends_on:
       - chat-postgres
       - chat-eureka
