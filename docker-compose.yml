@@ -155,6 +155,7 @@ services:
     environment:
       EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       PORT: 8382
+      MESSENGER_DB_USER: username
     depends_on:
       - chat-postgres
       - chat-eureka
