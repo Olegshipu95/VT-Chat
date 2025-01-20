@@ -1,17 +1,14 @@
-info:
-  app:
-    name: gateway
-    description: Gateway service
-  team:
-    name: chat
-
 spring:
+  config:
+    import: "configserver:http://chat-config:8888"
   application:
-    name: chat-gateway
-  profiles:
-    active: ${SPRING_PROFILES_ACTIVE:cloud}
+    name: chat-gateway-cloud
 
-server:
-  api:
-    prefix: ${API_PREFIX:/api/v2}
-  port: ${PORT:8080}
+
+eureka:
+  client:
+    registry-fetch-interval-seconds: 30
+    eureka-server-read-timeout-seconds: 10
+    eureka-server-connect-timeout-seconds: 60
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL:http://eureka_client:eureka_password@localhost:8761/eureka}

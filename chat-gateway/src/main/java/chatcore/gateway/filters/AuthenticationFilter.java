@@ -38,7 +38,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
             if (bearerToken != null) {
                 return client.build()
                         .get()
-                        .uri("lb://" + props.getCustomer() + "/accounts/users")
+                        .uri("lb://" + props.getUser() + "/accounts/users")
                         .accept(MediaType.APPLICATION_JSON)
                         .header(Config.AUTHORIZATION, bearerToken)
                         .retrieve()

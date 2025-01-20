@@ -2,8 +2,6 @@ info:
   app:
     name: config
     description: Config service
-  team:
-    name: chat
 
 spring:
   application:

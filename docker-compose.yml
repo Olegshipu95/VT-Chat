@@ -85,7 +85,6 @@ services:
       context: chat-gateway
       dockerfile: Dockerfile
     environment:
-      SPRING_PROFILES_ACTIVE: cloud
       EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       API_PREFIX: /api/v2
       PORT: 8080
@@ -102,7 +101,6 @@ services:
       context: chat-user
       dockerfile: Dockerfile
     environment:
-      SPRING_PROFILES_ACTIVE: cloud
       EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       PORT: 8383
     depends_on:
@@ -120,7 +118,6 @@ services:
       context: chat-feed
       dockerfile: Dockerfile
     environment:
-      SPRING_PROFILES_ACTIVE: cloud
       EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       PORT: 8381
     depends_on:
@@ -138,7 +135,6 @@ services:
       context: chat-news
       dockerfile: Dockerfile
     environment:
-      SPRING_PROFILES_ACTIVE: cloud
       EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       PORT: 8387
     depends_on:

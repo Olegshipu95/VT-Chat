@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import reactor.core.publisher.Mono;
 import user.entity.UsersChats;
 
-@FeignClient(value = "${spring.cloud.openfeign.chat.name}", name = "${spring.cloud.openfeign.chat.name}")
+@FeignClient(name = "chat-messenger")
 public interface UsersChatsServiceClient {
 
 
