@@ -3,6 +3,10 @@ spring:
     import: "configserver:http://chat-config:8888"
   application:
     name: chat-messenger-cloud
+  liquibase:
+    username: ${MESSENGER_DB_USER:username}
+    password: ${MESSENGER_DB_PASSWORD:password}
+    url: jdbc:mysql://${MESSENGER_DB_HOST:localhost}:${MESSENGER_DB_PORT:3306}/${MESSENGER_DB_NAME:yourdb}
 
 eureka:
   client:
