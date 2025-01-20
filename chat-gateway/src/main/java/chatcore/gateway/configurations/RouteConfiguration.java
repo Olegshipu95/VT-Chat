@@ -29,7 +29,7 @@ public class RouteConfiguration {
                                         .setFallbackUri(URI.create("forward:/fallback"))
                                 )
                         )
-                        .uri("lb://" + props.getCustomer())
+                        .uri("lb://" + props.getUser())
                 )
                 .route(props.getNews() + "-route-users", r -> r
                         .path(apiPrefix + "/news/**")
@@ -60,24 +60,24 @@ public class RouteConfiguration {
                         .filters(f -> f
                                 .stripPrefix(2)
                                 .circuitBreaker(cb -> cb
-                                        .setName(props.getChat() + "-circuit-breaker")
+                                        .setName(props.getMessenger() + "-circuit-breaker")
                                         .setFallbackUri(URI.create("forward:/fallback"))
                                 )
                                 .filter(authFilter.apply(new AuthenticationFilter.Config()))
                         )
-                        .uri("lb://" + props.getChat())
+                        .uri("lb://" + props.getMessenger())
                 )
                 .route(props.getSubscription() + "-route", r -> r
                         .path(apiPrefix + "/subscribe/**")
                         .filters(f -> f
                                 .stripPrefix(2)
                                 .circuitBreaker(cb -> cb
-                                        .setName(props.getSub() + "-circuit-breaker")
+                                        .setName(props.getSubscription() + "-circuit-breaker")
                                         .setFallbackUri(URI.create("forward:/fallback"))
                                 )
                                 .filter(authFilter.apply(new AuthenticationFilter.Config()))
                         )
-                        .uri("lb://" + props.getSub())
+                        .uri("lb://" + props.getSubscription())
                 )
                 .build();
     }

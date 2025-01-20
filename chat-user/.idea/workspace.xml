@@ -5,21 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f00aa13f-7384-48a3-8986-f3ab869d40ad" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../chat-config/src/main/resources/configs/cloud/chat-gateway-cloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/src/main/resources/configs/cloud/chat-gateway-cloud.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../chat-config/src/main/resources/configs/cloud/chat-news-cloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-config/src/main/resources/configs/cloud/chat-news-cloud.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../chat-gateway/src/main/java/chatcore/gateway/configurations/RouteConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/java/chatcore/gateway/configurations/RouteConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../chat-gateway/src/main/java/chatcore/gateway/configurations/ServiceUrlsProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/java/chatcore/gateway/configurations/ServiceUrlsProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../chat-gateway/src/main/resources/application-cloud.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../chat-gateway/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../chat-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../chat-news/src/main/java/chatcore/news/NewsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/java/chatcore/news/NewsApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../chat-news/src/main/resources/application-cloud.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../chat-news/src/main/resources/application-local.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../chat-news/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../chat-news/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../chat-news/src/main/resources/db.changelog/master.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-news/src/main/resources/db/changelog/db.changelog-master.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-gateway/src/main/java/chatcore/gateway/filters/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-gateway/src/main/java/chatcore/gateway/filters/AuthenticationFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
