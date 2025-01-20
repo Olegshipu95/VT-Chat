@@ -20,12 +20,12 @@ public class RouteConfiguration {
             @Value("${server.api.prefix}") String apiPrefix
     ) {
         return route.routes()
-                .route(props.getCustomer() + "-route-auth", r -> r
+                .route(props.getUser() + "-route-auth", r -> r
                         .path(apiPrefix + "/accounts/users/**")
                         .filters(f -> f
                                 .stripPrefix(2)
                                 .circuitBreaker(c -> c
-                                        .setName(props.getCustomer() + "-circuit-breaker")
+                                        .setName(props.getUser() + "-circuit-breaker")
                                         .setFallbackUri(URI.create("forward:/fallback"))
                                 )
                         )
@@ -55,7 +55,7 @@ public class RouteConfiguration {
                         )
                         .uri("lb://" + props.getFeed())
                 )
-                .route(props.getChat() + "-route", r -> r
+                .route(props.getMessenger() + "-route", r -> r
                         .path(apiPrefix + "/chats/**")
                         .filters(f -> f
                                 .stripPrefix(2)
@@ -67,7 +67,7 @@ public class RouteConfiguration {
                         )
                         .uri("lb://" + props.getChat())
                 )
-                .route(props.getSub() + "-route", r -> r
+                .route(props.getSubscription() + "-route", r -> r
                         .path(apiPrefix + "/subscribe/**")
                         .filters(f -> f
                                 .stripPrefix(2)

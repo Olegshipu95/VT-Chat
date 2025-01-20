@@ -7,18 +7,18 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "spring.services.urls")
 public class ServiceUrlsProperties {
 
-    private final String customer;
+    private final String user;
     private final String news;
     private final String feed;
-    private final String chat;
-    private final String sub;
+    private final String messenger;
+    private final String subscription;
 
-    public ServiceUrlsProperties(String customer, String news, String feed, String chat, String sub) {
-        this.customer = customer;
+    public ServiceUrlsProperties(String user, String news, String feed, String messenger, String subscription) {
+        this.user = user;
         this.news = news;
         this.feed = feed;
-        this.chat = chat;
-        this.sub = sub;
+        this.messenger = messenger;
+        this.subscription = subscription;
     }
 
 }

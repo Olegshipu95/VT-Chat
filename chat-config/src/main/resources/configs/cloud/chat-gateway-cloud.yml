@@ -5,7 +5,7 @@ spring:
       news: ${NEWS_NAME:news}
       feed: ${FEED_NAME:feed}
       messenger: ${MESSENGER_NAME:messenger}
-      sub: ${SUB_NAME:sub}
+      subscription: ${SUB_NAME:subscription}
 resilience4j:
   circuitbreaker:
     instances:
