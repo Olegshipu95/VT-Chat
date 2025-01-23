@@ -18,3 +18,8 @@
 /chat-config/build/
 /chat-eureka/build/
 /chat-messenger/build/
+/chat-feed/build/
+/chat-user/build/
+/chat-gateway/build/
+/chat-news/build/
+/chat-subscription/build/
