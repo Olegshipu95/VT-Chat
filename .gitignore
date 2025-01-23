@@ -5,12 +5,14 @@
 /chat-subscription/.gradle/
 /chat-news/.idea/
 /chat-news/.gradle/
+/chat-news/gradle/
 /chat-messenger/.idea/
 /chat-messenger/.gradle/
 /chat-gateway/.idea/
 /chat-gateway/.gradle/
 /chat-feed/.idea/
 /chat-feed/.gradle/
+/chat-feed/gradle/
 /chat-eureka/.idea/
 /chat-eureka/.gradle/
 /chat-config/.idea/
