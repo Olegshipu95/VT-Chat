@@ -20,44 +20,53 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework:spring-messaging:5.3.10'
 
-    implementation 'org.hibernate.orm:hibernate-core:6.1.7.Final'
-    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+    implementation 'jakarta.transaction:jakarta.transaction-api:2.0.0'
 
-    // data base
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.liquibase:liquibase-core'
+    //reactive data base
+    implementation 'org.postgresql:r2dbc-postgresql'
+    implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+
+    //liquibase
     runtimeOnly 'org.postgresql:postgresql'
+    implementation 'org.postgresql:postgresql'
+    implementation 'org.liquibase:liquibase-core'
+    implementation 'org.springframework:spring-jdbc'
     implementation 'net.lbruun.springboot:preliquibase-spring-boot-starter:1.5.1'
 
     // security
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
-    // shedlock
-    implementation 'net.javacrumbs.shedlock:shedlock-spring:5.12.0'
-    implementation 'net.javacrumbs.shedlock:shedlock-provider-jdbc-template:5.12.0'
-
-    // open api
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0'
-    implementation 'org.springdoc:springdoc-openapi-starter-common:2.4.0'
-
-    // cloud
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    // jwt
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
     // lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
-    testImplementation 'org.testcontainers:junit-jupiter'
+    // cloud
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+    // open api
+    implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.6.0'
+
+
+    testImplementation 'org.testcontainers:r2dbc'
     testImplementation 'org.testcontainers:postgresql'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    testImplementation 'io.projectreactor:reactor-test'
 }
 
 dependencyManagement {
