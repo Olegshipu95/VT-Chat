@@ -4,9 +4,10 @@ package chatcore.chat;
 import chatcore.chat.controller.ChatController;
 import chatcore.chat.dto.chat.request.CreateChatRequest;
 import chatcore.chat.dto.chat.request.SearchChatRequest;
-import chatcore.chat.dto.chat.response.MessageForResponse;
-import chatcore.chat.dto.chat.response.ResponseSearchChat;
+import chatcore.chat.dto.chat.request.SearchMessageRequest;
+import chatcore.chat.dto.chat.response.*;
 import chatcore.chat.entity.Message;
+import chatcore.chat.entity.UsersChats;
 import chatcore.chat.service.ChatService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.async.DeferredResult;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -129,5 +131,154 @@ public class ChatControllerTest {
         DeferredResult<MessageForResponse> result = chatController.subscribe(chatId, null);
 
         assertEquals(deferredResult, result);
+    }
+
+
+    @Test
+    public void testSearchMessage() {
+        UUID chatId = UUID.randomUUID();
+        String request = "test";
+        Long pageNumber = 0L;
+        Long countMessagesOnPage = 20L;
+        ResponseSearchMessage expectedResponse = new ResponseSearchMessage(new ArrayList<>());
+        SearchMessageRequest searchMessageRequest = new SearchMessageRequest();
+        searchMessageRequest.setChatId(chatId);
+        searchMessageRequest.setRequest(request);
+        searchMessageRequest.setPageNumber(pageNumber);
+        searchMessageRequest.setCountMessagesOnPage(countMessagesOnPage);
+
+        when(chatService.searchMessage(chatId, request, pageNumber, countMessagesOnPage)).thenReturn(expectedResponse);
+
+        ResponseEntity<?> response = chatController.searchMessage(searchMessageRequest);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(expectedResponse, response.getBody());
+    }
+
+    @Test
+    public void testSearchMessageException() {
+        UUID chatId = UUID.randomUUID();
+        String request = "test";
+        Long pageNumber = 0L;
+        Long countMessagesOnPage = 20L;
+        SearchMessageRequest searchMessageRequest = new SearchMessageRequest();
+        searchMessageRequest.setChatId(chatId);
+        searchMessageRequest.setRequest(request);
+        searchMessageRequest.setPageNumber(pageNumber);
+        searchMessageRequest.setCountMessagesOnPage(countMessagesOnPage);
+
+        when(chatService.searchMessage(chatId, request, pageNumber, countMessagesOnPage)).thenThrow(new RuntimeException("Error"));
+
+        ResponseEntity<?> response = chatController.searchMessage(searchMessageRequest);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Error", response.getBody());
+    }
+
+    @Test
+    public void testDeleteChat() {
+        UUID chatId = UUID.randomUUID();
+
+        doNothing().when(chatService).deleteChat(chatId);
+
+        ResponseEntity<?> response = chatController.deleteChat(chatId);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        verify(chatService, times(1)).deleteChat(chatId);
+    }
+
+    @Test
+    public void testDeleteChatException() {
+        UUID chatId = UUID.randomUUID();
+
+        doThrow(new RuntimeException("Error")).when(chatService).deleteChat(chatId);
+
+        ResponseEntity<?> response = chatController.deleteChat(chatId);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Error", response.getBody());
+    }
+
+    @Test
+    public void testGetAllChatsByUserId() {
+        UUID userId = UUID.randomUUID();
+        Long pageNumber = 0L;
+        Long countChatsOnPage = 20L;
+        ResponseGettingChats expectedResponse = new ResponseGettingChats();
+
+        when(chatService.getAllChatsByUserId(userId, pageNumber, countChatsOnPage)).thenReturn(expectedResponse);
+
+        ResponseEntity<?> response = chatController.getAllChatsByUserId(userId, pageNumber, countChatsOnPage);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(expectedResponse, response.getBody());
+    }
+
+    @Test
+    public void testGetAllChatsByUserIdException() {
+        UUID userId = UUID.randomUUID();
+        Long pageNumber = 0L;
+        Long countChatsOnPage = 20L;
+
+        when(chatService.getAllChatsByUserId(userId, pageNumber, countChatsOnPage)).thenThrow(new RuntimeException("Error"));
+
+        ResponseEntity<?> response = chatController.getAllChatsByUserId(userId, pageNumber, countChatsOnPage);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Error", response.getBody());
+    }
+
+    @Test
+    public void testGetAllMessagesByChatId() {
+        UUID chatId = UUID.randomUUID();
+        Long pageNumber = 0L;
+        Long countMessagesOnPage = 20L;
+        ResponseGettingMessages expectedResponse = new ResponseGettingMessages(new ArrayList<>());
+
+        when(chatService.getAllMessagesByChatId(chatId, pageNumber, countMessagesOnPage)).thenReturn(expectedResponse);
+
+        ResponseEntity<?> response = chatController.getAllMessagesByChatId(chatId, pageNumber, countMessagesOnPage);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(expectedResponse, response.getBody());
+    }
+
+    @Test
+    public void testGetAllMessagesByChatIdException() {
+        UUID chatId = UUID.randomUUID();
+        Long pageNumber = 0L;
+        Long countMessagesOnPage = 20L;
+
+        when(chatService.getAllMessagesByChatId(chatId, pageNumber, countMessagesOnPage)).thenThrow(new RuntimeException("Error"));
+
+        ResponseEntity<?> response = chatController.getAllMessagesByChatId(chatId, pageNumber, countMessagesOnPage);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Error", response.getBody());
+    }
+
+    @Test
+    public void testAddUserChats() {
+        UsersChats usersChats = new UsersChats();
+        UsersChats expectedResponse = new UsersChats();
+
+        when(chatService.addUserChats(usersChats)).thenReturn(expectedResponse);
+
+        ResponseEntity<?> response = chatController.addUserChats(usersChats);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(expectedResponse, response.getBody());
+    }
+
+    @Test
+    public void testAddUserChatsException() {
+        UsersChats usersChats = new UsersChats();
+
+        when(chatService.addUserChats(usersChats)).thenThrow(new RuntimeException("Error"));
+
+        ResponseEntity<?> response = chatController.addUserChats(usersChats);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Error", response.getBody());
     }
 }

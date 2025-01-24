@@ -1,7 +1,12 @@
 package chatcore.chat.dto.chat.response;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
+@Setter
+@Getter
 public class ResponseGettingMessages {
     List<MessageForResponse> response;
 
@@ -9,11 +14,4 @@ public class ResponseGettingMessages {
         this.response = response;
     }
 
-    public List<MessageForResponse> getResponse() {
-        return response;
-    }
-
-    public void setResponse(List<MessageForResponse> response) {
-        this.response = response;
-    }
 }

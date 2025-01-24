@@ -12,8 +12,4 @@ public class ResponseSearchMessage {
     public List<MessageForResponse> getListOfMessages() {
         return listOfMessages;
     }
-
-    public void setListOfMessages(List<MessageForResponse> listOfMessages) {
-        this.listOfMessages = listOfMessages;
-    }
 }
