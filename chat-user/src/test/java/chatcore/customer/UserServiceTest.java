@@ -136,4 +136,22 @@ public class UserServiceTest {
         assertThrows(UserAccountNotFoundException.class, () -> userService.deleteAccountById(userId).block());
         verify(userRepository, times(1)).findById(userId);
     }
+
+    @Test
+    void testFindById_UserExists() {
+        // Arrange
+        UUID userId = UUID.randomUUID();
+        User user = new User(userId, "John", "Doe", "john.doe@example.com",
+                "Brief description", "City", null, null);
+        when(userRepository.findById(userId)).thenReturn(Mono.just(user));
+
+        // Act
+        Mono<User> result = userService.findById(userId);
+
+        // Assert
+        User foundUser = result.block(); // Blocking for the sake of the test
+        assertEquals(userId, foundUser.getId());
+        assertEquals("John", foundUser.getName());
+        assertEquals("Doe", foundUser.getSurname());
+    }
 }

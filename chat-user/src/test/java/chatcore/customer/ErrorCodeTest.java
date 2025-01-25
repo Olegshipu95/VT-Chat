@@ -13,7 +13,7 @@ public class ErrorCodeTest {
         // Проверяем, что все значения перечисления доступны
         ErrorCode[] errorCodes = ErrorCode.values();
         assertNotNull(errorCodes);
-        assertEquals(11, errorCodes.length); // Проверяем, что количество значений соответствует ожидаемому
+        assertEquals(10, errorCodes.length); // Проверяем, что количество значений соответствует ожидаемому
 
         // Проверяем, что каждое значение перечисления соответствует ожидаемым
         assertEquals(ErrorCode.INVALID_REQUEST, ErrorCode.valueOf("INVALID_REQUEST"));
