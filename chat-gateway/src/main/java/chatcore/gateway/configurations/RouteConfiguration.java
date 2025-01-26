@@ -23,11 +23,11 @@ public class RouteConfiguration {
                 .route(props.getUser() + "-route-auth", r -> r
                         .path(apiPrefix + "/accounts/users/**")
                         .filters(f -> f
-                                .stripPrefix(2)
-                                .circuitBreaker(c -> c
-                                        .setName(props.getUser() + "-circuit-breaker")
-                                        .setFallbackUri(URI.create("forward:/fallback"))
-                                )
+                                .stripPrefix(1)
+//                                .circuitBreaker(c -> c
+//                                        .setName(props.getUser() + "-circuit-breaker")
+//                                        .setFallbackUri(URI.create("forward:/fallback"))
+//                                )
                         )
                         .uri("lb://" + props.getUser())
                 )

@@ -13,7 +13,7 @@ public interface SubRepository extends JpaRepository<Subscribers, UUID> {
 
     @Query("""
             SELECT new chatcore.subscription.dto.subs.response.SubscriptionResponse(s.id, s.subscribedUserId, s.subscriptionTime)
-            FROM Sub s
+            FROM Subscribers s
             WHERE s.userId = :userId
             """)
     List<SubscriptionResponse> getSubResponseByUserId(@Param("userId") UUID userId);

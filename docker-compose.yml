@@ -40,13 +40,13 @@ services:
       USER_NAME: chat-user
       NEWS_NAME: chat-news
       FEED_NAME: chat-feed
-      MESSENGER_NAME: chat-chat
+      MESSENGER_NAME: chat-messenger-cloud
       SUB_NAME: chat-subscription
 
       CUSTOMER_URL: chat-customer
       NEWS_URL: chat-news
       FEED_URL: chat-feed
-      MESSENGER_URL: chat-messenger
+      MESSENGER_URL: chat-messenger-cloud
       SUB_URL: chat-sub
 
       USER_JDBC_URL: jdbc:postgresql://chat-postgres:5432/users
@@ -75,6 +75,7 @@ services:
 
     depends_on:
       - chat-eureka
+
 
   chat-gateway:
     container_name: chat-gateway
@@ -132,6 +133,7 @@ services:
   chat-news:
     container_name: chat-news
     image: chat-news
+    restart: always
     ports:
       - "8387:8387"
     build:
@@ -150,6 +152,7 @@ services:
   chat-messenger:
     container_name: chat-messenger
     image: chat-messenger
+    restart: always
     ports:
       - "8382:8382"
     build:
@@ -159,6 +162,8 @@ services:
       EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       PORT: 8382
       MESSENGER_DB_USER: username
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
     depends_on:
       - chat-postgres
       - chat-eureka
@@ -169,6 +174,7 @@ services:
   chat-subscription:
     container_name: chat-subscription
     image: chat-subscription
+    restart: always
     ports:
       - "8084:8084"
     build:
@@ -180,5 +186,7 @@ services:
       API_PREFIX: /api/v2
       PORT: 8084
     depends_on:
+      - chat-postgres
       - chat-eureka
       - chat-config
+      - chat-gateway

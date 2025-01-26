@@ -1,6 +1,7 @@
 package chatcore.chat;
 
 import chatcore.chat.dto.chat.request.CreateChatRequest;
+import chatcore.chat.dto.chat.response.MessageForResponse;
 import chatcore.chat.dto.chat.response.ResponseGettingChats;
 import chatcore.chat.dto.chat.response.ResponseGettingMessages;
 import chatcore.chat.dto.chat.response.ResponseSearchMessage;
@@ -17,7 +18,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.web.context.request.async.DeferredResult;
+
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;

@@ -8,7 +8,7 @@ spring:
   liquibase:
     enabled: true
     url: ${NEWS:jdbc:postgresql://chat-postgres:5432/news}
-    username: ${NEWS_DB_USER:username}
+    user: ${NEWS_DB_USER:username}
     password: ${NEWS_DB_PASSWORD:password}
 
   cloud:

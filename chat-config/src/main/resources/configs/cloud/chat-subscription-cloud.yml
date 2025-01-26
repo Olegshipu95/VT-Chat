@@ -6,13 +6,13 @@ spring:
         format_sql: true
 
   datasource:
-    url: ${SUB_JDBC_URL:jdbc:postgresql://chat-postgres:5432/sub}
+    url: ${SUB_JDBC_URL:jdbc:postgresql://chat-postgres:5432/subscription}
     username: ${SUB_DB_USER:username}
     password: ${SUB_DB_PASSWORD:password}
 
   liquibase:
-    url: ${SUB_JDBC_URL:jdbc:postgresql://chat-postgres:5432/sub}
-    username: ${SUB_DB_USER:username}
+    url: ${SUB_JDBC_URL:jdbc:postgresql://chat-postgres:5432/subscription}
+    user: ${SUB_DB_USER:username}
     password: ${SUB_DB_PASSWORD:password}
 
   cloud:

@@ -4,11 +4,11 @@ server:
 spring:
   services:
     urls:
-      user: ${USER_NAME:user}
-      news: ${NEWS_NAME:news}
-      feed: ${FEED_NAME:feed}
-      messenger: ${MESSENGER_NAME:messenger}
-      subscription: ${SUB_NAME:subscription}
+      user: ${USER_NAME:chat-user-cloud}
+      news: ${NEWS_NAME:chat-news-cloud}
+      feed: ${FEED_NAME:chat-feed-cloud}
+      messenger: ${MESSENGER_NAME:chat-messenger-cloud}
+      subscription: ${SUB_NAME:chat-subscription-cloud}
 resilience4j:
   circuitbreaker:
     instances:

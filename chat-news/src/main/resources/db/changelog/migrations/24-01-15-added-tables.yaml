@@ -1,0 +1,115 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1737714812837-1
+      author: arhip
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_posts
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: UUID
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: text
+                  type: VARCHAR(255)
+              - column:
+                  name: images
+                  type: bytea
+              - column:
+                  constraints:
+                    nullable: false
+                  name: posted_time
+                  type: DATETIME
+            tableName: posts
+  - changeSet:
+      id: 1737714812837-2
+      author: arhip
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_subscribers
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: subscribed_user_id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: subscription_time
+                  type: DATETIME
+            tableName: subscribers
+  - changeSet:
+      id: 1737714812837-3
+      author: arhip
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_users
+                  name: id
+                  type: UUID
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: surname
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: brief_description
+                  type: VARCHAR(255)
+              - column:
+                  name: city
+                  type: VARCHAR(255)
+              - column:
+                  name: birthday
+                  type: DATE
+              - column:
+                  name: logo_url
+                  type: VARCHAR(255)
+            tableName: users
+  - changeSet:
+      id: 1737714812837-4
+      author: arhip
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: posts
+            constraintName: FK_POSTS_ON_USER
+            referencedColumnNames: id
+            referencedTableName: users
+

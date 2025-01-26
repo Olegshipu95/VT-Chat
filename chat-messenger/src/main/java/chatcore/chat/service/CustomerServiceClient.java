@@ -1,7 +1,7 @@
 package chatcore.chat.service;
 
 
-import chatcore.chat.config.feign.FeignConfiguration;
+//import chatcore.chat.config.feign.FeignConfiguration;
 import chatcore.chat.dto.customer.response.GetUserInfoResponse;
 import chatcore.chat.entity.User;
 import chatcore.chat.repository.chat.UsersChatsRepository;
@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 
-@FeignClient(value = "chat-user-cloud", name = "chat-user-cloud")
+@FeignClient(name = "chat-user-cloud")
 public interface CustomerServiceClient {
 
     @Headers("Content-Type: application/json")

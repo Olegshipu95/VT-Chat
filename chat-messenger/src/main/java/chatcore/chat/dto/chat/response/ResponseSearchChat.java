@@ -1,5 +1,8 @@
 package chatcore.chat.dto.chat.response;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
 public class ResponseSearchChat {
