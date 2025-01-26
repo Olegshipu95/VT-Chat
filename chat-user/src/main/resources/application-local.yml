@@ -1,18 +1,21 @@
 spring:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
 
   r2dbc:
-    url: ${DB_URL:r2dbc:postgresql://localhost:5432/users}
-    username: ${DB_USER:username}
-    password: ${DB_PASSWORD:password}
-    properties:
-      schema: application
+    url: r2dbc:postgresql://localhost:5432/users
+    username: username
+    password: password
+
 
   liquibase:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/afa_user}
-    user: ${DB_USER:username}
-    password: ${DB_PASSWORD:password}
-    liquibaseSchema: migration
-    change-log: classpath:/db/changelog/master.yml
+    enabled: true
+    url: jdbc:postgresql://localhost:5432/users
+    user: username
+    password: password
 
   security:
     jwt:
@@ -34,3 +37,7 @@ management:
   endpoint:
     health:
       show-details: always
+
+logging:
+  level:
+    org.springframework.boot.context.properties: DEBUG
