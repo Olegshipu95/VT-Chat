@@ -74,8 +74,7 @@ services:
       SUB_DB_PASSWORD: password
 
     depends_on:
-      chat-eureka:
-        condition: service_started
+      - chat-eureka
 
 
   chat-gateway:
@@ -92,10 +91,8 @@ services:
       API_PREFIX: /api/v2
       PORT: 8080
     depends_on:
-      chat-eureka:
-        condition: service_started
-      chat-config:
-        condition: service_started
+      - chat-eureka
+      - chat-config
 
   chat-user:
     container_name: chat-user
@@ -110,14 +107,10 @@ services:
       EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       PORT: 8383
     depends_on:
-      chat-postgres:
-        condition: service_started
-      chat-eureka:
-        condition: service_started
-      chat-config:
-        condition: service_started
-      chat-gateway:
-        condition: service_started
+      - chat-postgres
+      - chat-eureka
+      - chat-config
+      - chat-gateway
 
   chat-feed:
     container_name: chat-feed
@@ -132,14 +125,10 @@ services:
       EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       PORT: 8381
     depends_on:
-      chat-postgres:
-        condition: service_started
-      chat-eureka:
-        condition: service_started
-      chat-config:
-        condition: service_started
-      chat-gateway:
-        condition: service_started
+      - chat-postgres
+      - chat-eureka
+      - chat-config
+      - chat-gateway
 
   chat-news:
     container_name: chat-news
@@ -154,14 +143,10 @@ services:
       EUREKA_SERVER_URL: http://eureka_client:eureka_password@chat-eureka:8761/eureka
       PORT: 8387
     depends_on:
-      chat-postgres:
-        condition: service_started
-      chat-eureka:
-        condition: service_started
-      chat-config:
-        condition: service_started
-      chat-gateway:
-        condition: service_started
+      - chat-postgres
+      - chat-eureka
+      - chat-config
+      - chat-gateway
 
 
   chat-messenger:
@@ -180,14 +165,10 @@ services:
       POSTGRES_USER: username
       POSTGRES_PASSWORD: password
     depends_on:
-      chat-postgres:
-        condition: service_started
-      chat-eureka:
-        condition: service_started
-      chat-config:
-        condition: service_started
-      chat-gateway:
-        condition: service_started
+      - chat-postgres
+      - chat-eureka
+      - chat-config
+      - chat-gateway
 
 
   chat-subscription:
@@ -205,11 +186,7 @@ services:
       API_PREFIX: /api/v2
       PORT: 8084
     depends_on:
-      chat-postgres:
-        condition: service_started
-      chat-eureka:
-        condition: service_started
-      chat-config:
-        condition: service_started
-      chat-gateway:
-        condition: service_started
+      - chat-postgres
+      - chat-eureka
+      - chat-config
+      - chat-gateway

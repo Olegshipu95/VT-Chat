@@ -1,6 +1,9 @@
 spring:
   config:
     import: "configserver:http://chat-config:8888"
+  cloud:
+    config:
+      fail-fast: true
   application:
     name: chat-gateway-cloud
 
