@@ -9,16 +9,12 @@ spring:
     url: r2dbc:postgresql://${POSTGRES_HOST:chat-postgres}:${POSTGRES_PORT:5432}/${POSTGRES_DB:users}
     username: ${POSTGRES_USER:username}
     password: ${POSTGRES_PASSWORD:password}
-    properties:
-      schema: application
 
   liquibase:
     enabled: true
     url: ${USER:jdbc:postgresql://chat-postgres:5432/users}
     user: ${USER_DB_USER:username}
     password: ${USER_DB_PASSWORD:password}
-    liquibaseSchema: migration
-    change-log: classpath:/db/changelog/master.yml
 
   security:
     jwt:
